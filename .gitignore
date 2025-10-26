@@ -1,0 +1,10 @@
+.vs/
+Thumbs.db
+node_modules/
+__pycache__/
+.env
+.vscode/
+.DS_Store
+desktop.ini
+~$*
+*.tmp
