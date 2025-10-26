@@ -105,7 +105,7 @@
     },
     {
         "id": 9,
-        "name": "Sun Temple",
+        "name": "Konark Sun Temple",
         "category": "Temple",
         "description": "UNESCO World Heritage Site in Konark, Odisha.",
         "photo_url": "shared-assets/sun-temple.jpg",
@@ -157,7 +157,7 @@
     },
     {
         "id": 13,
-        "name": "Nalanda University Ruins",
+        "name": "Nalanda University",
         "category": "Heritage Site",
         "description": "Ancient center of learning and a UNESCO World Heritage Site in Bihar.",
         "photo_url": "shared-assets/nalanda.jpg",
@@ -404,7 +404,7 @@
     },
     {
         "id": 32,
-        "name": "Sundarbans National Park",
+        "name": "Sundarbans",
         "category": "Wildlife Sanctuary",
         "description": "UNESCO-listed mangrove forest and tiger reserve in West Bengal.",
         "photo_url": "shared-assets/sundarbans.jpg",
@@ -638,15 +638,15 @@
     },
     {
         "id": 50,
-        "name": "Kumbhalgarh Fort",
-        "category": "Fort",
-        "description": "UNESCO-listed fort with the second-longest wall in the world, Rajasthan.",
-        "photo_url": "shared-assets/kumbhalgarh.jpg",
-        "tags": "history,UNESCO,fort",
-        "opening_hours": "9:00 AM - 6:00 PM",
-        "entry_fee": "$3",
-        "contact": "0294-2426728",
-        "latitude": 25.1476,
-        "longitude": 73.5830
+        "name": "Taj Mahal",
+        "category": "Monument",
+        "description": "UNESCO World Heritage Site and iconic white marble mausoleum built by Mughal Emperor Shah Jahan in Agra.",
+        "photo_url": "shared-assets/taj-mahal.jpg",
+        "tags": "architecture,history,UNESCO,landmark",
+        "opening_hours": "6:00 AM - 6:30 PM (Closed Fridays)",
+        "entry_fee": "$7 (Foreigners), $0.60 (Indians)",
+        "contact": "0562-2226431",
+        "latitude": 27.1751,
+        "longitude": 78.0421
     }
 ]
