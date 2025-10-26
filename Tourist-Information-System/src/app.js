@@ -25,7 +25,9 @@ function router() {
   } else if (path.startsWith("#places/")) {
     const placeId = parseInt(path.split("/")[1]);
     renderDetailPage(placeId);
-  } else {
+  }else if (path === '#admin') {
+        renderAdminPage();
+    } else {
     renderNotFound(); // A simple "not found" view
   }
 }
@@ -138,6 +140,45 @@ function renderItineraryPage() {
   appContainer.innerHTML = `<div class="itinerary-page">${contentHTML}</div>`;
 }
 
+/** Renders the admin page for adding/editing places */
+function renderAdminPage() {
+    const placesListHTML = appState.places.map(place => `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            ${place.name}
+            <div>
+                <button class="btn btn-sm btn-outline-secondary" data-action="edit-place" data-place-id="${place.id}">Edit</button>
+            </div>
+        </li>
+    `).join('');
+
+    const adminHTML = `
+        <div class="admin-page">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Admin Panel</h2>
+                <button class="btn btn-success" data-action="download-json">Download Updated places.json</button>
+            </div>
+            
+            <div class="row">
+                <!-- Add/Edit Form Column -->
+                <div class="col-md-5">
+                    <div id="admin-form-container">
+                        ${createAdminFormHTML()}
+                    </div>
+                </div>
+
+                <!-- Places List Column -->
+                <div class="col-md-7">
+                    <h4>Existing Places</h4>
+                    <ul class="list-group">
+                        ${placesListHTML}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    appContainer.innerHTML = adminHTML;
+}
+
 /** Renders a "Page Not Found" message */
 function renderNotFound() {
   appContainer.innerHTML = `
@@ -185,6 +226,55 @@ function createItineraryItemHTML(place) {
             </div>
             <button class="btn btn-danger btn-sm" data-action="remove-from-itinerary" data-place-id="${place.id}">Remove</button>
         </div>
+    `;
+}
+
+/** Creates HTML for the admin form */
+function createAdminFormHTML(place = {}) {
+    // If we are editing, 'place' will be an object. If adding, it's an empty object.
+    const isEditing = place.id != null;
+    return `
+        <h4>${isEditing ? 'Edit Place' : 'Add New Place'}</h4>
+        <form id="admin-form" data-editing-id="${isEditing ? place.id : ''}">
+            <div class="mb-2">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" required value="${place.name || ''}">
+            </div>
+            <div class="mb-2">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" required value="${place.category || ''}">
+            </div>
+            <div class="mb-2">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" required>${place.description || ''}</textarea>
+            </div>
+            <div class="mb-2">
+                <label for="image" class="form-label">Image Filename (e.g., "new-place.jpg")</label>
+                <input type="text" class="form-control" id="image" required value="${place.image || ''}">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="latitude" class="form-label">Latitude</label>
+                    <input type="number" step="any" class="form-control" id="latitude" required value="${place.latitude || ''}">
+                </div>
+                <div class="col">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="number" step="any" class="form-control" id="longitude" required value="${place.longitude || ''}">
+                </div>
+            </div>
+             <div class="row mt-2">
+                <div class="col">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="number" step="0.1" min="0" max="5" class="form-control" id="rating" required value="${place.rating || ''}">
+                </div>
+                <div class="col">
+                    <label for="tags" class="form-label">Tags (comma-separated)</label>
+                    <input type="text" class="form-control" id="tags" required value="${(place.tags || []).join(', ')}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">${isEditing ? 'Save Changes' : 'Add Place'}</button>
+            ${isEditing ? '<button type="button" class="btn btn-secondary mt-3 ms-2" data-action="cancel-edit">Cancel</button>' : ''}
+        </form>
     `;
 }
 
@@ -294,6 +384,49 @@ function handleSearch(event) {
   renderHomePage(filtered);
 }
 
+/** Handles the submission of the admin add/edit form */
+function handleAdminFormSubmit(form) {
+    const editingId = parseInt(form.dataset.editingId);
+    const placeData = {
+        name: form.querySelector('#name').value,
+        category: form.querySelector('#category').value,
+        description: form.querySelector('#description').value,
+        image: form.querySelector('#image').value,
+        latitude: parseFloat(form.querySelector('#latitude').value),
+        longitude: parseFloat(form.querySelector('#longitude').value),
+        rating: parseFloat(form.querySelector('#rating').value),
+        tags: form.querySelector('#tags').value.split(',').map(tag => tag.trim()),
+    };
+
+    if (editingId) {
+        // Update existing place
+        const index = appState.places.findIndex(p => p.id === editingId);
+        if (index > -1) {
+             appState.places[index] = { ...appState.places[index], ...placeData };
+             showToast('Place updated successfully!');
+        }
+    } else {
+        // Add new place
+        placeData.id = Date.now(); // Simple unique ID
+        appState.places.push(placeData);
+        showToast('Place added successfully!');
+    }
+
+    // Re-render the entire admin page to show the updated list and clear the form
+    renderAdminPage();
+}
+
+/** Triggers a download of the current appState.places as a JSON file */
+function downloadPlacesJSON() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState.places, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "places.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
 // 8. EVENT LISTENERS
 /** Central event listener using event delegation */
 function setupEventListeners() {
@@ -302,6 +435,16 @@ function setupEventListeners() {
 
   // Listen for search input
   searchInput.addEventListener("input", handleSearch);
+
+  // Listen for form submissions. We attach it to the appContainer
+    // because the form is created and destroyed dynamically.
+    appContainer.addEventListener('submit', event => {
+        // We only care about submissions from our specific admin form
+        if (event.target.id === 'admin-form') {
+            event.preventDefault(); // Always prevent the default page reload on form submit
+            handleAdminFormSubmit(event.target);
+        }
+    });
 
   // Use event delegation for clicks on dynamic content
   document.body.addEventListener("click", (event) => {
@@ -332,6 +475,14 @@ function setupEventListeners() {
             const filtered = appState.places.filter(place => place.category === category);
             renderHomePage(filtered);
         }
+    } else if (action === 'edit-place') {
+        const placeId = parseInt(target.dataset.placeId);
+        const place = appState.places.find(p => p.id === placeId);
+        document.getElementById('admin-form-container').innerHTML = createAdminFormHTML(place);
+    } else if (action === 'cancel-edit') {
+        document.getElementById('admin-form-container').innerHTML = createAdminFormHTML();
+    } else if (action === 'download-json') {
+        downloadPlacesJSON();
     }
   });
 }
