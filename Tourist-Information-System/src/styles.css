@@ -246,6 +246,40 @@ body {
     bottom: 20px; /* Slide in */
 }
 
+/* 6.5. Filter Bar */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: -1rem; /* A little design trick to pull it closer to the hero */
+    margin-bottom: 2rem !important;
+}
+
+.filter-btn {
+    background-color: var(--card-bg);
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px); /* Give it a slight lift */
+    box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+}
+
 /* 7. Responsive Design */
 @media (max-width: 768px) {
     .search-bar {
