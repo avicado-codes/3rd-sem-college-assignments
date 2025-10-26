@@ -1,0 +1,258 @@
+/* --- TIS Custom Stylesheet --- */
+
+/* 1. Variables & Global Styles */
+:root {
+    --primary-color: #00796b;  /* Teal */
+    --accent-color: #ff7043;   /* Coral */
+    --background-color: #f4f6f8; /* Soft Neutral */
+    --text-color: #333;
+    --card-bg: #ffffff;
+    --border-radius: 12px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* 2. Header & Navigation */
+.main-header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1rem 0;
+}
+
+.main-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin: 0 2rem;
+    max-width: 500px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: color 0.2s;
+    position: relative; /* For the badge */
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.itinerary-badge {
+    position: absolute;
+    top: -8px;
+    right: -15px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* 3. Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+}
+
+.hero-section .lead {
+    max-width: 600px;
+    margin: 1rem auto 2rem auto;
+}
+
+/* 4. Place Cards Grid */
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.place-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.place-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #666;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.card-rating {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 20px;
+    padding: 0.4rem 1.2rem;
+    transition: background-color 0.2s;
+}
+.btn-primary:hover {
+    background-color: #005a4f;
+    border-color: #005a4f;
+}
+
+.btn-secondary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    border-radius: 20px;
+    padding: 0.4rem 1.2rem;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #e65100;
+    border-color: #e65100;
+}
+
+/* 5. Detail View & Itinerary Page */
+.detail-view, .itinerary-page {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.detail-header img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+}
+
+.itinerary-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+}
+
+.itinerary-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.itinerary-item-info {
+    flex-grow: 1;
+}
+
+/* 6. Toast Notification */
+.toast-notification {
+    position: fixed;
+    bottom: -100px; /* Initially hidden */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: bottom 0.5s ease-in-out;
+    z-index: 1000;
+}
+.toast-notification.show {
+    bottom: 20px; /* Slide in */
+}
+
+/* 7. Responsive Design */
+@media (max-width: 768px) {
+    .search-bar {
+        display: none; /* Hide search bar on smaller screens for simplicity */
+    }
+    .main-header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
