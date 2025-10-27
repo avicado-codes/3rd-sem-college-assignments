@@ -36,50 +36,38 @@ function router() {
 // These functions are responsible for generating HTML and putting it on the page
 
 /** Renders the main home page with hero, filters, and place cards */
-function renderHomePage(filteredPlaces = null) {
-  const placesToRender = filteredPlaces || appState.places;
+function renderHomePage(filteredPlaces = null, activeCategory = 'All') {
+    const placesToRender = filteredPlaces || appState.places;
 
-  // --- NEW: Dynamically generate filter buttons ---
-  // 1. Get all unique categories from the places data, starting with 'All'
-  const categories = [
-    "All",
-    ...new Set(appState.places.map((p) => p.category)),
-  ];
-
-  // 2. Create the HTML for the filter bar
-  const filterBarHTML = `
+    // Get all unique categories from the places data
+    const categories = ['All', ...new Set(appState.places.map(p => p.category))];
+    
+    // Create the HTML for the filter bar, correctly setting the active class
+    const filterBarHTML = `
         <div class="filter-bar mb-4">
-            ${categories
-              .map(
-                (category) => `
-                <button class="filter-btn ${
-                  category === "All" ? "active" : ""
-                }" data-action="filter-category" data-category="${category}">
+            ${categories.map(category => `
+                <button class="filter-btn ${category === activeCategory ? 'active' : ''}" data-action="filter-category" data-category="${category}">
                     ${category}
                 </button>
-            `
-              )
-              .join("")}
+            `).join('')}
         </div>
     `;
 
-  // 3. Create the HTML for the hero and the grid
-  const heroHTML = `
+    // THIS IS THE MISSING PART: Actually create the hero and grid HTML
+    const heroHTML = `
         <div class="hero-section">
             <h1 class="display-4">Find Your Next Adventure</h1>
             <p class="lead">Explore the most beautiful and exciting destinations curated just for you.</p>
         </div>
     `;
-  const placesGridHTML = `
+    const placesGridHTML = `
         <div class="places-grid">
-            ${placesToRender
-              .map((place) => createPlaceCardHTML(place))
-              .join("")}
+            ${placesToRender.map(place => createPlaceCardHTML(place)).join('')}
         </div>
     `;
 
-  // 4. Combine and render
-  appContainer.innerHTML = heroHTML + filterBarHTML + placesGridHTML;
+    // Combine and render all parts
+    appContainer.innerHTML = heroHTML + filterBarHTML + placesGridHTML;
 }
 
 /** Renders the detail page for a single place */
@@ -205,7 +193,7 @@ function createPlaceCardHTML(place) {
                   100
                 )}...</p>
                 <div class="card-footer">
-                    <span class="card-rating">⭐ ${place.rating}</span>
+                    <span class="card-rating">⭐ ${place.rating.toFixed(1)}</span>
                     <a href="#places/${
                       place.id
                     }" class="btn btn-primary btn-sm">View Details</a>
@@ -447,44 +435,41 @@ function setupEventListeners() {
     });
 
   // Use event delegation for clicks on dynamic content
-  document.body.addEventListener("click", (event) => {
-    const target = event.target.closest("[data-action]");
-    if (!target) return;
+  // In app.js, inside setupEventListeners, REPLACE the entire document.body.addEventListener block.
 
-    const action = target.dataset.action;
-    const placeId = parseInt(target.dataset.placeId);
+    document.body.addEventListener("click", (event) => {
+        const target = event.target.closest("[data-action]");
+        if (!target) return;
 
-    if (action === "add-to-itinerary") {
-      addToItinerary(placeId);
-    } else if (action === "remove-from-itinerary") {
-      removeFromItinerary(placeId);
-    } else if (action === "export-itinerary") {
-      exportItinerary();
-    } else if (action === 'filter-category') {
-        const category = target.dataset.category;
+        const action = target.dataset.action;
 
-        // First, remove the 'active' class from all filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-        // Then, add the 'active' class to the button that was just clicked
-        target.classList.add('active');
-
-        // Filter the places based on the selected category and re-render the home page
-        if (category === 'All') {
-            renderHomePage(appState.places);
-        } else {
-            const filtered = appState.places.filter(place => place.category === category);
-            renderHomePage(filtered);
+        if (action === "add-to-itinerary") {
+            const placeId = parseInt(target.dataset.placeId);
+            addToItinerary(placeId);
+        } else if (action === "remove-from-itinerary") {
+            const placeId = parseInt(target.dataset.placeId);
+            removeFromItinerary(placeId);
+        } else if (action === "export-itinerary") {
+            exportItinerary();
+        } else if (action === 'filter-category') {
+            const category = target.dataset.category;
+            
+            if (category === 'All') {
+                renderHomePage(appState.places, 'All');
+            } else {
+                const filtered = appState.places.filter(place => place.category === category);
+                renderHomePage(filtered, category);
+            }
+        } else if (action === 'edit-place') {
+            const placeId = parseInt(target.dataset.placeId);
+            const place = appState.places.find(p => p.id === placeId);
+            document.getElementById('admin-form-container').innerHTML = createAdminFormHTML(place);
+        } else if (action === 'cancel-edit') {
+            document.getElementById('admin-form-container').innerHTML = createAdminFormHTML();
+        } else if (action === 'download-json') {
+            downloadPlacesJSON();
         }
-    } else if (action === 'edit-place') {
-        const placeId = parseInt(target.dataset.placeId);
-        const place = appState.places.find(p => p.id === placeId);
-        document.getElementById('admin-form-container').innerHTML = createAdminFormHTML(place);
-    } else if (action === 'cancel-edit') {
-        document.getElementById('admin-form-container').innerHTML = createAdminFormHTML();
-    } else if (action === 'download-json') {
-        downloadPlacesJSON();
-    }
-  });
+    });
 }
 
 // 9. INITIALIZATION
