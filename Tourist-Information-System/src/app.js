@@ -251,7 +251,6 @@ function createItineraryItemHTML(place) {
 
 /** Creates HTML for the admin form */
 function createAdminFormHTML(place = {}) {
-    // If we are editing, 'place' will be an object. If adding, it's an empty object.
     const isEditing = place.id != null;
     return `
         <h4>${isEditing ? 'Edit Place' : 'Add New Place'}</h4>
@@ -269,27 +268,43 @@ function createAdminFormHTML(place = {}) {
                 <textarea class="form-control" id="description" rows="3" required>${place.description || ''}</textarea>
             </div>
             <div class="mb-2">
-                <label for="image" class="form-label">Image Filename (e.g., "new-place.jpg")</label>
+                <label for="image" class="form-label">Image Filename</label>
                 <input type="text" class="form-control" id="image" required value="${place.image || ''}">
             </div>
+            <!-- =============== NEW FIELDS START HERE =============== -->
             <div class="row">
-                <div class="col">
+                <div class="col-md-6 mb-2">
+                    <label for="opening_hours" class="form-label">Opening Hours</label>
+                    <input type="text" class="form-control" id="opening_hours" value="${place.opening_hours || ''}">
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="entry_fee" class="form-label">Entry Fee</label>
+                    <input type="text" class="form-control" id="entry_fee" value="${place.entry_fee || ''}">
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="text" class="form-control" id="contact" value="${place.contact || ''}">
+            </div>
+            <!-- ================ NEW FIELDS END HERE ================ -->
+            <div class="row">
+                <div class="col-md-6 mb-2">
                     <label for="latitude" class="form-label">Latitude</label>
                     <input type="number" step="any" class="form-control" id="latitude" required value="${place.latitude || ''}">
                 </div>
-                <div class="col">
+                <div class="col-md-6 mb-2">
                     <label for="longitude" class="form-label">Longitude</label>
                     <input type="number" step="any" class="form-control" id="longitude" required value="${place.longitude || ''}">
                 </div>
             </div>
              <div class="row mt-2">
-                <div class="col">
+                <div class="col-md-6 mb-2">
                     <label for="rating" class="form-label">Rating</label>
                     <input type="number" step="0.1" min="0" max="5" class="form-control" id="rating" required value="${place.rating || ''}">
                 </div>
-                <div class="col">
+                <div class="col-md-6 mb-2">
                     <label for="tags" class="form-label">Tags (comma-separated)</label>
-                    <input type="text" class="form-control" id="tags" required value="${(place.tags || []).join(', ')}">
+                    <input type="text" class="form-control" id="tags" required value="${(Array.isArray(place.tags) ? place.tags.join(', ') : '')}">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary mt-3">${isEditing ? 'Save Changes' : 'Add Place'}</button>
@@ -297,7 +312,6 @@ function createAdminFormHTML(place = {}) {
         </form>
     `;
 }
-
 // 6. ITINERARY & LOCALSTORAGE LOGIC
 
 /** Adds a place to the itinerary */
@@ -404,9 +418,11 @@ function handleSearch(event) {
     renderHomePage(filtered);
 }
 
-/** Handles the submission of the admin add/edit form */
-function handleAdminFormSubmit(form) {
-    const editingId = parseInt(form.dataset.editingId);
+/** Handles the submission of the admin add/edit form by sending data to the backend API */
+async function handleAdminFormSubmit(form) {
+    const editingId = form.dataset.editingId ? parseInt(form.dataset.editingId) : null;
+    
+    // Create the data object to send to the backend
     const placeData = {
         name: form.querySelector('#name').value,
         category: form.querySelector('#category').value,
@@ -415,36 +431,50 @@ function handleAdminFormSubmit(form) {
         latitude: parseFloat(form.querySelector('#latitude').value),
         longitude: parseFloat(form.querySelector('#longitude').value),
         rating: parseFloat(form.querySelector('#rating').value),
-        tags: form.querySelector('#tags').value.split(',').map(tag => tag.trim()),
+        opening_hours: form.querySelector('#opening_hours').value, // Make sure form has these fields
+        entry_fee: form.querySelector('#entry_fee').value,
+        contact: form.querySelector('#contact').value,
+        // Convert the comma-separated string from the form input into a JSON string for the DB
+        tags: JSON.stringify(form.querySelector('#tags').value.split(',').map(tag => tag.trim())),
     };
 
-    if (editingId) {
-        // Update existing place
-        const index = appState.places.findIndex(p => p.id === editingId);
-        if (index > -1) {
-            appState.places[index] = { ...appState.places[index], ...placeData };
-            showToast('Place updated successfully!');
-        }
-    } else {
-        // Add new place
-        placeData.id = Date.now(); // Simple unique ID
-        appState.places.push(placeData);
-        showToast('Place added successfully!');
-    }
+    // Determine the correct URL and HTTP method for create vs. update
+    const url = editingId 
+        ? `http://localhost:3001/api/places/${editingId}` 
+        : 'http://localhost:3001/api/places';
+    
+    const method = editingId ? 'PUT' : 'POST';
 
-    // Re-render the entire admin page to show the updated list and clear the form
-    renderAdminPage();
+    try {
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(placeData), // Send the data as a JSON string
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+        }
+        
+        showToast(`Place ${editingId ? 'updated' : 'added'} successfully!`);
+        
+        // Re-initialize the app to fetch all the fresh data from the server
+        await init();
+        
+        // After re-initializing, navigate back to the admin page to see the changes
+        location.hash = '#admin';
+        renderAdminPage();
+
+    } catch (error) {
+        console.error('Failed to submit admin form:', error);
+        showToast('Error saving place. Check the console for details.', true);
+    }
 }
 
-/** Triggers a download of the current appState.places as a JSON file */
+/** This function is now deprecated as we save directly to the DB. It now shows a warning. */
 function downloadPlacesJSON() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState.places, null, 2));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "places.json");
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+    console.warn("This function is deprecated. Data is now saved directly to the database.");
+    showToast("This feature is disabled. Data is saved directly to the database.", true);
 }
 
 // 8. EVENT LISTENERS
@@ -518,20 +548,35 @@ async function init() {
     loadItineraryFromLocalStorage();
     updateItineraryBadge();
 
-    // Fetch the place data from our local JSON file
     try {
-        const response = await fetch("./places.json");
-        if (!response.ok) throw new Error("Network response was not ok");
+        // --- THIS IS THE KEY CHANGE ---
+        // We now fetch from our live local backend server instead of a static file.
+        const response = await fetch('http://localhost:3001/api/places');
+        
+        if (!response.ok) throw new Error('Network response was not ok');
+        
         appState.places = await response.json();
+
+        // The backend sends 'tags' as a JSON string. We must parse it back into an array
+        // for our frontend filtering and display logic to work correctly.
+        appState.places.forEach(place => {
+            if (place.tags && typeof place.tags === 'string') {
+                try {
+                    place.tags = JSON.parse(place.tags);
+                } catch (e) {
+                    console.error(`Failed to parse tags for place ${place.id}:`, place.tags);
+                    place.tags = []; // Default to an empty array on error
+                }
+            }
+        });
 
         // Setup listeners and initial render
         setupEventListeners();
         router(); // Initial page load routing
     } catch (error) {
-        appContainer.innerHTML = `<div class="alert alert-danger">Could not load place data. Please ensure 'places.json' is in the 'src' folder.</div>`;
-        console.error("Fetch error:", error);
+        appContainer.innerHTML = `<div class="alert alert-danger"><strong>Error Loading Data!</strong><br>Could not connect to the backend server. Please make sure the server is running by following the instructions in the README.</div>`;
+        console.error('Fetch error:', error);
     }
 }
-
 // Start the app once the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", init);
