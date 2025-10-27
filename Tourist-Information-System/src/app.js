@@ -5,6 +5,8 @@
 const appState = {
   places: [], // Will be filled with data from places.json
   itinerary: [], // A list of place IDs added by the user
+  itemsToShow: 9,      
+  itemsPerLoad: 6,
 };
 
 // 2. DOM ELEMENT REFERENCES
@@ -36,13 +38,20 @@ function router() {
 // These functions are responsible for generating HTML and putting it on the page
 
 /** Renders the main home page with hero, filters, and place cards */
-function renderHomePage(filteredPlaces = null, activeCategory = 'All') {
-    const placesToRender = filteredPlaces || appState.places;
+// In app.js, REPLACE the renderHomePage function again.
 
-    // Get all unique categories from the places data
+function renderHomePage(filteredPlaces = null, activeCategory = 'All') {
+    const placesToFilter = filteredPlaces || appState.places;
+
+    // --- PAGINATION LOGIC ---
+    // Slice the array to only get the items we want to show
+    const placesToRender = placesToFilter.slice(0, appState.itemsToShow);
+
+    // Check if there are more places to show after the current slice
+    const hasMorePlaces = placesToFilter.length > appState.itemsToShow;
+
     const categories = ['All', ...new Set(appState.places.map(p => p.category))];
     
-    // Create the HTML for the filter bar, correctly setting the active class
     const filterBarHTML = `
         <div class="filter-bar mb-4">
             ${categories.map(category => `
@@ -53,21 +62,27 @@ function renderHomePage(filteredPlaces = null, activeCategory = 'All') {
         </div>
     `;
 
-    // THIS IS THE MISSING PART: Actually create the hero and grid HTML
     const heroHTML = `
         <div class="hero-section">
             <h1 class="display-4">Find Your Next Adventure</h1>
             <p class="lead">Explore the most beautiful and exciting destinations curated just for you.</p>
         </div>
     `;
+
     const placesGridHTML = `
         <div class="places-grid">
             ${placesToRender.map(place => createPlaceCardHTML(place)).join('')}
         </div>
     `;
 
-    // Combine and render all parts
-    appContainer.innerHTML = heroHTML + filterBarHTML + placesGridHTML;
+    // --- NEW: Conditionally add the "Load More" button ---
+    const loadMoreButtonHTML = hasMorePlaces ? `
+        <div class="text-center mt-4">
+            <button class="btn btn-primary btn-lg" data-action="load-more">Load More</button>
+        </div>
+    ` : '';
+
+    appContainer.innerHTML = heroHTML + filterBarHTML + placesGridHTML + loadMoreButtonHTML;
 }
 
 /** Renders the detail page for a single place */
@@ -434,9 +449,7 @@ function setupEventListeners() {
         }
     });
 
-  // Use event delegation for clicks on dynamic content
-  // In app.js, inside setupEventListeners, REPLACE the entire document.body.addEventListener block.
-
+    // Use event delegation for clicks on dynamic content
     document.body.addEventListener("click", (event) => {
         const target = event.target.closest("[data-action]");
         if (!target) return;
@@ -454,13 +467,22 @@ function setupEventListeners() {
         } else if (action === 'filter-category') {
             const category = target.dataset.category;
             
+            // Reset pagination when a new filter is applied
+            appState.itemsToShow = 9; 
+
             if (category === 'All') {
                 renderHomePage(appState.places, 'All');
             } else {
                 const filtered = appState.places.filter(place => place.category === category);
                 renderHomePage(filtered, category);
             }
-        } else if (action === 'edit-place') {
+        } else if (action === 'load-more') {
+            // Increase the number of items to show and re-render
+            appState.itemsToShow += appState.itemsPerLoad;
+            router(); // Re-running the router will re-render the home page correctly
+        }
+        // ... rest of the admin actions
+        else if (action === 'edit-place') {
             const placeId = parseInt(target.dataset.placeId);
             const place = appState.places.find(p => p.id === placeId);
             document.getElementById('admin-form-container').innerHTML = createAdminFormHTML(place);

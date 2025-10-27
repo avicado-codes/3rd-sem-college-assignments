@@ -798,5 +798,24 @@
         "latitude": 27.1751,
         "longitude": 78.0421,
         "rating": 5.0
+    },
+    {
+    "id": 51,
+    "name": "Howrah Bridge",
+    "category": "Bridge",
+    "description": "The Howrah Bridge is an iconic cantilever bridge with a suspended span over the Hooghly River in West Bengal, India. Commissioned in 1943, it connects the twin cities of Kolkata and Howrah. Originally named the New Howrah Bridge, it was renamed Rabindra Setu in 1965 after the great Bengali poet Rabindranath Tagore. It is one of the busiest cantilever bridges in the world, carrying a daily traffic of approximately 100,000 vehicles and countless pedestrians. The bridge is a marvel of engineering, constructed without any nuts or bolts, using a riveting system. It stands as a symbol of Kolkata's identity and is a testament to the city's rich history and architectural heritage.",
+    "image": "howrah-bridge.jpg",
+    "tags": [
+        "engineering",
+        "landmark",
+        "architecture",
+        "history"
+    ],
+    "opening_hours": "24 Hours",
+    "entry_fee": "Free",
+    "contact": "N/A",
+    "latitude": 22.5852,
+    "longitude": 88.3468,
+    "rating": 4.8
     }
 ]
