@@ -1,32 +1,35 @@
 # Tourist Information System (TIS)
 
-A beautiful, local-only web application that helps users discover places and plan trips. This project is built with vanilla HTML, CSS, and JavaScript, focusing on modern UI/UX principles without requiring any complex setup.
+A full-stack, local-only web application that helps users discover places, plan trips, and manage attraction data through an admin panel.
+
+## Live Demo GIF
+
+*(This is a great "wow" factor. See instructions below on how to create this.)*
+
+![TIS Demo GIF](./docs/tis-demo.gif) 
 
 ## Features
 
-- **Discover Places:** Browse a curated list of attractions in a clean, card-based layout.
-- **Search & Filter:** Instantly search for places by name, category, or tag.
-- **Place Details:** View detailed information and a map location for each place.
-- **Itinerary Planner:** Add or remove places from a personal itinerary.
-- **Persistent State:** Your itinerary is saved in your browser, so it's there when you come back.
-- **Export Itinerary:** Download your created itinerary as a JSON file.
-- **Responsive Design:** Works beautifully on desktop, tablet, and mobile devices.
+- **Dynamic Data:** All data is served from a local Node.js server and stored in an SQLite database.
+- **Discover & Filter:** Browse a grid of tourist attractions, with live filtering by category and a "Load More" feature for pagination.
+- **Search:** Instantly search for places by name, category, or tag.
+- **Place Details:** View detailed information for each place, including opening hours, entry fees, contact info, and an interactive map marker (via Leaflet.js).
+- **Itinerary Planner:** Add/remove places from a personal itinerary that persists between sessions using `localStorage`.
+- **Admin Panel:** A dedicated `#admin` view allows for creating new places and editing existing ones directly in the database.
+- **Responsive Design:** A clean, mobile-first UI that works on all screen sizes.
 
 ## Tech Stack
 
 - **Frontend:** Vanilla HTML, CSS, JavaScript (ES6+)
-- **Styling:** Custom CSS with a few layout utilities from Bootstrap (via CDN).
-- **Maps:** Leaflet.js with OpenStreetMap tiles (requires an internet connection for map tiles).
-- **Data:** Local `places.json` file (no database needed).
+- **Backend:** Node.js, Express.js
+- **Database:** SQLite with Knex.js as the query builder.
+- **Maps:** Leaflet.js with OpenStreetMap tiles.
 
 ## How to Run Locally
 
-This project is designed to be extremely simple to run.
+This project requires Node.js (LTS version) to be installed.
 
-1.  **Get the Code:** Clone this repository or download the source code.
-2.  **Add Images:** Place your images (e.g., `india-gate.jpg`, `hawa-mahal.jpg`) inside the `/shared-assets/` folder in the root of the monorepo.
-3.  **Open the App:**
-    *   **Recommended:** Use a simple live server. If you are using VS Code, install the "Live Server" extension, right-click on the `Tourist-Information-System/src/index.html` file, and choose "Open with Live Server".
-    *   **Alternative:** You can also open the `Tourist-Information-System/src/index.html` file directly in your web browser.
-
-That's it! The application will run entirely in your browser.
+**1. Clone the Repository:**
+```bash
+git clone <your-repo-url>
+cd 3rd-sem-college-assignments
