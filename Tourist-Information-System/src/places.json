@@ -1,0 +1,922 @@
+[
+    {
+        "id": 1,
+        "name": "Gateway of India",
+        "category": "Monument",
+        "description": "The Gateway of India is an iconic arch-monument built during the 20th century in Mumbai, India. Standing on the waterfront at Apollo Bunder, it overlooks the Arabian Sea and is one of the city's most recognizable landmarks. It was erected to commemorate the landing of King George V and Queen Mary at Apollo Bunder on their visit to India in 1911. The architectural style is Indo-Saracenic, combining elements of Roman triumphal arches with 16th-century Gujarati architecture. For many years, it served as a ceremonial entrance to India for Viceroys and Governors, making it a powerful symbol of British colonial rule.",
+        "image": "gateway-india.jpg",
+        "rating": 4.7,
+        "tags": [
+            "history",
+            "architecture",
+            "landmark"
+        ],
+        "opening_hours": "24 Hours",
+        "entry_fee": "Free",
+        "contact": "022-12345678",
+        "latitude": 18.9218,
+        "longitude": 72.8347
+    },
+    {
+        "id": 2,
+        "name": "Mysore Palace",
+        "category": "Palace",
+        "description": "The Mysore Palace, also known as the Amba Vilas Palace, is a historical palace and the former royal residence of the Wodeyar dynasty, the rulers of Mysore. Located in the heart of Mysore city, it is a magnificent example of Indo-Saracenic architecture, blending Hindu, Mughal, Rajput, and Gothic styles. The palace is renowned for its stunning interiors, which feature intricately carved doors, stained-glass windows, and a grand durbar hall with ornate ceilings. It is especially famous for its illumination during the Dasara festival, when over 100,000 light bulbs light up its facade, creating a breathtaking spectacle for visitors.",
+        "image": "mysore-palace.jpg",
+        "rating": 4.8,
+        "tags": [
+            "history",
+            "architecture",
+            "royalty"
+        ],
+        "opening_hours": "10:00 AM - 5:30 PM",
+        "entry_fee": "$2",
+        "contact": "0821-2421050",
+        "latitude": 12.3052,
+        "longitude": 76.6552
+    },
+    {
+        "id": 3,
+        "name": "Charminar",
+        "category": "Monument",
+        "description": "The Charminar, a 16th-century monument and mosque, stands as the most famous landmark of Hyderabad. Built by Muhammad Quli Qutb Shah, it is a magnificent square structure with four grand arches and four minarets. According to legend, it was built to commemorate the end of a deadly plague. The monument's name, which translates to 'Four Minarets,' refers to its four ornate towers, each crowned with a bulbous dome. A mosque is located on the top floor of the four-story structure. The area surrounding Charminar is a bustling market known as Laad Bazaar, famous for its bangles, pearls, and traditional Hyderabadi cuisine.",
+        "image": "charminar.jpg",
+        "rating": 4.5,
+        "tags": [
+            "history",
+            "architecture",
+            "landmark"
+        ],
+        "opening_hours": "9:30 AM - 5:30 PM",
+        "entry_fee": "$1",
+        "contact": "040-66746000",
+        "latitude": 17.3616,
+        "longitude": 78.4747
+    },
+    {
+        "id": 4,
+        "name": "Victoria Memorial",
+        "category": "Museum",
+        "description": "The Victoria Memorial is a large marble building in Kolkata, West Bengal, which was built between 1906 and 1921. It is dedicated to the memory of Queen Victoria, then Empress of India, and is now a museum and tourist destination under the Ministry of Culture. The memorial is an imposing structure made of Makrana marble, blending British and Mughal architectural elements in what is described as the Indo-Saracenic revivalist style. It is surrounded by lush green gardens, which are a popular spot for locals and tourists alike. Inside, the museum houses a remarkable collection of colonial-era paintings, sculptures, and manuscripts.",
+        "image": "victoria-memorial.jpg",
+        "rating": 4.6,
+        "tags": [
+            "history",
+            "art",
+            "architecture"
+        ],
+        "opening_hours": "10:00 AM - 5:00 PM",
+        "entry_fee": "$3",
+        "contact": "033-22231617",
+        "latitude": 22.5448,
+        "longitude": 88.3426
+    },
+    {
+        "id": 5,
+        "name": "Amber Fort",
+        "category": "Fort",
+        "description": "Amber Fort, located in Amer, a town near Jaipur, is one of the most famous forts of Rajasthan. This majestic fort is a principal tourist attraction and a fine example of Rajput architecture. Built from red sandstone and marble, the fort is laid out on four levels, each with a courtyard. It consists of the Diwan-e-Aam, or 'Hall of Public Audience,' the Diwan-e-Khas, or 'Hall of Private Audience,' the Sheesh Mahal (mirror palace), and the Sukh Niwas where a cool climate is artificially created by winds that blow over a water cascade within the palace. The fort overlooks Maota Lake.",
+        "image": "amber-fort.jpg",
+        "rating": 4.8,
+        "tags": [
+            "history",
+            "architecture",
+            "fort"
+        ],
+        "opening_hours": "8:00 AM - 5:30 PM",
+        "entry_fee": "$4",
+        "contact": "0141-2530293",
+        "latitude": 26.9855,
+        "longitude": 75.8513
+    },
+    {
+        "id": 6,
+        "name": "Sanchi Stupa",
+        "category": "Monument",
+        "description": "Sanchi Stupa is a renowned Buddhist complex, famous for its Great Stupa, on a hilltop at Sanchi Town in Madhya Pradesh. Commissioned by the Mauryan emperor Ashoka in the 3rd century BCE, it is one of the oldest stone structures in India and an important monument of Indian architecture. The Great Stupa is a large hemispherical dome containing relics of the Buddha. The site is particularly famous for its four intricately carved gateways, or 'toranas,' which depict scenes from the life of the Buddha and the Jataka tales. As a UNESCO World Heritage site, it remains a significant center of Buddhist pilgrimage and art.",
+        "image": "sanchi-stupa.jpg",
+        "rating": 4.4,
+        "tags": [
+            "history",
+            "spirituality",
+            "architecture"
+        ],
+        "opening_hours": "6:30 AM - 6:30 PM",
+        "entry_fee": "$2",
+        "contact": "0755-2774218",
+        "latitude": 23.4793,
+        "longitude": 77.7391
+    },
+    {
+        "id": 7,
+        "name": "Meenakshi Temple",
+        "category": "Temple",
+        "description": "The Meenakshi Amman Temple is a historic Hindu temple located on the southern bank of the Vaigai River in the temple city of Madurai, Tamil Nadu. It is dedicated to Meenakshi, a form of the goddess Parvati, and her consort, Sundareswarar, a form of Shiva. The temple is at the center of the ancient city and is a masterpiece of Dravidian architecture. It is renowned for its 14 towering gopurams (gateway towers), which are covered with thousands of vibrant stone figures of gods, goddesses, and demons. The complex also features the 'Hall of a Thousand Pillars,' an architectural marvel with each pillar being unique.",
+        "image": "meenakshi-temple.jpg",
+        "rating": 4.9,
+        "tags": [
+            "spirituality",
+            "architecture",
+            "landmark"
+        ],
+        "opening_hours": "5:00 AM - 12:30 PM, 4:00 PM - 9:30 PM",
+        "entry_fee": "Free",
+        "contact": "0452-2344360",
+        "latitude": 9.9195,
+        "longitude": 78.1193
+    },
+    {
+        "id": 8,
+        "name": "Rock Garden",
+        "category": "Park",
+        "description": "The Rock Garden of Chandigarh is a unique sculpture garden created by Nek Chand Saini, a government official who started the garden secretly in his spare time in 1957. Today, it is spread over an area of 40 acres and is completely built of industrial and home waste and thrown-away items. The garden is known for its sculptures of dancers, musicians, and animals created from recycled materials like broken bangles, ceramic pots, and electrical waste. It also features several man-made interlinked waterfalls. This imaginative and creative space is a testament to the power of art and recycling, attracting visitors from all over the world.",
+        "image": "rock-garden.jpg",
+        "rating": 4.3,
+        "tags": [
+            "art",
+            "outdoor",
+            "creative"
+        ],
+        "opening_hours": "9:00 AM - 7:00 PM",
+        "entry_fee": "$1",
+        "contact": "0172-2706528",
+        "latitude": 30.7522,
+        "longitude": 76.8106
+    },
+    {
+        "id": 9,
+        "name": "Konark Sun Temple",
+        "category": "Temple",
+        "description": "The Konark Sun Temple is a 13th-century CE Sun temple at Konark, about 35 kilometres northeast from Puri on the coastline of Odisha. The temple is attributed to king Narasimhadeva I of the Eastern Ganga Dynasty. A UNESCO World Heritage Site, the temple is a monumental representation of the sun god Surya's chariot; its 24 wheels are decorated with symbolic designs and it is led by a team of six horses. The temple is famous for its intricate stone carvings that cover the entire structure. Known as the 'Black Pagoda' due to its dark color, it is a classic example of Kalinga architecture.",
+        "image": "sun-temple.jpg",
+        "rating": 4.7,
+        "tags": [
+            "history",
+            "architecture",
+            "spirituality"
+        ],
+        "opening_hours": "6:00 AM - 8:00 PM",
+        "entry_fee": "$3",
+        "contact": "06758-236821",
+        "latitude": 19.8876,
+        "longitude": 86.0945
+    },
+    {
+        "id": 10,
+        "name": "Rani ki Vav",
+        "category": "Monument",
+        "description": "Rani ki Vav, or the 'Queen's Stepwell,' is an intricately constructed stepwell situated in the town of Patan in Gujarat. It is located on the banks of the Saraswati River. It was built as a memorial to an 11th-century king by his widowed queen. The stepwell is designed as an inverted temple highlighting the sanctity of water. It is divided into seven levels of stairs with sculptural panels of high artistic quality. There are more than 500 principal sculptures and over a thousand minor ones that combine religious, mythological, and secular imagery. It is a UNESCO World Heritage Site, recognized for its unique architectural features and craftsmanship.",
+        "image": "rani-ki-vav.jpg",
+        "rating": 4.6,
+        "tags": [
+            "history",
+            "architecture",
+            "UNESCO"
+        ],
+        "opening_hours": "8:00 AM - 6:00 PM",
+        "entry_fee": "$2",
+        "contact": "02766-233050",
+        "latitude": 23.8592,
+        "longitude": 72.1065
+    },
+    {
+        "id": 11,
+        "name": "Golconda Fort",
+        "category": "Fort",
+        "description": "Golconda Fort, located in Hyderabad, is a historic fortress and citadel that served as the capital of the Qutb Shahi dynasty. The fort is renowned for its history as a major center for the diamond trade, having produced some of the world's most famous gems, including the Koh-i-Noor. One of its most remarkable features is its advanced acoustic system; a handclap at a certain point near the entrance can be heard at the highest point of the fort, almost a kilometer away. The complex also includes palaces, mosques, and a pavilion that offers a breathtaking view of the surrounding city. It is a testament to the region's rich history and architectural prowess.",
+        "image": "golconda-fort.jpg",
+        "rating": 4.5,
+        "tags": [
+            "history",
+            "fort",
+            "architecture"
+        ],
+        "opening_hours": "9:00 AM - 5:30 PM",
+        "entry_fee": "$2",
+        "contact": "040-23512401",
+        "latitude": 17.3833,
+        "longitude": 78.4011
+    },
+    {
+        "id": 12,
+        "name": "Jantar Mantar",
+        "category": "Monument",
+        "description": "Jantar Mantar in Delhi is a complex of astronomical instruments built by Maharaja Jai Singh II of Jaipur in the 18th century. It is one of five such observatories he constructed in India. The site features 13 architectural astronomy instruments, designed to allow for the observation of astronomical positions with the naked eye. The primary purpose was to compile astronomical tables and to predict the times and movements of the sun, moon, and planets. The most impressive instrument is the Samrat Yantra, a giant sundial that is the largest in the world. This UNESCO World Heritage site is a remarkable example of scientific advancement in medieval India.",
+        "image": "jantar-mantar.jpg",
+        "rating": 4.2,
+        "tags": [
+            "science",
+            "history",
+            "architecture"
+        ],
+        "opening_hours": "9:00 AM - 7:00 PM",
+        "entry_fee": "$1",
+        "contact": "011-23365358",
+        "latitude": 28.6271,
+        "longitude": 77.2166
+    },
+    {
+        "id": 13,
+        "name": "Nalanda University",
+        "category": "Heritage Site",
+        "description": "Nalanda University was an acclaimed Mahavihara, a large Buddhist monastery, in the ancient kingdom of Magadha in India. The site is located in Bihar and was a center of learning from the fifth century CE to c. 1200 CE. It is considered one of the earliest great universities in recorded history. At its peak, the university attracted scholars and students from as far away as Tibet, China, Korea, and Central Asia. The subjects taught included Buddhist studies, fine arts, medicine, mathematics, astronomy, and politics. The ruins of this UNESCO World Heritage Site include stupas, shrines, and viharas, providing evidence of its past glory.",
+        "image": "nalanda.jpg",
+        "rating": 4.6,
+        "tags": [
+            "history",
+            "education",
+            "UNESCO"
+        ],
+        "opening_hours": "9:00 AM - 5:00 PM",
+        "entry_fee": "$2",
+        "contact": "06112-281820",
+        "latitude": 25.1357,
+        "longitude": 85.4432
+    },
+    {
+        "id": 14,
+        "name": "Jagannath Temple",
+        "category": "Temple",
+        "description": "The Jagannath Temple in Puri, Odisha, is a famous Hindu temple dedicated to Lord Jagannath, a form of Vishnu. It is an important pilgrimage destination and one of the four great 'Char Dham' pilgrimage sites for Hindus. The temple is particularly known for its annual Ratha Yatra, or chariot festival, in which the three principal deities are pulled on huge, elaborately decorated temple cars. Unlike the stone and metal icons found in most Hindu temples, the image of Jagannath is made of wood and is ceremoniously replaced every twelve or nineteen years from a sacred tree. The temple's kitchen is legendary, said to be the largest in the world.",
+        "image": "jagannath-temple.jpg",
+        "rating": 4.9,
+        "tags": [
+            "spirituality",
+            "heritage",
+            "landmark"
+        ],
+        "opening_hours": "5:00 AM - 11:00 PM",
+        "entry_fee": "Free",
+        "contact": "06752-222002",
+        "latitude": 19.8041,
+        "longitude": 85.8174
+    },
+    {
+        "id": 15,
+        "name": "Brihadeeswarar Temple",
+        "category": "Temple",
+        "description": "The Brihadeeswarar Temple, also known as the Big Temple, is a Hindu temple dedicated to Shiva located in Thanjavur, Tamil Nadu. It is one of the largest South Indian temples and an exemplary example of fully realized Dravidian architecture. Built by Emperor Raja Raja Chola I between 1003 and 1010 AD, the temple is a UNESCO World Heritage Site. Its main feature is the towering vimana (temple tower), which is 66 meters high and among the tallest of its kind in the world. The temple complex also includes a massive statue of Nandi, the sacred bull, carved out of a single rock.",
+        "image": "brihadeeswarar-temple.jpg",
+        "rating": 4.8,
+        "tags": [
+            "architecture",
+            "spirituality",
+            "UNESCO"
+        ],
+        "opening_hours": "6:00 AM - 12:30 PM, 4:00 PM - 8:30 PM",
+        "entry_fee": "Free",
+        "contact": "04362-226960",
+        "latitude": 10.7828,
+        "longitude": 79.1319
+    },
+    {
+        "id": 16,
+        "name": "Sabarmati Ashram",
+        "category": "Museum",
+        "description": "Sabarmati Ashram, located on the banks of the River Sabarmati in Ahmedabad, was one of the residences of Mahatma Gandhi. It served as his headquarters during the long struggle for Indian independence from 1917 to 1930. It was from here that Gandhi led the Dandi March, also known as the Salt Satyagraha. The ashram is now a national monument and a museum, preserving a detailed, inspiring record of Gandhi's life and teachings. The museum has a library, archives, and galleries showcasing photographs, letters, and other relics of Gandhi's life. The serene atmosphere of the ashram offers a deep insight into the philosophy of truth and non-violence.",
+        "image": "sabarmati-ashram.jpg",
+        "rating": 4.7,
+        "tags": [
+            "history",
+            "freedom",
+            "heritage"
+        ],
+        "opening_hours": "8:30 AM - 6:30 PM",
+        "entry_fee": "Free",
+        "contact": "079-27557277",
+        "latitude": 23.0606,
+        "longitude": 72.5802
+    },
+    {
+        "id": 17,
+        "name": "Kaziranga National Park",
+        "category": "Wildlife Sanctuary",
+        "description": "Kaziranga National Park is a protected area in the state of Assam. A UNESCO World Heritage Site, the park hosts two-thirds of the world's great one-horned rhinoceroses. Kaziranga boasts the highest density of tigers among protected areas in the world and was declared a Tiger Reserve in 2006. The park is home to large breeding populations of elephants, wild water buffalo, and swamp deer. Kaziranga is recognized as an Important Bird Area by BirdLife International for conservation of avifaunal species. The park's landscape is a vast expanse of tall elephant grass, marshland, and dense tropical moist broadleaf forests, crisscrossed by four major rivers.",
+        "image": "kaziranga.jpg",
+        "rating": 4.8,
+        "tags": [
+            "wildlife",
+            "nature",
+            "UNESCO"
+        ],
+        "opening_hours": "7:30 AM - 4:00 PM",
+        "entry_fee": "$5",
+        "contact": "03776-268095",
+        "latitude": 26.5775,
+        "longitude": 93.1711
+    },
+    {
+        "id": 18,
+        "name": "Shaniwar Wada",
+        "category": "Fort",
+        "description": "Shaniwar Wada is an 18th-century fortification in the city of Pune in Maharashtra. It was the seat of the Peshwas of the Maratha Empire until 1818. The fort itself was largely destroyed in 1828 by an unexplained fire, but the surviving structures are now maintained as a tourist site. The fort is known for its grand entrance gate, the Dilli Darwaza, and the nine bastion forts that enclose the complex. It is also famous for its tales of valor and tragedy, including the alleged haunting by the ghost of a young prince who was murdered within the fort's walls, making it a place of great historical and cultural interest.",
+        "image": "shaniwar-wada.jpg",
+        "rating": 4.1,
+        "tags": [
+            "history",
+            "fort",
+            "architecture"
+        ],
+        "opening_hours": "8:00 AM - 6:30 PM",
+        "entry_fee": "$1",
+        "contact": "020-26122896",
+        "latitude": 18.5196,
+        "longitude": 73.8553
+    },
+    {
+        "id": 19,
+        "name": "Hawa Mahal",
+        "category": "Palace",
+        "description": "The Hawa Mahal is a palace in Jaipur, India. Made with the red and pink sandstone, the palace sits on the edge of the City Palace, Jaipur, and extends to the zenana, or women's chambers. The structure was built in 1799 by Maharaja Sawai Pratap Singh. Its unique five-story exterior is akin to the honeycomb of a beehive with its 953 small windows called jharokhas decorated with intricate latticework. The original intent of the lattice design was to allow royal women to observe everyday life and festivals celebrated in the street below without being seen. This architectural feature also allowed cool air to pass through, making it a perfect summer palace.",
+        "image": "hawa-mahal.jpg",
+        "rating": 4.6,
+        "tags": [
+            "architecture",
+            "history",
+            "landmark"
+        ],
+        "opening_hours": "9:00 AM - 4:30 PM",
+        "entry_fee": "$2",
+        "contact": "0141-2618862",
+        "latitude": 26.9239,
+        "longitude": 75.8267
+    },
+    {
+        "id": 20,
+        "name": "Rumi Darwaza",
+        "category": "Monument",
+        "description": "The Rumi Darwaza, in Lucknow, Uttar Pradesh, is an imposing gateway which was built under the patronage of Nawab Asaf-ud-Daula in 1784. It is an example of Awadhi architecture. The Rumi Darwaza, which stands sixty feet tall, was modeled after the Sublime Porte in Istanbul. This massive gateway is a striking landmark of the city and is also known as the Turkish Gate. It was constructed as part of a food-for-work program to help the local populace during a famine. The top of the gate, accessible by a staircase, once held a huge lantern that would light up the path at night, adding to its grandeur.",
+        "image": "rumi-darwaza.jpg",
+        "rating": 4.4,
+        "tags": [
+            "architecture",
+            "history",
+            "landmark"
+        ],
+        "opening_hours": "24 Hours",
+        "entry_fee": "Free",
+        "contact": "0522-2614192",
+        "latitude": 26.8705,
+        "longitude": 80.9115
+    },
+    {
+        "id": 21,
+        "name": "Cellular Jail",
+        "category": "Museum",
+        "description": "The Cellular Jail, also known as Kālā Pānī, was a colonial prison in the Andaman and Nicobar Islands. The prison was used by the British to exile political prisoners to the remote archipelago. Many notable freedom fighters were imprisoned here during the struggle for India's independence. Today, the complex serves as a national memorial monument. It stands as a dark reminder of the suffering and sacrifice of the freedom fighters. A sound and light show is held in the evenings, narrating the story of the jail and its prisoners, making it a poignant and historically significant destination for visitors to the islands.",
+        "image": "cellular-jail.jpg",
+        "rating": 4.7,
+        "tags": [
+            "history",
+            "freedom",
+            "heritage"
+        ],
+        "opening_hours": "9:00 AM - 5:00 PM",
+        "entry_fee": "$2",
+        "contact": "03192-232301",
+        "latitude": 11.6721,
+        "longitude": 92.7656
+    },
+    {
+        "id": 22,
+        "name": "Kanha National Park",
+        "category": "Wildlife Sanctuary",
+        "description": "Kanha National Park, also known as Kanha Tiger Reserve, is one of the tiger reserves of India and the largest national park of Madhya Pradesh. The park has a significant population of the Royal Bengal tiger, Indian leopards, the sloth bear, barasingha, and Indian wild dog. The lush sal and bamboo forests, grassy meadows, and ravines of Kanha provided inspiration to Rudyard Kipling for his famous novel 'The Jungle Book.' The park's landmark achievement is the preservation of the rare hard-ground swamp deer (barasingha), saving it from near extinction. Safari excursions provide an opportunity to see these incredible animals in their natural habitat.",
+        "image": "kanha-park.jpg",
+        "rating": 4.6,
+        "tags": [
+            "wildlife",
+            "nature",
+            "forest"
+        ],
+        "opening_hours": "6:00 AM - 6:00 PM",
+        "entry_fee": "$5",
+        "contact": "07649-277211",
+        "latitude": 22.3345,
+        "longitude": 80.6115
+    },
+    {
+        "id": 23,
+        "name": "Mahabalipuram Shore Temple",
+        "category": "Temple",
+        "description": "The Shore Temple is a complex of temples and shrines that was built in the 8th century CE, during the reign of Narasimhavarman II of the Pallava dynasty. It is located on the coast of the Bay of Bengal in Mahabalipuram, Tamil Nadu. A UNESCO World Heritage Site, it is one of the oldest structural stone temples in South India. The temple is a five-storied rock-cut monolith. It has two main shrines dedicated to Shiva and a third, smaller shrine dedicated to Vishnu. The temple is renowned for its intricate carvings and its stunning location, which makes it particularly beautiful at sunrise and sunset.",
+        "image": "shore-temple.jpg",
+        "rating": 4.7,
+        "tags": [
+            "architecture",
+            "UNESCO",
+            "spirituality"
+        ],
+        "opening_hours": "6:00 AM - 6:00 PM",
+        "entry_fee": "$3",
+        "contact": "044-27442236",
+        "latitude": 12.6208,
+        "longitude": 80.1931
+    },
+    {
+        "id": 24,
+        "name": "Raja's Seat",
+        "category": "Park",
+        "description": "Raja's Seat is a seasonal garden of flowers and artificial fountains in Madikeri, the district headquarters of Coorg. It is a popular viewpoint offering breathtaking views of the surrounding hills, green valleys, and paddy fields. The name 'Raja's Seat' literally means 'Seat of the Kings,' and it was once a favorite spot of the Kodagu kings, who would watch the sunset from here. The garden is built on a high level ground with a commanding view of the cliffs and valleys to the west. A toy train also offers a delightful ride for children and adults, making it a perfect spot for families.",
+        "image": "rajas-seat.jpg",
+        "rating": 4.2,
+        "tags": [
+            "nature",
+            "viewpoint",
+            "garden"
+        ],
+        "opening_hours": "6:00 AM - 7:00 PM",
+        "entry_fee": "$1",
+        "contact": "08272-228492",
+        "latitude": 12.4228,
+        "longitude": 75.7382
+    },
+    {
+        "id": 25,
+        "name": "Bhimbetka Rock Shelters",
+        "category": "Heritage Site",
+        "description": "The Bhimbetka rock shelters are an archaeological site in central India that spans the prehistoric Paleolithic and Mesolithic periods, as well as the historic period. This UNESCO World Heritage Site is located in the Raisen District in Madhya Pradesh. The site exhibits the earliest traces of human life in India and evidence of the Stone Age starting at the site in Acheulian times. It is famous for its rock paintings, some of which are approximately 30,000 years old. These paintings provide a rare glimpse into the lives of prehistoric people, depicting scenes of hunting, dancing, and daily activities, making it an invaluable repository of human history.",
+        "image": "bhimbetka.jpg",
+        "rating": 4.5,
+        "tags": [
+            "history",
+            "UNESCO",
+            "prehistoric"
+        ],
+        "opening_hours": "7:00 AM - 6:00 PM",
+        "entry_fee": "$2",
+        "contact": "0755-2774218",
+        "latitude": 22.9380,
+        "longitude": 77.6132
+    },
+    {
+        "id": 26,
+        "name": "Umaid Bhawan Palace",
+        "category": "Palace",
+        "description": "Umaid Bhawan Palace, located in Jodhpur, Rajasthan, is one of the world's largest private residences. A part of the palace is managed by Taj Hotels and serves as a luxury heritage hotel. Named after Maharaja Umaid Singh, grandfather of the present owner, the palace has 347 rooms and is the principal residence of the former Jodhpur royal family. The palace is built with golden-yellow sandstone and is a blend of eastern and western architectural influences. A section of the palace is a museum showcasing the 20th-century history of the Jodhpur royal family as well as an extensive collection of vintage cars.",
+        "image": "umaid-bhawan.jpg",
+        "rating": 4.9,
+        "tags": [
+            "royalty",
+            "architecture",
+            "heritage"
+        ],
+        "opening_hours": "10:00 AM - 4:30 PM",
+        "entry_fee": "$3",
+        "contact": "0291-2510101",
+        "latitude": 26.2978,
+        "longitude": 73.0150
+    },
+    {
+        "id": 27,
+        "name": "Agra Fort",
+        "category": "Fort",
+        "description": "The Agra Fort is a historical fort in the city of Agra in India. It was the main residence of the emperors of the Mughal Dynasty until 1638, when the capital was shifted from Agra to Delhi. This UNESCO World Heritage site is a massive red sandstone fort located on the bank of the Yamuna River. The fort's walls enclose a number of impressive structures, including the Jahangir Palace, Khas Mahal, Diwan-i-Khas (hall of private audience), and two beautiful mosques. The fort provides a stunning view of its more famous sister monument, the Taj Mahal, which is located just a short distance away.",
+        "image": "agra-fort.jpg",
+        "rating": 4.7,
+        "tags": [
+            "history",
+            "UNESCO",
+            "architecture"
+        ],
+        "opening_hours": "6:00 AM - 6:00 PM",
+        "entry_fee": "$4",
+        "contact": "0562-2226431",
+        "latitude": 27.1795,
+        "longitude": 78.0211
+    },
+    {
+        "id": 28,
+        "name": "Chand Baori",
+        "category": "Monument",
+        "description": "Chand Baori is a stepwell situated in the village of Abhaneri in Rajasthan. It was constructed in c. 800–900 CE and is one of the largest and deepest stepwells in the world. The stepwell has 3,500 narrow steps over 13 stories. It extends approximately 30 m (100 ft) into the ground, making it one of the most visually spectacular landmarks in the region. The intricate and precise geometric pattern of the steps is a marvel of ancient engineering. The baori was built to conserve water and provide a respite from the intense heat, with the air at the bottom remaining significantly cooler than the surface.",
+        "image": "chand-baori.jpg",
+        "rating": 4.6,
+        "tags": [
+            "architecture",
+            "history",
+            "engineering"
+        ],
+        "opening_hours": "8:00 AM - 6:00 PM",
+        "entry_fee": "$1",
+        "contact": "01438-244003",
+        "latitude": 27.0059,
+        "longitude": 76.6045
+    },
+    {
+        "id": 29,
+        "name": "Nehru Planetarium",
+        "category": "Science Center",
+        "description": "The Nehru Planetarium in Mumbai is a popular destination for those interested in astronomy and science. It is part of the Nehru Centre, which aims to promote science and technology. The planetarium features a dome-shaped theater where shows about the cosmos are projected, offering a captivating journey through the stars, planets, and galaxies. These shows are designed to be educational and entertaining for all ages. The planetarium also hosts various workshops, lectures, and astronomical events, such as telescope viewings of celestial phenomena. It serves as an important resource for science education in the city, inspiring curiosity about the universe.",
+        "image": "nehru-planetarium.jpg",
+        "rating": 4.1,
+        "tags": [
+            "science",
+            "education",
+            "indoor"
+        ],
+        "opening_hours": "11:00 AM - 5:00 PM",
+        "entry_fee": "$2",
+        "contact": "022-24920510",
+        "latitude": 18.9786,
+        "longitude": 72.8258
+    },
+    {
+        "id": 30,
+        "name": "Lingaraj Temple",
+        "category": "Temple",
+        "description": "Lingaraj Temple is a Hindu temple dedicated to Shiva and is one of the oldest temples in Bhubaneswar, the capital of Odisha. The temple is the most prominent landmark of Bhubaneswar and a major tourist attraction. It represents the quintessence of the Kalinga architecture and is built in the Deula style, with a towering vimana (sanctum tower) that rises to a height of 55 meters. The temple complex has 50 other shrines and is enclosed by a large compound wall. The temple is active, and the deity is worshiped daily. Non-Hindus are not allowed inside the main sanctum but can view the complex from a viewing platform.",
+        "image": "lingaraj-temple.jpg",
+        "rating": 4.7,
+        "tags": [
+            "spirituality",
+            "architecture",
+            "heritage"
+        ],
+        "opening_hours": "6:00 AM - 9:00 PM",
+        "entry_fee": "Free",
+        "contact": "0674-2431897",
+        "latitude": 20.2497,
+        "longitude": 85.8394
+    },
+    {
+        "id": 31,
+        "name": "Tawang Monastery",
+        "category": "Monastery",
+        "description": "Tawang Monastery, located in the Tawang district of Arunachal Pradesh, is the largest monastery in India and the second largest in the world, after the Potala Palace in Lhasa, Tibet. It was founded in the 17th century and belongs to the Gelug school of Mahayana Buddhism. The monastery is a three-story high complex, situated on a hilltop, offering panoramic views of the surrounding valley. It houses a large library of ancient scriptures and manuscripts. The monastery is also home to a giant statue of Lord Buddha. It is an important center for Buddhist learning and culture, attracting monks and tourists from all over.",
+        "image": "tawang-monastery.jpg",
+        "rating": 4.8,
+        "tags": [
+            "spirituality",
+            "Buddhism",
+            "heritage"
+        ],
+        "opening_hours": "7:00 AM - 7:00 PM",
+        "entry_fee": "Free",
+        "contact": "03794-222273",
+        "latitude": 27.5861,
+        "longitude": 91.8662
+    },
+    {
+        "id": 32,
+        "name": "Sundarbans",
+        "category": "Wildlife Sanctuary",
+        "description": "The Sundarbans is a vast mangrove forest in the coastal region of the Bay of Bengal, spanning across India and Bangladesh. It is a UNESCO World Heritage Site. The forest is one of the largest reserves for the Bengal tiger and is also home to a variety of bird, reptile, and invertebrate species, including the salt-water crocodile. The Sundarbans is a unique ecosystem, characterized by its network of tidal waterways, mudflats, and small islands of salt-tolerant mangrove forests. It plays a crucial role in protecting the coastal population from cyclones and tsunamis. Boat safaris through the dense forest offer a thrilling experience for wildlife enthusiasts.",
+        "image": "sundarbans.jpg",
+        "rating": 4.6,
+        "tags": [
+            "wildlife",
+            "nature",
+            "UNESCO"
+        ],
+        "opening_hours": "6:00 AM - 6:00 PM",
+        "entry_fee": "$4",
+        "contact": "03218-226003",
+        "latitude": 21.9497,
+        "longitude": 89.1833
+    },
+    {
+        "id": 33,
+        "name": "Golden Temple",
+        "category": "Temple",
+        "description": "The Golden Temple, also known as Sri Harmandir Sahib, is the holiest Gurdwara and the most important pilgrimage site of Sikhism. It is located in the city of Amritsar, Punjab. The temple is an open house of worship for all people, from all walks of life and faiths. It has a square plan with four entrances and a circumambulation path around the tank. The temple is a two-storied structure with its top half covered in pure gold leaf. The temple complex also includes the Akal Takht, the chief center of religious authority of Sikhism, and a community kitchen (langar) that serves free meals to thousands daily.",
+        "image": "golden-temple.jpg",
+        "rating": 5.0,
+        "tags": [
+            "spirituality",
+            "Sikhism",
+            "landmark"
+        ],
+        "opening_hours": "24 Hours",
+        "entry_fee": "Free",
+        "contact": "0183-2553957",
+        "latitude": 31.6200,
+        "longitude": 74.8765
+    },
+    {
+        "id": 34,
+        "name": "Elephanta Caves",
+        "category": "Heritage Site",
+        "description": "The Elephanta Caves are a network of sculpted caves located on Elephanta Island, or Gharapuri, in Mumbai Harbour. The island, located on an arm of the Arabian Sea, consists of two groups of caves—the first is a large group of five Hindu caves, the second, a smaller group of two Buddhist caves. The Hindu caves contain rock-cut stone sculptures, representing the Shaiva Hindu sect, dedicated to the god Shiva. The most famous sculpture is the Trimurti, a massive three-headed Shiva statue. The caves are a UNESCO World Heritage Site and a popular tourist destination, accessible by ferry from Mumbai.",
+        "image": "elephanta-caves.jpg",
+        "rating": 4.3,
+        "tags": [
+            "history",
+            "UNESCO",
+            "architecture"
+        ],
+        "opening_hours": "9:00 AM - 5:30 PM",
+        "entry_fee": "$2",
+        "contact": "022-22044040",
+        "latitude": 18.9633,
+        "longitude": 72.9311
+    },
+    {
+        "id": 35,
+        "name": "Lotus Temple",
+        "category": "Temple",
+        "description": "The Lotus Temple, located in Delhi, is a Baháʼí House of Worship that was dedicated in December 1986. Notable for its flowerlike shape, it has become a prominent attraction in the city. Like all Baháʼí Houses of Worship, the Lotus Temple is open to all, regardless of religion or any other qualification. The building is composed of 27 free-standing marble-clad 'petals' arranged in clusters of three to form nine sides. The temple's design has won numerous architectural awards and has been featured in many newspaper and magazine articles. Its serene ambiance makes it a perfect place for meditation and prayer.",
+        "image": "lotus-temple.jpg",
+        "rating": 4.5,
+        "tags": [
+            "architecture",
+            "spirituality",
+            "modern"
+        ],
+        "opening_hours": "9:00 AM - 5:00 PM (Closed Mondays)",
+        "entry_fee": "Free",
+        "contact": "011-26444130",
+        "latitude": 28.5535,
+        "longitude": 77.2588
+    },
+    {
+        "id": 36,
+        "name": "Chitrakote Falls",
+        "category": "Waterfall",
+        "description": "Chitrakote Falls is a natural waterfall located to the west of Jagdalpur, in Bastar district of Chhattisgarh. The height of the falls is about 29 metres (95 ft). It is the widest waterfall in India, reaching a width of nearly 300 metres (980 ft) during the monsoon season. Because of its width and its shape during the rainy season, it is often called the 'Niagara Falls of India.' The falls are located on the Indravati River. The area around the falls is densely forested, adding to its scenic beauty. It is a popular spot for picnics and sightseeing, especially during the monsoon when the falls are at their most spectacular.",
+        "image": "chitrakote-falls.jpg",
+        "rating": 4.6,
+        "tags": [
+            "nature",
+            "waterfall",
+            "scenic"
+        ],
+        "opening_hours": "6:00 AM - 6:00 PM",
+        "entry_fee": "Free",
+        "contact": "07782-222456",
+        "latitude": 18.9618,
+        "longitude": 81.9637
+    },
+    {
+        "id": 37,
+        "name": "Hazratbal Shrine",
+        "category": "Religious Site",
+        "description": "The Hazratbal Shrine is a Muslim shrine in Srinagar, Jammu and Kashmir. The name of the shrine comes from the Urdu word Hazrat, meaning 'respected,' and the Kashmiri word bal, meaning 'place.' The shrine is situated on the left bank of the Dal Lake and is considered to be Kashmir's holiest Muslim shrine. It contains a relic, the Moi-e-Muqqadas, believed by many to be a hair of the Islamic prophet Muhammad. The shrine's pristine white marble facade is reflected in the waters of the lake, creating a beautiful and serene image. It is a place of great spiritual significance for Muslims.",
+        "image": "hazratbal.jpg",
+        "rating": 4.5,
+        "tags": [
+            "spirituality",
+            "Islam",
+            "heritage"
+        ],
+        "opening_hours": "9:00 AM - 5:00 PM",
+        "entry_fee": "Free",
+        "contact": "0194-2420030",
+        "latitude": 34.1306,
+        "longitude": 74.8470
+    },
+    {
+        "id": 38,
+        "name": "Ravindra Kalakshetra",
+        "category": "Theatre",
+        "description": "Ravindra Kalakshetra is a cultural center in Bengaluru which provides a stage for dance, music, and theatre performances. It was built to commemorate the birth centenary of the great poet Rabindranath Tagore. The center has a large auditorium with a seating capacity of over 900 people. It has been a prominent venue for the performing arts in the city for decades, hosting a wide range of cultural events, from classical music and dance recitals to contemporary plays and folk art performances. It plays a vital role in promoting and preserving the rich cultural heritage of Karnataka and India, serving as a hub for artists and art lovers.",
+        "image": "ravindra-kalakshetra.jpg",
+        "rating": 4.0,
+        "tags": [
+            "culture",
+            "art",
+            "performance"
+        ],
+        "opening_hours": "10:00 AM - 8:00 PM",
+        "entry_fee": "Varies by event",
+        "contact": "080-22214192",
+        "latitude": 12.9644,
+        "longitude": 77.5848
+    },
+    {
+        "id": 39,
+        "name": "Junagarh Fort",
+        "category": "Fort",
+        "description": "Junagarh Fort is a fort in the city of Bikaner, Rajasthan. The fort was originally called Chintamani and was renamed Junagarh or 'Old Fort' in the early 20th century. It is one of the few major forts in Rajasthan which is not built on a hilltop. The modern city of Bikaner has developed around the fort. The fort complex is known for its magnificent palaces, temples, and pavilions, which are a fine blend of Mughal and Rajput architecture. The intricate stone carvings, beautiful courtyards, and grand halls of the fort are a sight to behold. A museum within the fort displays a rich collection of artifacts.",
+        "image": "junagarh-fort.jpg",
+        "rating": 4.5,
+        "tags": [
+            "history",
+            "architecture",
+            "fort"
+        ],
+        "opening_hours": "10:00 AM - 4:30 PM",
+        "entry_fee": "$2",
+        "contact": "0151-2202297",
+        "latitude": 28.0229,
+        "longitude": 73.3170
+    },
+    {
+        "id": 40,
+        "name": "ISKCON Temple",
+        "category": "Temple",
+        "description": "The ISKCON Temple in Bengaluru is one of the largest ISKCON temples in the world. It is a huge cultural complex dedicated to Lord Krishna. The temple is a fine example of modern architecture blended with traditional temple design. It is known for its beautiful idols of Radha and Krishna, its grand halls, and its serene and spiritual atmosphere. The temple complex also includes a multi-vision cinema, a Vedic museum, and a guest house. The temple is particularly famous for its elaborate daily rituals and vibrant festivals, especially Janmashtami, which attracts thousands of devotees. It is a major center for spiritual and cultural activities.",
+        "image": "iskcon-bangalore.jpg",
+        "rating": 4.7,
+        "tags": [
+            "spirituality",
+            "Krishna",
+            "architecture"
+        ],
+        "opening_hours": "4:15 AM - 1:00 PM, 4:15 PM - 8:30 PM",
+        "entry_fee": "Free",
+        "contact": "080-23471956",
+        "latitude": 13.0099,
+        "longitude": 77.5511
+    },
+    {
+        "id": 41,
+        "name": "Basilica of Bom Jesus",
+        "category": "Church",
+        "description": "The Basilica of Bom Jesus is a Roman Catholic basilica located in Goa, India, and is part of the Churches and Convents of Goa UNESCO World Heritage Site. The basilica is located in Old Goa, former capital of Portuguese India. The basilica holds the mortal remains of St. Francis Xavier. The church is one of the oldest churches in India and is one of the best examples of baroque architecture in India. The facade of the church is made of granite and is a fine example of Jesuit architecture. The interior of the church is simple yet grand, with a beautifully carved and gilded altar.",
+        "image": "bom-jesus.jpg",
+        "rating": 4.6,
+        "tags": [
+            "spirituality",
+            "Christianity",
+            "UNESCO"
+        ],
+        "opening_hours": "9:00 AM - 6:30 PM",
+        "entry_fee": "Free",
+        "contact": "0832-2285790",
+        "latitude": 15.5009,
+        "longitude": 73.9116
+    },
+    {
+        "id": 42,
+        "name": "Bhagwan Mahavir Wildlife Sanctuary",
+        "category": "Wildlife Sanctuary",
+        "description": "Bhagwan Mahavir Wildlife Sanctuary and Mollem National Park is a 240-square-kilometre protected area located in the Western Ghats of South India, in Sanguem taluk, Goa. The area is situated near the town of Mollem. It is the largest wildlife sanctuary in Goa and is home to a variety of flora and fauna. The sanctuary is particularly known for its rich birdlife and is a popular destination for birdwatchers. It also houses the famous Dudhsagar Falls, one of India's tallest waterfalls. The sanctuary's dense forests, scenic trails, and diverse wildlife make it a great destination for nature lovers and adventure enthusiasts.",
+        "image": "mahavir-sanctuary.jpg",
+        "rating": 4.2,
+        "tags": [
+            "nature",
+            "wildlife",
+            "forest"
+        ],
+        "opening_hours": "8:00 AM - 5:00 PM",
+        "entry_fee": "$2",
+        "contact": "0832-2407111",
+        "latitude": 15.3144,
+        "longitude": 74.2479
+    },
+    {
+        "id": 43,
+        "name": "Ramappa Temple",
+        "category": "Temple",
+        "description": "The Ramappa Temple, also known as the Rudreshwara temple, is a UNESCO World Heritage Site located in the state of Telangana. The temple is situated in the village of Palampet, approximately 200 km north-east of Hyderabad. An inscription in the temple dates it to the year 1213 CE and says it was built by a Kakatiya general. The temple is a Shiva temple, where Lord Ramalingeswara is worshipped. It is famous for its intricate carvings, beautiful sculptures, and the unique 'floating bricks' used in its construction, which are so light that they can float on water. The temple stands as a testament to the advanced architectural and engineering skills of the Kakatiya dynasty.",
+        "image": "ramappa-temple.jpg",
+        "rating": 4.8,
+        "tags": [
+            "architecture",
+            "UNESCO",
+            "spirituality"
+        ],
+        "opening_hours": "6:00 AM - 6:00 PM",
+        "entry_fee": "$2",
+        "contact": "08712-245003",
+        "latitude": 18.2206,
+        "longitude": 79.9429
+    },
+    {
+        "id": 44,
+        "name": "Kumarakom Bird Sanctuary",
+        "category": "Sanctuary",
+        "description": "Kumarakom Bird Sanctuary is a noted bird sanctuary where many species of birds are found. Situated on the banks of the Vembanad Lake in Kerala, the sanctuary is a favorite haunt of migratory birds. The main attractions are local birds like the waterfowl, cuckoo, owl, egret, heron, cormorant, moorhen, darter, and brahminy kite, as well as the migratory Siberian crane. The sanctuary is spread over 14 acres and can be explored by taking a boat ride on the lake. The lush greenery, serene backwaters, and the vibrant birdlife make it a paradise for birdwatchers and nature lovers.",
+        "image": "kumarakom.jpg",
+        "rating": 4.3,
+        "tags": [
+            "nature",
+            "birds",
+            "wetlands"
+        ],
+        "opening_hours": "6:30 AM - 5:00 PM",
+        "entry_fee": "$2",
+        "contact": "0481-2524340",
+        "latitude": 9.6170,
+        "longitude": 76.4310
+    },
+    {
+        "id": 45,
+        "name": "Gwalior Fort",
+        "category": "Fort",
+        "description": "Gwalior Fort is a hill fort near Gwalior, Madhya Pradesh. The fort has existed at least since the 10th century, and the inscriptions and monuments found within what is now the fort campus indicate that it may have existed as early as the beginning of the 6th century. The fort is known for its impressive architecture and its rich history. The fort complex contains several historic buildings, including palaces, temples, and water tanks. Among the most notable structures are the Man Mandir Palace, the Gujari Mahal (now an archaeological museum), and the Teli Ka Mandir temple. The fort offers a panoramic view of the city of Gwalior.",
+        "image": "gwalior-fort.jpg",
+        "rating": 4.6,
+        "tags": [
+            "history",
+            "architecture",
+            "fort"
+        ],
+        "opening_hours": "8:00 AM - 6:00 PM",
+        "entry_fee": "$3",
+        "contact": "0751-2340377",
+        "latitude": 26.2306,
+        "longitude": 78.1734
+    },
+    {
+        "id": 46,
+        "name": "Science City",
+        "category": "Museum",
+        "description": "Science City, Kolkata, is the largest science center in the Indian subcontinent. It is managed by the National Council of Science Museums, Ministry of Culture. The center features a variety of attractions, including a Space Odyssey, Dynamotion Hall, and a large-format film theatre. The Space Odyssey houses a planetarium, a 3D vision theatre, and a hall of space, which has a collection of exhibits on space and astronomy. The Dynamotion Hall is full of interactive exhibits on various scientific principles. The Science City is a great place for both education and entertainment, making science accessible and fun for all ages.",
+        "image": "science-city.jpg",
+        "rating": 4.4,
+        "tags": [
+            "science",
+            "education",
+            "interactive"
+        ],
+        "opening_hours": "9:00 AM - 8:00 PM",
+        "entry_fee": "$2",
+        "contact": "033-22850073",
+        "latitude": 22.5390,
+        "longitude": 88.4072
+    },
+    {
+        "id": 47,
+        "name": "Rajiv Gandhi Zoological Park",
+        "category": "Zoo",
+        "description": "Rajiv Gandhi Zoological Park and Wildlife Research Centre, popularly known as the Katraj Zoo, is located in Pune. The zoo is divided into three parts: an animal orphanage, a snake park, and a zoo, and includes the 42-acre Katraj Lake. The zoo is known for its collection of reptiles and is home to a large number of snakes, including the king cobra. It also houses a variety of mammals, such as the Royal Bengal tiger, white tiger, and leopard. The zoo is committed to wildlife conservation and research and provides a great opportunity for visitors to learn about different animal species.",
+        "image": "rajiv-zoo.jpg",
+        "rating": 4.2,
+        "tags": [
+            "wildlife",
+            "education",
+            "family"
+        ],
+        "opening_hours": "9:30 AM - 5:00 PM",
+        "entry_fee": "$1",
+        "contact": "020-26929878",
+        "latitude": 18.4575,
+        "longitude": 73.8686
+    },
+    {
+        "id": 48,
+        "name": "Rock Cut Temples of Masroor",
+        "category": "Temple",
+        "description": "The Masroor Temples, also known as the Rock-cut Temples at Masroor, are an 8th-century complex of 15 monolithic rock-cut temples in the Kangra Valley of Himachal Pradesh. The temples are carved out of a single rock and are in the Indo-Aryan style of architecture. The main shrine is dedicated to Lord Shiva, and the complex is often compared to the Elephanta Caves in Mumbai and the temples of Mahabalipuram. The temples are a unique architectural marvel and offer a stunning view of the surrounding Dhauladhar mountain range. Despite being damaged by an earthquake in 1905, they remain an important archaeological site.",
+        "image": "masroor-temples.jpg",
+        "rating": 4.5,
+        "tags": [
+            "architecture",
+            "history",
+            "spirituality"
+        ],
+        "opening_hours": "9:00 AM - 5:00 PM",
+        "entry_fee": "$1",
+        "contact": "01892-265002",
+        "latitude": 32.0428,
+        "longitude": 76.2766
+    },
+    {
+        "id": 49,
+        "name": "Ranganathittu Bird Sanctuary",
+        "category": "Sanctuary",
+        "description": "Ranganathittu Bird Sanctuary, in the Mandya District of Karnataka, is the largest bird sanctuary in the state. It comprises six islets on the banks of the Kaveri river. The sanctuary is a paradise for bird lovers and is home to a wide variety of bird species. It is a popular nesting site for birds like the painted stork, Asian openbill stork, common spoonbill, and black-headed ibis. The sanctuary also has a significant population of marsh crocodiles. A boat ride on the river offers the best opportunity to see the birds up close. The sanctuary is a beautiful and serene place, perfect for a day out in nature.",
+        "image": "ranganathittu.jpg",
+        "rating": 4.4,
+        "tags": [
+            "nature",
+            "birds",
+            "wetlands"
+        ],
+        "opening_hours": "9:00 AM - 6:00 PM",
+        "entry_fee": "$2",
+        "contact": "0821-2461983",
+        "latitude": 12.4194,
+        "longitude": 76.6547
+    },
+    {
+        "id": 50,
+        "name": "Taj Mahal",
+        "category": "Monument",
+        "description": "The Taj Mahal is an ivory-white marble mausoleum on the south bank of the Yamuna river in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favourite wife, Mumtaz Mahal. The Taj Mahal is a UNESCO World Heritage Site and is regarded by many as the best example of Mughal architecture and a symbol of India's rich history. The tomb is the centerpiece of a 17-hectare (42-acre) complex, which includes a mosque and a guest house, and is set in formal gardens bounded on three sides by a crenelated wall.",
+        "image": "taj-mahal.jpg",
+        "rating": 5.0,
+        "tags": [
+            "architecture",
+            "history",
+            "UNESCO",
+            "landmark"
+        ],
+        "opening_hours": "6:00 AM - 6:30 PM (Closed Fridays)",
+        "entry_fee": "$7 (Foreigners), $0.60 (Indians)",
+        "contact": "0562-2226431",
+        "latitude": 27.1751,
+        "longitude": 78.0421
+    },
+    {
+        "id": 51,
+        "name": "Howrah Bridge",
+        "category": "Bridge",
+        "description": "The Howrah Bridge is an iconic cantilever bridge with a suspended span over the Hooghly River in West Bengal, India. Commissioned in 1943, it connects the twin cities of Kolkata and Howrah. Originally named the New Howrah Bridge, it was renamed Rabindra Setu in 1965 after the great Bengali poet Rabindranath Tagore. It is one of the busiest cantilever bridges in the world, carrying a daily traffic of approximately 100,000 vehicles and countless pedestrians. The bridge is a marvel of engineering, constructed without any nuts or bolts, using a riveting system. It stands as a symbol of Kolkata's identity and is a testament to the city's rich history and architectural heritage.",
+        "image": "howrah-bridge.jpg",
+        "rating": 4.8,
+        "tags": [
+            "engineering",
+            "landmark",
+            "architecture",
+            "history"
+        ],
+        "opening_hours": "24 Hours",
+        "entry_fee": "Free",
+        "contact": "N/A",
+        "latitude": 22.5852,
+        "longitude": 88.3468
+    }
+]
