@@ -1,0 +1,44 @@
+/* Use a more modern, clean font */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; /* A light grey background */
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+/* Style for the book cards */
+.book-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.book-card:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Ensure book covers are consistently sized */
+.book-cover {
+    height: 300px;
+    object-fit: cover; /* This prevents the image from being stretched */
+}
+
+.card-title {
+    font-weight: 600;
+    /* Truncate long titles */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #dee2e6;
+}
