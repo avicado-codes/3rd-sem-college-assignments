@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 import db from './services/db.js';
 
+import bookRoutes from './routes/bookRoutes.js';
+
 dotenv.config({ path: path.resolve(process.cwd(), 'backend', '.env') });
 
 const app = express();
@@ -17,6 +19,9 @@ app.use(express.json());
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date() });
 });
+
+// PLUG IN THE BOOK ROUTES
+app.use('/api/books', bookRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {
