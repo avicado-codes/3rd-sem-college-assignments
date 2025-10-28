@@ -9,26 +9,6 @@ desktop.ini
 ~$*
 *.tmp
 
-# Node / JS dependencies and build files
-# You already have node_modules/, but this is more comprehensive
-**/node_modules/
-dist/
-build/
-**/dist/
-**/build/
+# Bookshop Automation Software specific ignores
+Bookshop-Automation-Software/server/node_modules
 
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log
-
-# You already have .env, which is great.
-# Adding this ensures it's ignored everywhere.
-**/.env
-
-# SQLite Database files
-# This is critical to avoid committing your database.
-*.db
-*.db-journal
-data/
