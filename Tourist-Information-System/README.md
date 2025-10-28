@@ -4,9 +4,7 @@ A full-stack, local-only web application that helps users discover places, plan 
 
 ## Live Demo GIF
 
-*(This is a great "wow" factor. See instructions below on how to create this.)*
-
-![TIS Demo GIF](./docs/tis-demo.gif) 
+![TIS Demo GIF](./docs-tis/tis-demo.gif)
 
 ## Features
 
