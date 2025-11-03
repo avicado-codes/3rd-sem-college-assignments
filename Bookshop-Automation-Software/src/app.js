@@ -1,226 +1,508 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- Global Variables and Constants ---
+    // --- Global State ---
     const API_URL = 'http://localhost:3000/api/books';
-    let allBooks = []; // This will store the master list of books
+    let allBooks = [];
+    let cart = [];
+    let lastSuccessfulSale = null;
+    let currentlyDisplayedBooks = 0;
+    const BOOKS_PER_PAGE = 12;
 
     // --- DOM Element References ---
-    const bookList = document.getElementById('book-list');
-    const addBookBtn = document.getElementById('add-book-btn');
+    const brandLogoEl = document.getElementById('brand-logo');
+    const loadMoreBtnEl = document.getElementById('load-more-btn');
+    const views = { inventory: document.getElementById('inventory-view'), billing: document.getElementById('billing-view') };
+    const navLinks = document.querySelectorAll('.nav-link[data-view]');
+    const bookListEl = document.getElementById('book-list');
+    const searchInputEl = document.getElementById('search-input');
+    const categoryFilterEl = document.getElementById('category-filter');
+    const stockFilterEl = document.getElementById('stock-filter');
+    const addBookBtnEl = document.getElementById('add-book-btn');
     const bookModalEl = document.getElementById('book-modal');
     const bookModal = new bootstrap.Modal(bookModalEl);
-    const bookForm = document.getElementById('book-form');
-    const bookModalLabel = document.getElementById('bookModalLabel');
-    const searchInput = document.getElementById('search-input');
-    const categoryFilter = document.getElementById('category-filter');
-    const stockFilter = document.getElementById('stock-filter');
+    const bookFormEl = document.getElementById('book-form');
+    const bookModalLabelEl = document.getElementById('bookModalLabel');
+    const billingSearchEl = document.getElementById('billing-search');
+    const billingSearchResultsEl = document.getElementById('billing-search-results');
+    const cartItemsContainerEl = document.getElementById('cart-items');
+    const summarySubtotalEl = document.getElementById('summary-subtotal');
+    const summaryTaxEl = document.getElementById('summary-tax');
+    const summaryTotalEl = document.getElementById('summary-total');
+    const processSaleBtnEl = document.getElementById('process-sale-btn');
+    const generateReceiptBtnEl = document.getElementById('generate-receipt-btn');
+    const clearCartBtnEl = document.getElementById('clear-cart-btn');
+
+    // --- Main App Initialization ---
+    async function initializeApp() {
+        setupEventListeners();
+        await refreshInventoryData();
+        showView('billing-view'); // Default to billing view
+    }
+
+    async function refreshInventoryData() {
+        await fetchBooks();
+        if (allBooks.length > 0) {
+            populateCategoryFilter();
+            applyFiltersAndRender(false); // Initial render
+        }
+    }
 
     // --- Core Functions ---
 
     /**
-     * Fetches all books from the API, stores them, and displays them.
+     * Shows a specific view ('inventory' or 'billing') and hides others.
+     * Also updates the 'active' state of the nav links.
+     * @param {string} viewId - The ID of the view to show.
      */
-    const fetchAndDisplayBooks = async () => {
-        try {
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            allBooks = await response.json();
-            populateCategoryFilter();
-            applyFiltersAndRender();
-        } catch (error) {
-            console.error('Error fetching books:', error);
-            bookList.innerHTML = `<div class="alert alert-danger">Failed to load books. Please ensure the server is running.</div>`;
-        }
-    };
+    function showView(viewId) {
+        Object.values(views).forEach(v => v.classList.add('d-none'));
+        document.getElementById(viewId)?.classList.remove('d-none');
+        navLinks.forEach(l => l.classList.toggle('active', l.dataset.view === viewId));
+    }
 
     /**
-     * Renders an array of book objects to the DOM.
-     * @param {Array<Object>} books - The array of books to display.
+     * Fetches all books from the API and stores them in the 'allBooks' global state.
+     * Handles fetch errors and displays a message to the user.
      */
-    const renderBooks = (books) => {
-        bookList.innerHTML = '';
-        if (books.length === 0) {
-            bookList.innerHTML = '<div class="col"><div class="alert alert-info">No books match the current criteria.</div></div>';
+    async function fetchBooks() {
+        try {
+            const res = await fetch(API_URL);
+            if (!res.ok) throw new Error(`Server Error: ${res.status}`);
+            allBooks = await res.json();
+        } catch (err) {
+            console.error("FETCH FAILED:", err);
+            bookListEl.innerHTML = '<div class="col alert alert-danger">Failed to load books. Is the server running?</div>';
+            allBooks = [];
+        }
+    }
+
+    /**
+     * Renders a paginated list of books to the DOM.
+     * @param {Array} books - The filtered array of books to render from.
+     */
+    function renderBooks(books) {
+        // Clear the list only if it's the first page
+        if (currentlyDisplayedBooks === 0) bookListEl.innerHTML = '';
+
+        // Handle no books found
+        if (books.length === 0 && currentlyDisplayedBooks === 0) {
+            bookListEl.innerHTML = '<div class="col"><p class="text-center text-muted mt-4">No books found.</p></div>';
+            loadMoreBtnEl.classList.add('d-none');
             return;
         }
-        books.forEach(book => {
-            const stockBadgeColor = book.stock > 10 ? 'bg-success' : (book.stock > 0 ? 'bg-warning' : 'bg-danger');
-            const stockStatus = book.stock > 0 ? `In Stock: ${book.stock}` : 'Out of Stock';
 
-            const bookCard = document.createElement('div');
-            bookCard.className = 'col-md-6 col-lg-4 col-xl-3';
-            bookCard.innerHTML = `
+        // Determine the slice of books to render
+        const booksToRender = books.slice(currentlyDisplayedBooks, currentlyDisplayedBooks + BOOKS_PER_PAGE);
+
+        // Create and append card for each book
+        booksToRender.forEach(book => {
+            const stockBadge = book.stock > 10 ? 'bg-success' : (book.stock > 0 ? 'bg-warning' : 'bg-danger');
+            const stockText = book.stock > 0 ? `In Stock: ${book.stock}` : 'Out of Stock';
+            const card = document.createElement('div');
+            card.className = 'col-md-6 col-lg-4 col-xl-3';
+            card.innerHTML = `
                 <div class="card h-100 book-card" data-id="${book.id}">
-                    <img src="${book.coverImage || 'https://via.placeholder.com/150x220.png?text=No+Cover'}" class="card-img-top book-cover" alt="Cover of ${book.title}">
+                    <img src="${book.coverImage || 'https://via.placeholder.com/150x220.png?text=No+Cover'}" class="card-img-top book-cover" alt="${book.title}">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title" title="${book.title}">${book.title}</h5>
                         <p class="card-text text-muted mb-2">${book.author}</p>
-                        <div class="mt-auto">
-                            <p class="card-text fw-bold fs-5 mb-1">$${parseFloat(book.price).toFixed(2)}</p>
-                            <p class="card-text"><span class="badge ${stockBadgeColor}">${stockStatus}</span></p>
+                        <div class="mt-auto pt-2">
+                            <p class="card-text fw-bold fs-5 mb-1">$${book.price.toFixed(2)}</p>
+                            <p class="card-text"><span class="badge ${stockBadge}">${stockText}</span></p>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end">
-                        <button class="btn btn-sm btn-outline-secondary me-2 edit-btn" data-id="${book.id}"><i class="bi bi-pencil-square"></i> Edit</button>
-                        <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${book.id}"><i class="bi bi-trash"></i> Delete</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2 edit-btn"><i class="bi bi-pencil-square"></i> Edit</button>
+                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash"></i> Delete</button>
                     </div>
-                </div>
-            `;
-            bookList.appendChild(bookCard);
+                </div>`;
+            bookListEl.appendChild(card);
         });
-    };
+
+        // Update the count of displayed books
+        currentlyDisplayedBooks += booksToRender.length;
+
+        // Show or hide the 'Load More' button
+        if (currentlyDisplayedBooks < books.length) {
+            loadMoreBtnEl.classList.remove('d-none');
+        } else {
+            loadMoreBtnEl.classList.add('d-none');
+        }
+    }
 
     /**
-     * Applies current search and filter values to the master book list and re-renders the UI.
+     * Applies filters from search, category, and stock dropdowns, then calls renderBooks.
+     * @param {boolean} isLoadMore - If true, appends books instead of replacing.
      */
-    const applyFiltersAndRender = () => {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        const selectedCategory = categoryFilter.value;
-        const selectedStock = stockFilter.value;
-
-        let filteredBooks = allBooks;
-
-        // Apply search term filter
-        if (searchTerm) {
-            filteredBooks = filteredBooks.filter(book => 
-                book.title.toLowerCase().includes(searchTerm) ||
-                book.author.toLowerCase().includes(searchTerm) ||
-                book.isbn.includes(searchTerm)
-            );
+    function applyFiltersAndRender(isLoadMore = false) {
+        if (!isLoadMore) {
+            // Reset counter if it's a new search/filter action
+            currentlyDisplayedBooks = 0;
         }
 
-        // Apply category filter
-        if (selectedCategory) {
-            filteredBooks = filteredBooks.filter(book => book.category === selectedCategory);
+        let filtered = allBooks;
+        const searchTerm = searchInputEl.value.toLowerCase().trim();
+        const category = categoryFilterEl.value;
+        const stock = stockFilterEl.value;
+
+        if (searchTerm) filtered = filtered.filter(b => b.title.toLowerCase().includes(searchTerm) || b.author.toLowerCase().includes(searchTerm));
+        if (category) filtered = filtered.filter(b => b.category === category);
+        if (stock) {
+            if (stock === 'in-stock') filtered = filtered.filter(b => b.stock > 10);
+            else if (stock === 'low-stock') filtered = filtered.filter(b => b.stock > 0 && b.stock <= 10);
+            else if (stock === 'out-of-stock') filtered = filtered.filter(b => b.stock === 0);
         }
 
-        // Apply stock filter
-        if (selectedStock) {
-            filteredBooks = filteredBooks.filter(book => {
-                if (selectedStock === 'in-stock') return book.stock > 10;
-                if (selectedStock === 'low-stock') return book.stock > 0 && book.stock <= 10;
-                if (selectedStock === 'out-of-stock') return book.stock === 0;
-                return true;
+        renderBooks(filtered);
+    }
+
+    /**
+     * Populates the category filter dropdown with unique categories from allBooks.
+     */
+    function populateCategoryFilter() {
+        const categories = [...new Set(allBooks.map(b => b.category).filter(Boolean))];
+        categoryFilterEl.innerHTML = '<option value="">All Categories</option>';
+        categories.sort().forEach(c => categoryFilterEl.innerHTML += `<option value="${c}">${c}</option>`);
+    }
+
+    /**
+     * Renders the current state of the 'cart' array to the billing page.
+     */
+    function renderCart() {
+        if (!cart.length) {
+            cartItemsContainerEl.innerHTML = '<p class="text-muted">No items in the cart.</p>';
+        } else {
+            cartItemsContainerEl.innerHTML = `
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-end">Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cart.map(item => `
+                            <tr data-id="${item.id}">
+                                <td>
+                                    ${item.title}<br>
+                                    <small class="text-muted">$${item.price.toFixed(2)} each</small>
+                                </td>
+                                <td class="text-center">
+                                    <input type="number" class="form-control form-control-sm cart-quantity-input" value="${item.quantity}" min="1" max="${item.stock}">
+                                </td>
+                                <td class="text-end fw-bold">$${(item.price * item.quantity).toFixed(2)}</td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-outline-danger remove-from-cart-btn"><i class="bi bi-x-lg"></i></button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>`;
+        }
+        updateBillSummary();
+    }
+
+    /**
+     * Updates the subtotal, tax, and total fields in the billing summary.
+     * Also enables/disables cart-related buttons.
+     */
+    function updateBillSummary() {
+        const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        const tax = subtotal * 0.05; // 5% tax
+        const total = subtotal + tax;
+
+        summarySubtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        summaryTaxEl.textContent = `$${tax.toFixed(2)}`;
+        summaryTotalEl.textContent = `$${total.toFixed(2)}`;
+
+        const hasCartItems = cart.length > 0;
+        processSaleBtnEl.disabled = !hasCartItems;
+        clearCartBtnEl.disabled = !hasCartItems;
+        generateReceiptBtnEl.disabled = lastSuccessfulSale === null;
+    }
+
+    /**
+     * Adds a book to the cart or increments its quantity if already present.
+     * @param {string} bookId - The ID of the book to add.
+     */
+    function addToCart(bookId) {
+        const book = allBooks.find(b => b.id === bookId);
+        if (!book || book.stock <= 0) {
+            alert('Book is out of stock.');
+            return;
+        }
+
+        const cartItem = cart.find(i => i.id === bookId);
+        if (cartItem) {
+            if (cartItem.quantity < book.stock) {
+                cartItem.quantity++;
+            } else {
+                alert('Cannot add more than available stock.');
+            }
+        } else {
+            cart.push({ ...book, quantity: 1 });
+        }
+        renderCart();
+    }
+
+    /**
+     * Generates a PDF receipt for a given sale.
+     * @param {Array} saleData - The array of cart items from the sale.
+     */
+    function generateReceipt(saleData) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const subtotal = saleData.reduce((s, i) => s + i.price * i.quantity, 0);
+        const tax = subtotal * 0.05;
+        const total = subtotal + tax;
+
+        doc.setFontSize(22);
+        doc.text("The Story Shelf - Receipt", 10, 20);
+        doc.setFontSize(12);
+        doc.text(`Date: ${new Date().toLocaleString()}`, 10, 30);
+
+        let y = 40;
+        doc.line(10, y, 200, y); y += 10; // Horizontal line
+        doc.text("Item", 10, y);
+        doc.text("Qty", 120, y);
+        doc.text("Price", 150, y);
+        doc.text("Total", 180, y);
+        y += 5; doc.line(10, y, 200, y); y += 10;
+
+        saleData.forEach(item => {
+            doc.text(item.title.substring(0, 50), 10, y);
+            doc.text(item.quantity.toString(), 120, y);
+            doc.text(`$${item.price.toFixed(2)}`, 150, y);
+            doc.text(`$${(item.price * item.quantity).toFixed(2)}`, 180, y);
+            y += 7;
+        });
+
+        y += 5; doc.line(10, y, 200, y); y += 10;
+        doc.text(`Subtotal: $${subtotal.toFixed(2)}`, 150, y); y += 7;
+        doc.text(`Tax (5%): $${tax.toFixed(2)}`, 150, y); y += 7;
+        doc.setFontSize(16);
+        doc.text(`Total: $${total.toFixed(2)}`, 150, y);
+
+        doc.save(`receipt-${Date.now()}.pdf`);
+    }
+
+    // --- Event Listeners Setup ---
+    function setupEventListeners() {
+        // Navigation: Logo click
+        brandLogoEl.addEventListener('click', e => {
+            e.preventDefault();
+            showView('billing-view');
+        });
+
+        // Navigation: Nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                showView(e.target.dataset.view);
             });
-        }
-        
-        renderBooks(filteredBooks);
-    };
-
-    /**
-     * Populates the category filter dropdown with unique categories from the book list.
-     */
-    const populateCategoryFilter = () => {
-        const categories = [...new Set(allBooks.map(book => book.category).filter(Boolean))];
-        categoryFilter.innerHTML = '<option value="">All Categories</option>'; // Reset
-        categories.sort().forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            categoryFilter.appendChild(option);
         });
-    };
 
-    /**
-     * Handles the submission of the book form for both creating and updating.
-     */
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+        // Inventory: Load More
+        loadMoreBtnEl.addEventListener('click', () => {
+            applyFiltersAndRender(true); // Pass true to indicate 'load more'
+        });
 
-        const bookId = document.getElementById('book-id').value;
-        const bookData = {
-            title: document.getElementById('title').value, author: document.getElementById('author').value,
-            isbn: document.getElementById('isbn').value, price: parseFloat(document.getElementById('price').value),
-            stock: parseInt(document.getElementById('stock').value, 10), category: document.getElementById('category').value,
-            coverImage: document.getElementById('coverImage').value, description: document.getElementById('description').value,
-        };
-        if (!bookId) bookData.id = bookData.isbn;
+        // Inventory: Filters
+        searchInputEl.addEventListener('input', () => applyFiltersAndRender(false));
+        categoryFilterEl.addEventListener('change', () => applyFiltersAndRender(false));
+        stockFilterEl.addEventListener('change', () => applyFiltersAndRender(false));
 
-        const method = bookId ? 'PUT' : 'POST';
-        const url = bookId ? `${API_URL}/${bookId}` : API_URL;
+        // Inventory: Add Book Button
+        addBookBtnEl.addEventListener('click', () => {
+            bookFormEl.reset();
+            bookFormEl.querySelector('#book-id').value = ''; // Clear hidden ID
+            bookModalLabelEl.textContent = 'Add New Book';
+            bookModal.show();
+        });
 
-        try {
-            const response = await fetch(url, {
+        // Inventory: Edit/Delete buttons on book cards
+        bookListEl.addEventListener('click', e => {
+            const card = e.target.closest('.book-card');
+            if (!card) return;
+            const bookId = card.dataset.id;
+            const book = allBooks.find(b => b.id === bookId);
+            if (!book) return;
+
+            // Handle Edit
+            if (e.target.closest('.edit-btn')) {
+                bookFormEl.reset();
+                bookModalLabelEl.textContent = 'Edit Book';
+                // Populate form with book data
+                Object.keys(book).forEach(key => {
+                    const input = bookFormEl.querySelector(`#${key}`);
+                    if (input) input.value = book[key];
+                });
+                bookFormEl.querySelector('#book-id').value = book.id; // Set hidden ID
+                bookModal.show();
+            }
+
+            // Handle Delete
+            if (e.target.closest('.delete-btn')) {
+                if (confirm(`Are you sure you want to delete "${book.title}"?`)) {
+                    fetch(`${API_URL}/${bookId}`, { method: 'DELETE' })
+                        .then(res => {
+                            if (res.ok) {
+                                refreshInventoryData(); // Refresh list after delete
+                            } else {
+                                alert('Delete failed. Please try again.');
+                            }
+                        });
+                }
+            }
+        });
+
+        // Inventory: Book Modal Form (Add/Edit)
+        bookFormEl.addEventListener('submit', e => {
+            e.preventDefault();
+            const id = bookFormEl.querySelector('#book-id').value;
+            // Create data object from form
+            const bookData = {
+                id: id || bookFormEl.querySelector('#isbn').value, // Use ISBN as ID if new
+                title: bookFormEl.querySelector('#title').value,
+                author: bookFormEl.querySelector('#author').value,
+                isbn: bookFormEl.querySelector('#isbn').value,
+                price: parseFloat(bookFormEl.querySelector('#price').value),
+                stock: parseInt(bookFormEl.querySelector('#stock').value, 10),
+                category: bookFormEl.querySelector('#category').value,
+                coverImage: bookFormEl.querySelector('#coverImage').value,
+                description: bookFormEl.querySelector('#description').value,
+            };
+
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `${API_URL}/${id}` : API_URL;
+
+            fetch(url, {
                 method: method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookData)
-            });
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            
-            bookModal.hide();
-            await fetchAndDisplayBooks(); // Full refetch to get updated data and categories
-        } catch (error) {
-            console.error('Error saving book:', error);
-            alert('Failed to save book. Check console for details.');
-        }
-    };
-    
-    /**
-     * Opens the modal to edit a book, populating it with existing data.
-     */
-    const openEditModal = async (id) => {
-        try {
-            // Find book from local array first for speed, fallback to API
-            let book = allBooks.find(b => b.id === id);
-            if (!book) {
-                 const response = await fetch(`${API_URL}/${id}`);
-                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                 book = await response.json();
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Save operation failed');
+                bookModal.hide();
+                refreshInventoryData(); // Refresh list after add/edit
+            })
+            .catch(err => alert(err.message));
+        });
+
+        // Billing: Search
+        billingSearchEl.addEventListener('input', () => {
+            const searchTerm = billingSearchEl.value.toLowerCase().trim();
+            if (searchTerm.length < 2) {
+                billingSearchResultsEl.innerHTML = '';
+                return;
             }
-            
-            bookModalLabel.textContent = 'Edit Book';
-            document.getElementById('book-id').value = book.id;
-            document.getElementById('title').value = book.title; document.getElementById('author').value = book.author;
-            document.getElementById('isbn').value = book.isbn; document.getElementById('price').value = book.price;
-            document.getElementById('stock').value = book.stock; document.getElementById('category').value = book.category || '';
-            document.getElementById('coverImage').value = book.coverImage || ''; document.getElementById('description').value = book.description || '';
-            
-            bookModal.show();
-        } catch (error) {
-            console.error('Error fetching book details:', error);
-            alert('Failed to fetch book details.');
-        }
-    };
+            // Filter only in-stock books
+            const results = allBooks.filter(b => b.stock > 0 &&
+                (b.title.toLowerCase().includes(searchTerm) || b.author.toLowerCase().includes(searchTerm))
+            );
+            // Show top 5 results
+            billingSearchResultsEl.innerHTML = results.slice(0, 5).map(b =>
+                `<a href="#" class="list-group-item list-group-item-action" data-id="${b.id}">${b.title} (${b.author})</a>`
+            ).join('');
+        });
 
-    /**
-     * Deletes a book after user confirmation.
-     */
-    const deleteBook = async (id) => {
-        if (!confirm('Are you sure you want to delete this book?')) return;
-        
-        try {
-            const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            await fetchAndDisplayBooks();
-        } catch (error) {
-            console.error('Error deleting book:', error);
-            alert('Failed to delete book.');
-        }
-    };
+        // Billing: Add from search results
+        billingSearchResultsEl.addEventListener('click', e => {
+            e.preventDefault();
+            const target = e.target.closest('a');
+            if (target && target.dataset.id) {
+                addToCart(target.dataset.id);
+                billingSearchEl.value = ''; // Clear search bar
+                billingSearchResultsEl.innerHTML = ''; // Clear results
+            }
+        });
 
-    // --- Event Listeners ---
+        // Billing: Cart quantity change
+        cartItemsContainerEl.addEventListener('change', e => {
+            if (e.target.classList.contains('cart-quantity-input')) {
+                const bookId = e.target.closest('tr').dataset.id;
+                const newQuantity = parseInt(e.target.value, 10);
+                const cartItem = cart.find(i => i.id === bookId);
+                
+                if (newQuantity > 0 && newQuantity <= cartItem.stock) {
+                    cartItem.quantity = newQuantity;
+                    renderCart();
+                } else {
+                    // Revert to old value if invalid
+                    e.target.value = cartItem.quantity;
+                    alert(`Quantity must be between 1 and ${cartItem.stock}.`);
+                }
+            }
+        });
 
-    addBookBtn.addEventListener('click', () => {
-        bookModalLabel.textContent = 'Add New Book';
-        bookForm.reset();
-        document.getElementById('book-id').value = '';
-        bookModal.show();
-    });
+        // Billing: Remove from cart
+        cartItemsContainerEl.addEventListener('click', e => {
+            if (e.target.closest('.remove-from-cart-btn')) {
+                const bookId = e.target.closest('tr').dataset.id;
+                cart = cart.filter(item => item.id !== bookId);
+                renderCart();
+            }
+        });
 
-    bookList.addEventListener('click', (event) => {
-        const editBtn = event.target.closest('.edit-btn');
-        const deleteBtn = event.target.closest('.delete-btn');
-        if (editBtn) openEditModal(editBtn.dataset.id);
-        else if (deleteBtn) deleteBook(deleteBtn.dataset.id);
-    });
+        // Billing: Clear Cart
+        clearCartBtnEl.addEventListener('click', () => {
+            if (cart.length > 0 && confirm('Are you sure you want to clear the entire cart?')) {
+                cart = [];
+                lastSuccessfulSale = null;
+                renderCart();
+            }
+        });
 
-    bookForm.addEventListener('submit', handleFormSubmit);
+        // Billing: Generate Receipt
+        generateReceiptBtnEl.addEventListener('click', () => {
+            if (lastSuccessfulSale) {
+                generateReceipt(lastSuccessfulSale);
+            } else {
+                alert('No recent sale to generate a receipt for.');
+            }
+        });
 
-    // Listen for input on search and filter elements
-    searchInput.addEventListener('input', applyFiltersAndRender);
-    categoryFilter.addEventListener('change', applyFiltersAndRender);
-    stockFilter.addEventListener('change', applyFiltersAndRender);
+        // Billing: Process Sale
+        processSaleBtnEl.addEventListener('click', async () => {
+            processSaleBtnEl.disabled = true;
+            processSaleBtnEl.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Processing...`;
 
-    // --- Initial Load ---
-    fetchAndDisplayBooks();
+            try {
+                // Create an array of fetch promises to update stock for each item
+                const updatePromises = cart.map(item => {
+                    const newStock = item.stock - item.quantity;
+                    return fetch(`${API_URL}/${item.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ stock: newStock }) // Only update stock
+                    });
+                });
+
+                const responses = await Promise.all(updatePromises);
+                
+                // Check if any update failed
+                if (responses.some(res => !res.ok)) {
+                    throw new Error('One or more stock updates failed.');
+                }
+
+                alert('Sale successful!');
+                lastSuccessfulSale = JSON.parse(JSON.stringify(cart)); // Save a deep copy of the cart
+                cart = [];
+                renderCart();
+                await refreshInventoryData(); // Refresh all book data
+
+            } catch (err) {
+                alert(`Sale processing failed: ${err.message}`);
+                lastSuccessfulSale = null; // Clear last sale if it failed
+            } finally {
+                processSaleBtnEl.disabled = false;
+                processSaleBtnEl.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Process Sale';
+                updateBillSummary(); // Update button states
+            }
+        });
+    }
+
+    // --- Start the Application ---
+    initializeApp();
 });
