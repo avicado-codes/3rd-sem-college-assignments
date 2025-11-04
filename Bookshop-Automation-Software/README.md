@@ -52,24 +52,25 @@ This animation demonstrates the core features of the application, including inve
 
 The project follows a modular monorepo-style layout:
 /Bookshop-Automation-Software
-|
-├── /src/ # Contains all frontend code
-│ ├── /images/ # Book cover images
-│ ├── app.js # Main application logic
-│ ├── index.html # HTML structure for the single-page app
-│ ├── styles.css # Custom CSS styles
-│ └── favicon.ico # Browser tab icon
-|
-├── /server/ # Contains all backend code
-│ ├── /db/ # Local JSON database files
-│ │ ├── books.json
-│ │ ├── sales.json
-│ │ └── customers.json
-│ ├── index.js # The Express.js server
-│ ├── package.json # Node.js project dependencies
-│ └── package-lock.json
-|
-└── README.md # This documentation file
+
+- **/src/** — Contains all frontend code
+  - **/images/** — Book cover images
+  - **app.js** — Main application logic
+  - **index.html** — HTML for the single-page app
+  - **styles.css** — Custom CSS styles
+  - **favicon.ico** — Browser tab icon
+
+- **/server/** — Contains all backend code
+  - **/db/** — Local JSON database files
+    - **books.json**
+    - **sales.json**
+    - **customers.json**
+  - **index.js** — Express server
+  - **package.json** — Node.js project dependencies
+  - **package-lock.json**
+
+- **README.md** — This documentation file
+
 
 ---
 
@@ -129,7 +130,7 @@ To access administrative functions (add, edit, delete books), simply append `#ad
 
 ---
 
-## 🔧 Version Control Workflow
+##  Version Control Workflow
 
 This project follows a standard Git workflow:
 

@@ -47,23 +47,24 @@ Since this is a local-only application, a live web demo isn't possible. Here's a
 The project is organized in a clean, modular structure:
 
 /Tourist-Information-System
-|
-├── /data/ # Contains the database file
-│ └── tis.db
-|
-├── /server/ # Contains all backend code
-│ ├── db-init.js # Script to initialize the database schema
-│ ├── index.js # The Express.js server
-│ ├── knexfile.js # Knex.js database configuration
-│ └── package.json # Node.js project dependencies
-|
-├── /shared-assets/ # Contains all place images
-│ └── gateway-india.jpg
-|
-└── /src/ # Contains all frontend code
-├── app.js # Main application logic
-├── index.html # HTML structure for the single-page app
-└── styles.css # Custom CSS styles
+
+- **/data/** — Contains the database file  
+  - **tis.db**
+
+- **/server/** — Contains all backend code  
+  - **db-init.js** — Script to initialize the database schema  
+  - **index.js** — The Express.js server  
+  - **knexfile.js** — Knex.js database configuration  
+  - **package.json** — Node.js project dependencies  
+
+- **/shared-assets/** — Contains all place images  
+  - **gateway-india.jpg**
+
+- **/src/** — Contains all frontend code  
+  - **app.js** — Main application logic  
+  - **index.html** — HTML structure for the single-page app  
+  - **styles.css** — Custom CSS styles
+
 
 ---
 
