@@ -11,7 +11,7 @@
     "location": "E2",
     "publisher": "Avery",
     "description": "An easy and proven way to build good habits and break bad ones. James Clear presents a practical framework for improving every day by focusing on tiny, incremental changes that compound into remarkable results over time.",
-    "coverImage": "atomic-habits.jpg"
+    "coverImage": "images/atomic-habits.jpg"
   },
   {
     "id": "9780671027032",
@@ -25,7 +25,7 @@
     "location": "E1",
     "publisher": "Pocket Books",
     "description": "For decades, the rock-solid, time-tested advice in this book has carried thousands of now famous people up the ladder of success in their business and personal lives. A timeless classic on human relations.",
-    "coverImage": "how-to-win-friends-and-influence-people.jpg"
+    "coverImage": "images/how-to-win-friends-and-influence-people.jpg"
   },
   {
     "id": "9781982137274",
@@ -39,7 +39,7 @@
     "location": "E1",
     "publisher": "Simon & Schuster",
     "description": "A holistic, integrated, principle-centered approach for solving personal and professional problems. Covey reveals a step-by-step pathway for living with fairness, integrity, service, and human dignity.",
-    "coverImage": "the-7-habits-of-highly-effective-people.jpg"
+    "coverImage": "images/the-7-habits-of-highly-effective-people.jpg"
   },
   {
     "id": "9780307352156",
@@ -53,7 +53,7 @@
     "location": "E6",
     "publisher": "Crown Publishers",
     "description": "In a culture that dramatically undervalues introverts, this book argues that we lose out on their extraordinary talents. Cain charts the rise of the Extrovert Ideal and explores how deeply it has come to permeate our culture.",
-    "coverImage": "quiet-the-power-of-introverts.jpg"
+    "coverImage": "images/quiet-the-power-of-introverts.jpg"
   },
   {
     "id": "9780143127741",
@@ -67,7 +67,7 @@
     "location": "E5",
     "publisher": "Penguin Books",
     "description": "A pioneering researcher transforms our understanding of trauma and offers a bold new paradigm for healing in this New York Times bestseller. Trauma is a fact of life; veterans and their families deal with the painful aftermath of combat.",
-    "coverImage": "the-body-keeps-the-score.jpg"
+    "coverImage": "images/the-body-keeps-the-score.jpg"
   },
   {
     "id": "9780441013593",
@@ -81,7 +81,7 @@
     "location": "B3",
     "publisher": "Ace Books",
     "description": "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the 'spice' melange, a drug capable of extending life and enhancing consciousness.",
-    "coverImage": "dune.jpg"
+    "coverImage": "images/dune.jpg"
   },
   {
     "id": "9780812550702",
@@ -95,7 +95,7 @@
     "location": "B4",
     "publisher": "Tor Books",
     "description": "In order to develop a military genius that can defeat an alien race, the government breeds gifted children and trains them as soldiers. A brilliant young boy, Ender Wiggin lives with his kind but distant parents, his sadistic brother Peter, and the person he loves more than anyone else, his sister Valentine.",
-    "coverImage": "enders-game.jpg"
+    "coverImage": "images/enders-game.jpg"
   },
   {
     "id": "9780553803716",
@@ -109,7 +109,7 @@
     "location": "B3",
     "publisher": "Bantam Spectra",
     "description": "The Galactic Empire has ruled for twelve thousand years. But now, it is dying. Only Hari Seldon, creator of the revolutionary science of psychohistory, can see into the future—a dark age of ignorance, barbarism, and warfare that will last thirty thousand years.",
-    "coverImage": "foundation.jpg"
+    "coverImage": "images/foundation.jpg"
   },
   {
     "id": "9780345391803",
@@ -123,7 +123,7 @@
     "location": "B4",
     "publisher": "Del Rey Books",
     "description": "Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.",
-    "coverImage": "the-hitchhikers-guide-to-the-galaxy.jpg"
+    "coverImage": "images/the-hitchhikers-guide-to-the-galaxy.jpg"
   },
   {
     "id": "9780593135204",
@@ -137,7 +137,7 @@
     "location": "B4",
     "publisher": "Ballantine Books",
     "description": "Ryland Grace is the sole survivor on a desperate, last-chance mission—and if he fails, humanity and the earth itself will perish. Except that right now, he doesn't know that. He can't even remember his own name, let alone the nature of his assignment or how to complete it.",
-    "coverImage": "project-hail-mary.jpg"
+    "coverImage": "images/project-hail-mary.jpg"
   },
   {
     "id": "9780135957059",
@@ -151,7 +151,7 @@
     "location": "A1",
     "publisher": "Addison-Wesley Professional",
     "description": "The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process—taking a requirement and producing working, maintainable code that delights its users.",
-    "coverImage": "the-pragmatic-programmer.jpg"
+    "coverImage": "images/the-pragmatic-programmer.jpg"
   },
   {
     "id": "9780132350884",
@@ -160,12 +160,12 @@
     "isbn": "9780132350884",
     "price": 35.99,
     "cost": 18.5,
-    "stock": 10,
+    "stock": 8,
     "category": "Software Development",
     "location": "A1",
     "publisher": "Prentice Hall",
     "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
-    "coverImage": "clean-code.jpg"
+    "coverImage": "images/clean-code.jpg"
   },
   {
     "id": "9781449373320",
@@ -179,7 +179,7 @@
     "location": "A2",
     "publisher": "O'Reilly Media",
     "description": "Data is at the center of many challenges in system design today. Difficult issues need to be figured out, such as scalability, consistency, reliability, efficiency, and maintainability. In this practical and comprehensive guide, author Martin Kleppmann helps you navigate this diverse landscape.",
-    "coverImage": "designing-data-intensive-applications.jpg"
+    "coverImage": "images/designing-data-intensive-applications.jpg"
   },
   {
     "id": "9780735619678",
@@ -193,7 +193,7 @@
     "location": "A2",
     "publisher": "Microsoft Press",
     "description": "Widely considered one of the best practical guides to programming, Steve McConnell’s original Code Complete has been helping developers write better software for more than a decade. This new edition is fully updated to illustrate the state-of-the-art in software construction.",
-    "coverImage": "code-complete.jpg"
+    "coverImage": "images/code-complete.jpg"
   },
   {
     "id": "9780201835953",
@@ -207,7 +207,7 @@
     "location": "A2",
     "publisher": "Addison-Wesley Professional",
     "description": "Few books on software project management have been as influential and timeless as The Mythical Man-Month. With a blend of software engineering facts and thought-provoking opinions, Fred Brooks offers insight for anyone managing complex projects.",
-    "coverImage": "the-mythical-man-month.jpg"
+    "coverImage": "images/the-mythical-man-month.jpg"
   },
   {
     "id": "9780061120084",
@@ -221,7 +221,7 @@
     "location": "G4",
     "publisher": "Harper Perennial Modern Classics",
     "description": "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it, To Kill A Mockingbird became both an instant bestseller and a critical success when it was first published in 1960.",
-    "coverImage": "to-kill-a-mockingbird.jpg"
+    "coverImage": "images/to-kill-a-mockingbird.jpg"
   },
   {
     "id": "9780451524935",
@@ -235,7 +235,7 @@
     "location": "G4",
     "publisher": "Signet Classics",
     "description": "The story of Winston Smith, a member of the Outer Party, who is frustrated by the omnipresent eyes of the Party, and its ominous ruler Big Brother. In a world where independent thought is a 'thoughtcrime,' Winston's defiance could be his downfall.",
-    "coverImage": "1984.jpg"
+    "coverImage": "images/1984.jpg"
   },
   {
     "id": "9780141439518",
@@ -249,7 +249,7 @@
     "location": "G3",
     "publisher": "Penguin Classics",
     "description": "Since its immediate success in 1813, Pride and Prejudice has remained one of the most popular novels in the English language. Jane Austen called this brilliant work 'her own darling child' and its vivacious heroine, Elizabeth Bennet, 'as delightful a creature as ever appeared in print.'",
-    "coverImage": "pride-and-prejudice.jpg"
+    "coverImage": "images/pride-and-prejudice.jpg"
   },
   {
     "id": "9780679783268",
@@ -263,7 +263,7 @@
     "location": "G3",
     "publisher": "Little, Brown and Company",
     "description": "The hero-narrator of The Catcher in the Rye is an ancient child of sixteen, a native New Yorker named Holden Caulfield. Through circumstances that tend to preclude adult, secondhand description, he leaves his prep school in Pennsylvania and goes underground in New York City for three days.",
-    "coverImage": "the-catcher-in-the-rye.jpg"
+    "coverImage": "images/the-catcher-in-the-rye.jpg"
   },
   {
     "id": "9780142437247",
@@ -277,7 +277,7 @@
     "location": "G4",
     "publisher": "Penguin Classics",
     "description": "The story of Captain Ahab's obsessive quest to exact revenge on Moby Dick, the giant white sperm whale that bit off his leg on the previous whaling voyage.",
-    "coverImage": "moby-dick.jpg"
+    "coverImage": "images/moby-dick.jpg"
   },
   {
     "id": "9780062316097",
@@ -291,7 +291,7 @@
     "location": "C1",
     "publisher": "HarperCollins",
     "description": "From a renowned historian comes a groundbreaking narrative of humanity’s creation and evolution—a #1 international bestseller—that explores the ways in which biology and history have defined us and enhanced our understanding of what it means to be 'human.'",
-    "coverImage": "sapiens-a-brief-history-of-humankind.jpg"
+    "coverImage": "images/sapiens-a-brief-history-of-humankind.jpg"
   },
   {
     "id": "9780393317558",
@@ -305,7 +305,7 @@
     "location": "C1",
     "publisher": "W. W. Norton & Company",
     "description": "In this 'artful, informative, and delightful' book, Jared Diamond convincingly argues that geographical and environmental factors shaped the modern world. Societies that had a head start in food production advanced beyond the hunter-gatherer stage, and then developed writing, technology, government, and organized religions.",
-    "coverImage": "guns-germs-and-steel.jpg"
+    "coverImage": "images/guns-germs-and-steel.jpg"
   },
   {
     "id": "9780375725609",
@@ -319,7 +319,7 @@
     "location": "C2",
     "publisher": "Crown Publishers",
     "description": "Erik Larson’s spellbinding bestseller intertwines the true tale of the 1893 World's Fair and the cunning serial killer who used the fair to lure his victims to their death. Combining meticulous research with nail-biting storytelling, Larson has crafted a narrative with all the pacing of a thriller.",
-    "coverImage": "the-devil-in-the-white-city.jpg"
+    "coverImage": "images/the-devil-in-the-white-city.jpg"
   },
   {
     "id": "9780743226714",
@@ -333,7 +333,7 @@
     "location": "C2",
     "publisher": "Simon & Schuster",
     "description": "In this masterful book, David McCullough tells the intensely human story of those who marched with General George Washington in the year of the Declaration of Independence—when the whole American cause was riding on their success, without which all hope for independence would have been dashed.",
-    "coverImage": "1776.jpg"
+    "coverImage": "images/1776.jpg"
   },
   {
     "id": "9780307948889",
@@ -347,7 +347,7 @@
     "location": "C1",
     "publisher": "Vintage Books",
     "description": "A major reassessment of world history, The Silk Roads is an acclaimed and visionary book that has transformed our understanding of the past. Frankopan realigns our perspective on history, placing the Silk Roads—the crossroads of civilization—at the center of the world.",
-    "coverImage": "the-silk-roads-a-new-history-of-the-world.jpg"
+    "coverImage": "images/the-silk-roads-a-new-history-of-the-world.jpg"
   },
   {
     "id": "9780553593716",
@@ -361,7 +361,7 @@
     "location": "B2",
     "publisher": "Bantam Spectra",
     "description": "Summers span decades. Winter can last a lifetime. And the struggle for the Iron Throne has begun. As Warden of the north, Lord Eddard Stark counts it a curse when King Robert bestows on him the office of the Hand. His honour weighs him down at court where a true man does what he will, not what he must.",
-    "coverImage": "a-game-of-thrones.jpg"
+    "coverImage": "images/a-game-of-thrones.jpg"
   },
   {
     "id": "9780756404741",
@@ -375,7 +375,7 @@
     "location": "B1",
     "publisher": "DAW Books",
     "description": "Told in Kvothe's own voice, this is the tale of the magically gifted young man who grows to be the most notorious wizard his world has ever seen. The intimate narrative of his childhood in a troupe of traveling players, his years spent as a near-feral orphan in a crime-ridden city, and his daring bid to enter a legendary school of magic.",
-    "coverImage": "the-name-of-the-wind.jpg"
+    "coverImage": "images/the-name-of-the-wind.jpg"
   },
   {
     "id": "9780765350381",
@@ -389,7 +389,7 @@
     "location": "B1",
     "publisher": "Tor Books",
     "description": "For a thousand years the ash fell and no flowers bloomed. For a thousand years the Skaa slaved in misery and lived in fear. For a thousand years the Lord Ruler, the 'Sliver of Infinity,' reigned with absolute power and ultimate terror, divinely invincible. Then, when hope was so long lost that not even its memory remained, a terribly scarred, heart-broken half-Skaa rediscovered it in the depths of the Lord Ruler's most hellish prison.",
-    "coverImage": "mistborn-the-final-empire.jpg"
+    "coverImage": "images/mistborn-the-final-empire.jpg"
   },
   {
     "id": "9780812511819",
@@ -403,7 +403,7 @@
     "location": "B1",
     "publisher": "Tor Books",
     "description": "The Wheel of Time turns and Ages come and go, leaving memories that become legend. Legend fades to myth, and even myth is long forgotten when the Age that gave it birth returns again. In the Third Age, an Age of Prophecy, the World and Time themselves hang in the balance. What was, what will be, and what is, may yet fall under the Shadow.",
-    "coverImage": "the-eye-of-the-world.jpg"
+    "coverImage": "images/the-eye-of-the-world.jpg"
   },
   {
     "id": "9781250301697",
@@ -417,7 +417,7 @@
     "location": "D1",
     "publisher": "Celadon Books",
     "description": "Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, and then never speaks another word.",
-    "coverImage": "the-silent-patient.jpg"
+    "coverImage": "images/the-silent-patient.jpg"
   },
   {
     "id": "9780307949480",
@@ -431,7 +431,7 @@
     "location": "D2",
     "publisher": "Vintage Crime/Black Lizard",
     "description": "A murder mystery, a family saga, a love story, and a financial intrigue wrapped into one satisfyingly complex and entertainingly atmospheric novel, The Girl with the Dragon Tattoo is the first book in Stieg Larsson's trilogy.",
-    "coverImage": "the-girl-with-the-dragon-tattoo.jpg"
+    "coverImage": "images/the-girl-with-the-dragon-tattoo.jpg"
   },
   {
     "id": "9780062073488",
@@ -445,7 +445,7 @@
     "location": "D2",
     "publisher": "William Morrow",
     "description": "Ten strangers are lured to an isolated island mansion off the Devon coast by a mysterious 'U.N. Owen.' At dinner a recorded message accuses each of them in turn of having a guilty secret, and by the end of the night one of the guests is dead.",
-    "coverImage": "and-then-there-were-none.jpg"
+    "coverImage": "images/and-then-there-were-none.jpg"
   },
   {
     "id": "9781984880963",
@@ -459,7 +459,7 @@
     "location": "D2",
     "publisher": "Pamela Dorman Books",
     "description": "In a peaceful retirement village, four unlikely friends meet up once a week to investigate unsolved murders. But when a brutal killing takes place on their very doorstep, the Thursday Murder Club find themselves in the middle of their first live case.",
-    "coverImage": "the-thursday-murder-club.jpg"
+    "coverImage": "images/the-thursday-murder-club.jpg"
   },
   {
     "id": "9781451648539",
@@ -473,7 +473,7 @@
     "location": "C3",
     "publisher": "Simon & Schuster",
     "description": "Based on more than forty interviews with Steve Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur.",
-    "coverImage": "steve-jobs.jpg"
+    "coverImage": "images/steve-jobs.jpg"
   },
   {
     "id": "9780399590504",
@@ -487,7 +487,7 @@
     "location": "C3",
     "publisher": "Random House",
     "description": "An unforgettable memoir about a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University. Tara Westover was seventeen the first time she set foot in a classroom.",
-    "coverImage": "educated-a-memoir.jpg"
+    "coverImage": "images/educated-a-memoir.jpg"
   },
   {
     "id": "9780553296983",
@@ -501,7 +501,7 @@
     "location": "C4",
     "publisher": "Bantam Books",
     "description": "Discovered in the attic in which she spent the last years of her life, Anne Frank’s remarkable diary has since become a world classic—a powerful reminder of the horrors of war and an eloquent testament to the human spirit.",
-    "coverImage": "the-diary-of-a-young-girl.jpg"
+    "coverImage": "images/the-diary-of-a-young-girl.jpg"
   },
   {
     "id": "9781524763138",
@@ -515,7 +515,7 @@
     "location": "C4",
     "publisher": "Crown Publishing Group",
     "description": "In a life filled with meaning and accomplishment, Michelle Obama has emerged as one of the most iconic and compelling women of our era. As First Lady of the United States of America—the first African American to serve in that role—she helped create the most welcoming and inclusive White House in history.",
-    "coverImage": "becoming.jpg"
+    "coverImage": "images/becoming.jpg"
   },
   {
     "id": "9781501135910",
@@ -529,7 +529,7 @@
     "location": "C3",
     "publisher": "Scribner",
     "description": "In this candid and riveting memoir, for the first time ever, Nike founder and board chairman Phil Knight shares the inside story of the company’s early days as an intrepid start-up and its evolution into one of the world’s most iconic, game-changing, and profitable brands.",
-    "coverImage": "shoe-dog-a-memoir-by-the-creator-of-nike.jpg"
+    "coverImage": "images/shoe-dog-a-memoir-by-the-creator-of-nike.jpg"
   },
   {
     "id": "9780553380163",
@@ -543,7 +543,7 @@
     "location": "J1",
     "publisher": "Bantam",
     "description": "A landmark volume in science writing by one of the great minds of our time, Stephen Hawking’s book explores such profound questions as: How did the universe begin—and what made its start possible? Does time always flow forward? Is the universe unending—or are there boundaries?",
-    "coverImage": "a-brief-history-of-time.jpg"
+    "coverImage": "images/a-brief-history-of-time.jpg"
   },
   {
     "id": "9780345539434",
@@ -557,7 +557,7 @@
     "location": "J1",
     "publisher": "Ballantine Books",
     "description": "Cosmos is one of the bestselling science books of all time. In clear-eyed prose, Sagan reveals a jewel-like blue world inhabited by a life form that is just beginning to discover its own identity and to venture into the vast ocean of space.",
-    "coverImage": "cosmos.jpg"
+    "coverImage": "images/cosmos.jpg"
   },
   {
     "id": "9780199291151",
@@ -571,7 +571,7 @@
     "location": "J2",
     "publisher": "Oxford University Press",
     "description": "Professor Dawkins articulates a gene’s eye view of evolution—a view giving centre stage to these persistent units of information, and in which organisms can be seen as vehicles for their replication. This imaginative, powerful, and stylistically brilliant work not only brought the insights of Neo-Darwinism to a wide audience, but galvanized the biology community.",
-    "coverImage": "the-selfish-gene.jpg"
+    "coverImage": "images/the-selfish-gene.jpg"
   },
   {
     "id": "9781400052189",
@@ -585,7 +585,7 @@
     "location": "J2",
     "publisher": "Crown Publishing Group",
     "description": "Her name was Henrietta Lacks, but scientists know her as HeLa. She was a poor Southern tobacco farmer who worked the same land as her slave ancestors, yet her cells—taken without her knowledge—became one of the most important tools in medicine.",
-    "coverImage": "the-immortal-life-of-henrietta-lacks.jpg"
+    "coverImage": "images/the-immortal-life-of-henrietta-lacks.jpg"
   },
   {
     "id": "9780684853949",
@@ -599,7 +599,7 @@
     "location": "J1",
     "publisher": "Touchstone",
     "description": "In his most extraordinary book, 'the man who illuminated the many mysteries of the mind' (The New York Times) and the 'poet laureate of contemporary medicine' (The Guardian) recounts the case histories of patients lost in the bizarre, apparently inescapable world of neurological disorders.",
-    "coverImage": "the-man-who-mistook-his-wife-for-a-hat.jpg"
+    "coverImage": "images/the-man-who-mistook-his-wife-for-a-hat.jpg"
   },
   {
     "id": "9780743273565",
@@ -613,7 +613,7 @@
     "location": "A3",
     "publisher": "Scribner",
     "description": "The Great Gatsby, F. Scott Fitzgerald's third book, stands as the supreme achievement of his career. This exemplary novel of the Jazz Age has been acclaimed by generations of readers.",
-    "coverImage": "the-great-gatsby.jpg"
+    "coverImage": "images/the-great-gatsby.jpg"
   },
   {
     "id": "9780439023528",
@@ -627,7 +627,7 @@
     "location": "C2",
     "publisher": "Scholastic Press",
     "description": "In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.",
-    "coverImage": "the-hunger-games.jpg"
+    "coverImage": "images/the-hunger-games.jpg"
   },
   {
     "id": "9780547928227",
@@ -641,7 +641,7 @@
     "location": "B2",
     "publisher": "Houghton Mifflin Harcourt",
     "description": "A timeless classic and the prelude to 'The Lord of the Rings,' 'The Hobbit' is the enchanting story of Bilbo Baggins, a respectable hobbit who prefers the comforts of home. His peaceful life is turned upside down when the wizard Gandalf and a company of thirteen dwarves arrive at his door, recruiting him for an adventure to reclaim their stolen treasure from the fearsome dragon, Smaug.",
-    "coverImage": "the-hobbit.jpg"
+    "coverImage": "images/the-hobbit.jpg"
   },
   {
     "id": "9780060935467",
@@ -655,7 +655,7 @@
     "location": "B1",
     "publisher": "HarperOne",
     "description": "Paulo Coelho's enchanting novel has inspired a devoted following around the world. This story, dazzling in its simplicity and inspiring in its wisdom, is about an Andalusian shepherd boy named Santiago who travels from his homeland in Spain to the Egyptian desert in search of a treasure buried near the Pyramids.",
-    "coverImage": "the-alchemist.jpg"
+    "coverImage": "images/the-alchemist.jpg"
   },
   {
     "id": "9780385732551",
@@ -669,7 +669,7 @@
     "location": "C1",
     "publisher": "Alfred A. Knopf",
     "description": "It is 1939. Nazi Germany. The country is holding its breath. Death has never been busier, and will become busier still. Liesel Meminger is a foster girl living outside of Munich, who scratches out a meager existence for herself by stealing when she encounters something she can’t resist–books.",
-    "coverImage": "the-book-thief.jpg"
+    "coverImage": "images/the-book-thief.jpg"
   },
   {
     "id": "9780142000670",
@@ -683,7 +683,7 @@
     "location": "G4",
     "publisher": "Penguin Classics",
     "description": "The Pulitzer Prize-winning epic of the Great Depression, a book that galvanized—and sometimes outraged—millions of readers. First published in 1939, Steinbeck’s story of the Joad family, who are driven from their Oklahoma home and journey west to California in search of a better life, is a portrait of the conflict between the powerful and the powerless, of one man’s fierce reaction to injustice, and of one woman’s stoical strength.",
-    "coverImage": "the-grapes-of-wrath.jpg"
+    "coverImage": "images/the-grapes-of-wrath.jpg"
   },
   {
     "id": "9781400034727",
@@ -697,7 +697,7 @@
     "location": "C2",
     "publisher": "Vintage",
     "description": "A father and his son walk alone through burned America. Nothing moves in the ravaged landscape save the ash on the wind. It is cold enough to crack stones, and when the snow falls it is gray. The sky is dark. Their destination is the coast, although they don't know what, if anything, awaits them there.",
-    "coverImage": "the-road.jpg"
+    "coverImage": "images/the-road.jpg"
   },
   {
     "id": "9780316067935",
@@ -711,7 +711,7 @@
     "location": "D1",
     "publisher": "G.P. Putnam's Sons",
     "description": "For years, rumors of the 'Marsh Girl' have haunted Barkley Cove, a quiet town on the North Carolina coast. So in late 1969, when handsome Chase Andrews is found dead, the locals immediately suspect Kya Clark, the so-called Marsh Girl. But Kya is not what they say. Sensitive and intelligent, she has survived for years alone in the marsh that she calls home.",
-    "coverImage": "where-the-crawdads-sing.jpg"
+    "coverImage": "images/where-the-crawdads-sing.jpg"
   },
   {
     "id": "9781501160493",
@@ -725,7 +725,7 @@
     "location": "H3",
     "publisher": "Atria Books",
     "description": "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants. She’s come a long way from the small town in Maine where she grew up—she graduated from college, moved to Boston, and started her own business. So when she feels a spark with a gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too good to be true.",
-    "coverImage": "it-ends-with-us.jpg"
+    "coverImage": "images/it-ends-with-us.jpg"
   },
   {
     "id": "9780143126560",
@@ -739,7 +739,7 @@
     "location": "B3",
     "publisher": "Broadway Books",
     "description": "After a dust storm nearly kills him and forces his crew to evacuate while thinking him dead, astronaut Mark Watney finds himself stranded and completely alone on Mars with no way to even signal Earth that he’s alive—and even if he could get word out, his supplies would be long before a rescue could arrive.",
-    "coverImage": "the-martian.jpg"
+    "coverImage": "images/the-martian.jpg"
   },
   {
     "id": "9780143124177",
@@ -753,7 +753,7 @@
     "location": "E1",
     "publisher": "Farrar, Straus and Giroux",
     "description": "In this groundbreaking work, Nobel laureate Daniel Kahneman takes us on a tour of the mind and explains the two systems that drive the way we think. System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical. Kahneman reveals the extraordinary capabilities, as well as the faults and biases, of fast thinking, and exposes the pervasive influence of intuitive impressions on our thoughts and choices.",
-    "coverImage": "thinking-fast-and-slow.jpg"
+    "coverImage": "images/thinking-fast-and-slow.jpg"
   },
   {
     "id": "9781592408412",
@@ -767,7 +767,7 @@
     "location": "E6",
     "publisher": "Avery",
     "description": "Based on over a decade of research, Brené Brown's 'Daring Greatly' dispels the cultural myth that vulnerability is a weakness. Instead, she argues that it is our most accurate measure of courage. The book explains that when we shut ourselves off from vulnerability, we also distance ourselves from the experiences that bring purpose and meaning to our lives, such as love, belonging, and joy.",
-    "coverImage": "daring-greatly.jpg"
+    "coverImage": "images/daring-greatly.jpg"
   },
   {
     "id": "9780807014271",
@@ -781,7 +781,7 @@
     "location": "E5",
     "publisher": "Beacon Press",
     "description": "A profound and deeply moving book, 'Man's Search for Meaning' is both a memoir of psychiatrist Viktor Frankl's experiences in Nazi concentration camps and an introduction to his therapeutic philosophy, known as logotherapy. Frankl argues that the primary human drive is not pleasure but the pursuit of what we find meaningful.",
-    "coverImage": "mans-search-for-meaning.jpg"
+    "coverImage": "images/mans-search-for-meaning.jpg"
   },
   {
     "id": "9780061241895",
@@ -795,7 +795,7 @@
     "location": "E5",
     "publisher": "Harper Business",
     "description": "In this classic book on persuasion, renowned psychologist Robert Cialdini explains the science behind why people say 'yes.' Based on years of research into the psychology of compliance, he identifies six universal principles of influence: reciprocation, commitment and consistency, social proof, liking, authority, and scarcity.",
-    "coverImage": "influence-the-psychology-of-persuasion.jpg"
+    "coverImage": "images/influence-the-psychology-of-persuasion.jpg"
   },
   {
     "id": "9780143130588",
@@ -809,7 +809,7 @@
     "location": "B2",
     "publisher": "Little, Brown and Company",
     "description": "In the house of Helios, god of the sun and mightiest of the Titans, a daughter is born. But Circe is a strange child—not powerful, like her father, nor viciously alluring like her mother. Turning to the world of mortals for companionship, she discovers that she does possess power—the power of witchcraft, which can transform rivals into monsters and menace the gods themselves.",
-    "coverImage": "circe.jpg"
+    "coverImage": "images/circe.jpg"
   },
   {
     "id": "9780765326355",
@@ -823,7 +823,7 @@
     "location": "B1",
     "publisher": "Tor Books",
     "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. It has been centuries since the fall of the ten consecrated orders known as the Knights Radiant, but their Shardblades and Shardplate remain: mystical swords and suits of armor that transform ordinary men into near-invincible warriors.",
-    "coverImage": "the-way-of-kings.jpg"
+    "coverImage": "images/the-way-of-kings.jpg"
   },
   {
     "id": "9780316334538",
@@ -837,7 +837,7 @@
     "location": "B2",
     "publisher": "Orbit",
     "description": "This is the way the world ends. Again. Three terrible things happen in a single day. Essun, a woman living an ordinary life in a small town, comes home to find that her husband has brutally murdered their son and kidnapped their daughter. Meanwhile, mighty Sanze, the empire whose innovations have been civilization's bedrock for a thousand years, collapses as most of its citizens are murdered.",
-    "coverImage": "the-fifth-season.jpg"
+    "coverImage": "images/the-fifth-season.jpg"
   },
   {
     "id": "9781594633669",
@@ -851,7 +851,7 @@
     "location": "D1",
     "publisher": "Riverhead Books",
     "description": "Rachel Watson, an alcoholic reeling from a recent divorce, takes the same commuter train every morning and night. Every day she rattles down the track, flashes past a stretch of cozy suburban homes, and stops at the signal that allows her to daily watch the same couple breakfasting on their deck. She’s even started to feel like she knows them. 'Jess and Jason,' she calls them. Their life—as she sees it—is perfect. Not unlike the life she recently lost.",
-    "coverImage": "the-girl-on-the-train.jpg"
+    "coverImage": "images/the-girl-on-the-train.jpg"
   },
   {
     "id": "9780307278443",
@@ -865,7 +865,7 @@
     "location": "D2",
     "publisher": "William Morrow",
     "description": "The year is 1954. U.S. Marshal Teddy Daniels and his new partner, Chuck Aule, have come to Shutter Island, home of Ashecliffe Hospital for the Criminally Insane, to investigate the disappearance of a patient. Multiple murderess Rachel Solando is loose somewhere on this remote and barren island, despite having been kept in a locked room under constant surveillance.",
-    "coverImage": "shutter-island.jpg"
+    "coverImage": "images/shutter-island.jpg"
   },
   {
     "title": "Frankenstein ",
@@ -874,7 +874,7 @@
     "price": 8,
     "stock": 4,
     "category": "Classic Literature",
-    "coverImage": "images/frankenstein.jpg",
+    "coverImage": "images/images/frankenstein.jpg",
     "location": "D6",
     "publisher": "Pearsons & Sons",
     "description": "Mary Shelley's classic Gothic novel tells the story of Victor Frankenstein, a brilliant but ambitious young scientist who discovers the secret to creating life. In a frenzy of creation, he stitches together a creature from stolen body parts and brings it to life. Horrified by his monstrous creation, Victor abandons it. The creature, intelligent and sensitive but hideous in appearance, is shunned by society and grows filled with a sense of injustice and a desire for revenge against its creator. The novel is a powerful exploration of scientific ambition, parental neglect, and the nature of humanity.",
@@ -892,7 +892,7 @@
     "location": "A6",
     "publisher": "Addison-Wesley Professional",
     "description": "This book is the definitive guide to refactoring, the process of improving the internal structure of existing code without changing its external behavior. Martin Fowler explains the principles of refactoring and provides a detailed catalog of over 60 proven refactorings with examples, explanations, and step-by-step instructions. It is an essential read for any developer who wants to write cleaner, more maintainable code and improve the design of their software over time.",
-    "coverImage": "refactoring-improving-the-design-of-existing-code.jpg"
+    "coverImage": "images/refactoring-improving-the-design-of-existing-code.jpg"
   },
   {
     "id": "9780321125217",
@@ -906,7 +906,7 @@
     "location": "A6",
     "publisher": "Addison-Wesley Professional",
     "description": "Eric Evans presents a systematic approach to domain-driven design (DDD), offering a framework for making design decisions and a vocabulary for discussing domain design. The book focuses on the core idea that complex software should be based on a rich model of the domain it serves. It introduces concepts like the Ubiquitous Language and Bounded Contexts to help developers build software that accurately reflects the business domain.",
-    "coverImage": "domain-driven-design.jpg"
+    "coverImage": "images/domain-driven-design.jpg"
   },
   {
     "id": "9781942788294",
@@ -920,7 +920,7 @@
     "location": "A7",
     "publisher": "IT Revolution Press",
     "description": "Told as a novel, 'The Phoenix Project' follows an IT manager who is tasked with saving a failing, mission-critical project. Through this engaging story, the authors explain the core principles of DevOps and the 'Three Ways': Flow, Feedback, and Continual Learning. The book brilliantly illustrates how applying manufacturing principles to IT work can improve workflow, increase stability, and help businesses win.",
-    "coverImage": "the-phoenix-project.jpg"
+    "coverImage": "images/the-phoenix-project.jpg"
   },
   {
     "id": "9780984782857",
@@ -934,7 +934,7 @@
     "location": "A9",
     "publisher": "CareerCup",
     "description": "The go-to guide for software engineers preparing for technical interviews at top tech companies. This book provides a deep dive into the interview process, offering strategies to handle different types of questions and a vast collection of 189 real-world programming problems with detailed solutions. It covers essential topics like data structures, algorithms, and core computer science concepts, providing invaluable insight into what top companies look for.",
-    "coverImage": "cracking-the-coding-interview.jpg"
+    "coverImage": "images/cracking-the-coding-interview.jpg"
   },
   {
     "id": "9781492041138",
@@ -948,6 +948,6 @@
     "location": "A8",
     "publisher": "O'Reilly Media",
     "description": "This book provides a comprehensive overview of the many aspects of software architecture. It covers architectural patterns, characteristics, components, and diagrams, and offers a modern look at the practice of software architecture. The authors provide a set of tools and techniques to help you make better architectural decisions, analyze trade-offs, and effectively communicate your designs to stakeholders. It is an essential guide for both aspiring and practicing architects.",
-    "coverImage": "fundamentals-of-software-architecture.jpg"
+    "coverImage": "images/fundamentals-of-software-architecture.jpg"
   }
 ]

@@ -13,26 +13,24 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" id="brand-logo" href="#" style="cursor: pointer;"><i class="bi bi-book-half"></i>
                 The Story Shelf</a>
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#" data-view="inventory-view">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" data-view="billing-view">Billing</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <main class="container mt-4">
         <div id="inventory-view" class="view-container d-none">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1 class="mb-0">Book Inventory</h1>
-                <button id="add-book-btn" class="btn btn-primary"><i class="bi bi-plus-circle-fill me-2"></i>Add New
-                    Book</button>
+                <button id="add-book-btn" class="btn btn-primary admin-only"><i
+                        class="bi bi-plus-circle-fill me-2"></i>Add New Book</button>
             </div>
             <div class="card mb-4">
                 <div class="card-body">
@@ -52,19 +50,16 @@
                 </div>
             </div>
             <div id="book-list" class="row g-4"></div>
-            <div class="text-center mt-4 mb-4">
-                <button id="load-more-btn" class="btn btn-outline-primary d-none">Load More Books</button>
-            </div>
+            <div class="text-center mt-4 mb-4"><button id="load-more-btn" class="btn btn-outline-primary d-none">Load
+                    More Books</button></div>
         </div>
-
         <div id="billing-view" class="view-container d-none">
             <h1 class="mb-3">Point of Sale</h1>
             <div class="row">
                 <div class="col-lg-7">
                     <div class="card mb-3">
-                        <div class="card-body">
-                            <label for="billing-search" class="form-label">Search Book to Add</label>
-                            <input type="text" id="billing-search" class="form-control"
+                        <div class="card-body"><label for="billing-search" class="form-label">Search Book to
+                                Add</label><input type="text" id="billing-search" class="form-control"
                                 placeholder="Start typing title, author, or ISBN...">
                             <div id="billing-search-results" class="list-group mt-2"></div>
                         </div>
@@ -88,35 +83,30 @@
                                 <li class="list-group-item d-flex justify-content-between"><span>Tax (5%)</span><span
                                         id="summary-tax">$0.00</span></li>
                                 <li class="list-group-item d-flex justify-content-between fs-4 fw-bold">
-                                    <span>Total</span><span id="summary-total">$0.00</span>
-                                </li>
+                                    <span>Total</span><span id="summary-total">$0.00</span></li>
                             </ul>
                             <hr>
-                            <div class="d-grid gap-2">
-                                <button id="process-sale-btn" class="btn btn-success btn-lg" disabled><i
-                                        class="bi bi-check-circle-fill me-2"></i>Process Sale</button>
-                                <button id="generate-receipt-btn" class="btn btn-secondary" disabled><i
-                                        class="bi bi-file-earmark-pdf me-2"></i>Generate Receipt</button>
-                                <button id="clear-cart-btn" class="btn btn-outline-danger mt-2" disabled><i
-                                        class="bi bi-x-circle me-2"></i>Clear Cart</button>
-                            </div>
+                            <div class="d-grid gap-2"><button id="process-sale-btn" class="btn btn-success btn-lg"
+                                    disabled><i class="bi bi-check-circle-fill me-2"></i>Process Sale</button><button
+                                    id="generate-receipt-btn" class="btn btn-secondary" disabled><i
+                                        class="bi bi-file-earmark-pdf me-2"></i>Generate Receipt</button><button
+                                    id="clear-cart-btn" class="btn btn-outline-danger mt-2" disabled><i
+                                        class="bi bi-x-circle me-2"></i>Clear Cart</button></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
-    <div class="modal fade" id="book-modal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal fade" id="book-modal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="bookModalLabel">Add New Book</h5><button type="button" class="btn-close"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
+                        data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="book-form">
-                        <input type="hidden" id="book-id">
+                    <form id="book-form"><input type="hidden" id="book-id">
                         <div class="row">
                             <div class="col-md-8 mb-3"><label for="title" class="form-label">Title</label><input
                                     type="text" class="form-control" id="title" required></div>
@@ -137,16 +127,50 @@
                                 type="url" class="form-control" id="coverImage"></div>
                         <div class="mb-3"><label for="description" class="form-label">Description</label><textarea
                                 class="form-control" id="description" rows="3"></textarea></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Book</button>
-                        </div>
+                        <div class="modal-footer"><button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button><button type="submit" class="btn btn-primary">Save
+                                Book</button></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- Book Details Modal -->
+    <div class="modal fade" id="book-details-modal" tabindex="-1" aria-labelledby="bookDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img id="details-cover-image" src="" class="img-fluid rounded-start" alt="Book Cover">
+                        </div>
+                        <div class="col-md-7 d-flex flex-column p-4">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h2 class="modal-title" id="details-title">Book Title</h2>
+                                    <p class="text-muted fs-5" id="details-author">Author Name</p>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <hr>
+                            <p class="flex-grow-1" id="details-description">Book description goes here...</p>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <div>
+                                    <small class="text-muted">Publisher</small>
+                                    <p class="mb-0" id="details-publisher">Publisher Name</p>
+                                </div>
+                                <div>
+                                    <span id="details-category" class="badge bg-secondary">Category</span>
+                                    <span id="details-price" class="badge bg-primary fs-5 ms-2">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="app.js"></script>

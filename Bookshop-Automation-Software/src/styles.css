@@ -56,3 +56,23 @@ h1 {
     width: 70px;
     text-align: center;
 }
+
+/* --- Admin Mode Styles --- */
+.admin-only {
+    display: none !important; /* Hide admin controls by default */
+}
+
+body.admin-mode .admin-only {
+    display: block !important; /* Show them when admin mode is active */
+}
+
+/* For the card footer, we need flex display */
+body.admin-mode .book-card .card-footer.admin-only {
+    display: flex !important;
+}
+
+#details-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
