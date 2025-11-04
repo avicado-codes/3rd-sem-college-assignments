@@ -1,45 +1,109 @@
-// src/App.jsx
-import React from 'react';
+// client/src/App.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
 import './App.css';
 
-// Mock data to display our components statically
-const mockBook = {
-  title: 'Project Hail Mary',
-  author: 'Andy Weir',
-  reasoning: 'A lone astronaut must save the Earth from disaster in this gripping sci-fi adventure. It is filled with clever problem-solving, humor, and a heartwarming story of friendship.',
-  foryoubecause: 'It perfectly matches your love for clever, science-based problem-solving.',
-};
-
 function App() {
+  const [messages, setMessages] = useState([
+    {
+      sender: 'ai',
+      type: 'text',
+      content: 'Hello! Tell me about a book you enjoyed, and I can suggest what to read next.'
+    }
+  ]);
+  const [userInput, setUserInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatWindowRef = useRef(null);
+
+  // Effect to scroll to the bottom of the chat window when new messages are added
+  useEffect(() => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!userInput.trim()) return; // Don't send empty messages
+
+    const newUserMessage = {
+      sender: 'user',
+      type: 'text',
+      content: userInput,
+    };
+    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+    setUserInput('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:3001/api/recommendations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: userInput }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      
+      const newAiMessage = {
+        sender: 'ai',
+        type: 'books',
+        content: data.recommendations,
+      };
+      setMessages((prevMessages) => [...prevMessages, newAiMessage]);
+
+    } catch (error) {
+      console.error('Fetch error:', error);
+      const errorMessage = {
+        sender: 'ai',
+        type: 'text',
+        content: 'Sorry, I had trouble getting recommendations. Please try again later.',
+      };
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="chat-container">
-      <div className="chat-window">
-        {/* Example User Message */}
-        <div className="message user-message">
-          I liked Project Hail Mary, what's next?
-        </div>
-
-        {/* Example AI Response */}
-        <div className="message ai-message">
-          <p>Of course! Based on that, you might enjoy these:</p>
-          <BookCard book={mockBook} />
-          <BookCard book={mockBook} />
-        </div>
-        
-        {/* Example Loading State */}
-        <div className="message ai-message">
-          <LoadingSpinner />
-        </div>
+      <div className="chat-window" ref={chatWindowRef}>
+        {messages.map((msg, index) => (
+          <div key={index} className={`message ${msg.sender}-message`}>
+            {msg.type === 'text' && <p>{msg.content}</p>}
+            {msg.type === 'books' && (
+              <div>
+                <p>Of course! Based on that, you might enjoy these:</p>
+                {msg.content.map((book, bookIndex) => (
+                  <BookCard key={bookIndex} book={book} />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+        {isLoading && (
+          <div className="message ai-message">
+            <LoadingSpinner />
+          </div>
+        )}
       </div>
-      
-      <form className="input-form">
+
+      <form className="input-form" onSubmit={handleSubmit}>
         <input
           type="text"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
           placeholder="Tell me a book you liked..."
+          disabled={isLoading}
         />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={isLoading}>Send</button>
       </form>
     </div>
   );
