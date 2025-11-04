@@ -5,6 +5,9 @@ import LoadingSpinner from './components/LoadingSpinner';
 import './App.css';
 
 function App() {
+  // State for theme management
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
@@ -16,17 +19,25 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const chatWindowRef = useRef(null);
 
-  // Effect to scroll to the bottom of the chat window when new messages are added
+  // Effect to save theme to localStorage and apply class to body
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = `${theme}-theme`;
+  }, [theme]);
+
   useEffect(() => {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!userInput.trim()) return; // Don't send empty messages
+    if (!userInput.trim() || isLoading) return;
 
     const newUserMessage = {
       sender: 'user',
@@ -51,14 +62,13 @@ function App() {
       }
 
       const data = await response.json();
-      
+
       const newAiMessage = {
         sender: 'ai',
         type: 'books',
         content: data.recommendations,
       };
       setMessages((prevMessages) => [...prevMessages, newAiMessage]);
-
     } catch (error) {
       console.error('Fetch error:', error);
       const errorMessage = {
@@ -73,7 +83,11 @@ function App() {
   };
 
   return (
-    <div className="chat-container">
+    <div className={`chat-container ${theme}-theme`}>
+      <button onClick={toggleTheme} className="theme-toggle">
+        {theme === 'light' ? '🌙' : '☀️'}
+      </button>
+
       <div className="chat-window" ref={chatWindowRef}>
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}-message`}>
