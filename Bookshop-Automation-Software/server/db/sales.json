@@ -282,5 +282,28 @@
     ],
     "totalAmount": 45.139500000000005,
     "customerId": null
+  },
+  {
+    "saleId": "sale_1762254635544",
+    "date": "2025-11-04T11:10:35.544Z",
+    "items": [
+      {
+        "id": "9780684853949",
+        "title": "The Man Who Mistook His Wife for a Hat",
+        "author": "Oliver Sacks",
+        "isbn": "9780684853949",
+        "price": 16,
+        "cost": 8,
+        "stock": 19,
+        "category": "Science",
+        "location": "J1",
+        "publisher": "Touchstone",
+        "description": "In his most extraordinary book, 'the man who illuminated the many mysteries of the mind' (The New York Times) and the 'poet laureate of contemporary medicine' (The Guardian) recounts the case histories of patients lost in the bizarre, apparently inescapable world of neurological disorders.",
+        "coverImage": "images/the-man-who-mistook-his-wife-for-a-hat.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 33.6,
+    "customerId": null
   }
 ]
