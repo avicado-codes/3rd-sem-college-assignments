@@ -305,5 +305,51 @@
     ],
     "totalAmount": 33.6,
     "customerId": null
+  },
+  {
+    "saleId": "sale_1762263823033",
+    "date": "2025-11-04T13:43:43.034Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 6,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 75.57900000000001,
+    "customerId": null
+  },
+  {
+    "saleId": "sale_1762264500179",
+    "date": "2025-11-04T13:55:00.179Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 4,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 75.57900000000001,
+    "customerId": null
   }
 ]
