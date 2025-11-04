@@ -10,14 +10,14 @@ The application is built with a modern, responsive frontend using vanilla JavaSc
 
 ##  Core Features
 
--   ** Place Directory**: Browse a rich list of tourist attractions with details like descriptions, images, ratings, opening hours, and entry fees.
--   ** Search & Dynamic Filters**: Instantly search for places by name or tag, and filter the entire directory by category with a single click.
--   ** Interactive Map**: Each place detail page features an interactive map (powered by Leaflet.js and OpenStreetMap) with a marker showing the exact location.
--   ** Itinerary Planner**: Add places to a personal itinerary, which is saved locally in your browser. You can also export your final plan as a JSON file.
--   ** User Reviews & Ratings**: (Coming Soon) Users can submit their own ratings and text reviews for places they have visited.
--   ** Admin Panel**: A simple and powerful admin interface (activated by appending `#admin` to the URL) for full CRUD (Create, Read, Update, Delete) management of the places in the database.
--   ** 100% Offline Capable**: The entire application, including the server and database, runs locally. An internet connection is only needed to download the map tiles.
--   ** Creative & Responsive UI**: A clean, modern, and user-friendly interface that works beautifully on desktops, tablets, and mobile devices.
+-   **Place Directory**: Browse a rich list of tourist attractions with details like descriptions, images, ratings, opening hours, and entry fees.
+-   **Search & Dynamic Filters**: Instantly search for places by name or tag, and filter the entire directory by category with a single click.
+-   **Interactive Map**: Each place detail page features an interactive map (powered by Leaflet.js and OpenStreetMap) with a marker showing the exact location.
+-   **Itinerary Planner**: Add places to a personal itinerary, which is saved locally in your browser. You can also export your final plan as a JSON file.
+-   **User Reviews & Ratings**: (Coming Soon) Users can submit their own ratings and text reviews for places they have visited.
+-   **Admin Panel**: A simple and powerful admin interface (activated by appending `#admin` to the URL) for full CRUD (Create, Read, Update, Delete) management of the places in the database.
+-   **100% Offline Capable**: The entire application, including the server and database, runs locally. An internet connection is only needed to download the map tiles.
+-   **Creative & Responsive UI**: A clean, modern, and user-friendly interface that works beautifully on desktops, tablets, and mobile devices.
 
 ---
 
