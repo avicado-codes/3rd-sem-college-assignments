@@ -351,5 +351,97 @@
     ],
     "totalAmount": 75.57900000000001,
     "customerId": null
+  },
+  {
+    "saleId": "sale_1762267954953",
+    "date": "2025-11-04T14:52:34.953Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 2,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 75.57900000000001,
+    "customerId": null
+  },
+  {
+    "saleId": "sale_1762268859014",
+    "date": "2025-11-04T15:07:39.014Z",
+    "items": [
+      {
+        "id": "9780593135204",
+        "title": "Project Hail Mary",
+        "author": "Andy Weir",
+        "isbn": "9780593135204",
+        "price": 28,
+        "cost": 14,
+        "stock": 32,
+        "category": "Science Fiction",
+        "location": "B4",
+        "publisher": "Ballantine Books",
+        "description": "Ryland Grace is the sole survivor on a desperate, last-chance mission—and if he fails, humanity and the earth itself will perish. Except that right now, he doesn't know that. He can't even remember his own name, let alone the nature of his assignment or how to complete it.",
+        "coverImage": "images/project-hail-mary.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 58.800000000000004,
+    "customerId": null
+  },
+  {
+    "saleId": "sale_1762269157178",
+    "date": "2025-11-04T15:12:37.178Z",
+    "items": [
+      {
+        "id": "9780593135204",
+        "title": "Project Hail Mary",
+        "author": "Andy Weir",
+        "isbn": "9780593135204",
+        "price": 28,
+        "cost": 14,
+        "stock": 30,
+        "category": "Science Fiction",
+        "location": "B4",
+        "publisher": "Ballantine Books",
+        "description": "Ryland Grace is the sole survivor on a desperate, last-chance mission—and if he fails, humanity and the earth itself will perish. Except that right now, he doesn't know that. He can't even remember his own name, let alone the nature of his assignment or how to complete it.",
+        "coverImage": "images/project-hail-mary.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 29.400000000000002,
+    "customerId": null
+  },
+  {
+    "saleId": "sale_1762269796929",
+    "date": "2025-11-04T15:23:16.929Z",
+    "items": [
+      {
+        "id": "9780135957059",
+        "title": "The Pragmatic Programmer",
+        "author": "Andrew Hunt, David Thomas",
+        "isbn": "9780135957059",
+        "price": 45.5,
+        "cost": 22,
+        "stock": 15,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Addison-Wesley Professional",
+        "description": "The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process—taking a requirement and producing working, maintainable code that delights its users.",
+        "coverImage": "images/the-pragmatic-programmer.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 47.775,
+    "customerId": null
   }
 ]
