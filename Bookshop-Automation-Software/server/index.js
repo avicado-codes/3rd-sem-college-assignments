@@ -1,105 +1,159 @@
-// Import necessary modules
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs').promises; // Use the promise-based version of fs
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+const fs = require("fs").promises;
+const path = require("path");
 
-// Initialize the Express application
 const app = express();
 const PORT = 3000;
 
-// Middleware setup
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Enable the Express app to parse JSON formatted request bodies
+// --- Middleware ---
+app.use(cors());
+app.use(express.json());
 
-// Define the path to the JSON database file
-const DB_PATH = path.join(__dirname, 'db', 'books.json');
+// --- Database Paths ---
+const BOOKS_DB_PATH = path.join(__dirname, "db", "books.json");
+const SALES_DB_PATH = path.join(__dirname, "db", "sales.json");
+const CUSTOMERS_DB_PATH = path.join(__dirname, "db", "customers.json");
 
-// --- Helper Functions for File I/O ---
-
-// Function to read the database file
-const readDB = async () => {
-    try {
-        const data = await fs.readFile(DB_PATH, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        // If the file doesn't exist or other error, return an empty array
-        console.error("Error reading database file:", error);
-        return [];
-    }
+// --- Helper Functions ---
+const readDB = async (filePath) => {
+  try {
+    const data = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === "ENOENT") return [];
+    console.error(`Error reading database file at ${filePath}:`, error);
+    throw error;
+  }
 };
 
-// Function to write to the database file
-const writeDB = async (data) => {
-    try {
-        await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-    } catch (error) {
-        console.error("Error writing to database file:", error);
-    }
+const writeDB = async (filePath, data) => {
+  try {
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
+  } catch (error) {
+    console.error(`Error writing to database file at ${filePath}:`, error);
+    throw error;
+  }
 };
-
 
 // --- API Endpoints for Books ---
-
-// GET /api/books - Retrieve all books
-app.get('/api/books', async (req, res) => {
-    const books = await readDB();
-    res.json(books);
+app.get("/api/books", async (req, res) => {
+  try {
+    res.json(await readDB(BOOKS_DB_PATH));
+  } catch (e) {
+    res.status(500).json({ message: "Error reading books database." });
+  }
 });
 
-// GET /api/books/:id - Retrieve a single book by ID (ISBN)
-app.get('/api/books/:id', async (req, res) => {
-    const books = await readDB();
-    const book = books.find(b => b.id === req.params.id);
-    if (book) {
-        res.json(book);
-    } else {
-        res.status(404).json({ message: 'Book not found' });
-    }
+app.get("/api/books/:id", async (req, res) => {
+  try {
+    const books = await readDB(BOOKS_DB_PATH);
+    const book = books.find((b) => b.id === req.params.id);
+    if (book) res.json(book);
+    else res.status(404).json({ message: "Book not found" });
+  } catch (e) {
+    res.status(500).json({ message: "Error reading books database." });
+  }
 });
 
-// POST /api/books - Add a new book
-app.post('/api/books', async (req, res) => {
-    const books = await readDB();
+app.post("/api/books", async (req, res) => {
+  try {
+    const books = await readDB(BOOKS_DB_PATH);
     const newBook = req.body;
-    // Use ISBN as a unique ID, or generate one if not present
-    newBook.id = newBook.isbn || `id_${Date.now()}`; 
-    
+    newBook.id = newBook.isbn || `id_${Date.now()}`;
     books.push(newBook);
-    await writeDB(books);
+    await writeDB(BOOKS_DB_PATH, books);
     res.status(201).json(newBook);
+  } catch (e) {
+    res.status(500).json({ message: "Error writing to books database." });
+  }
 });
 
-// PUT /api/books/:id - Update an existing book
-app.put('/api/books/:id', async (req, res) => {
-    let books = await readDB();
-    const bookIndex = books.findIndex(b => b.id === req.params.id);
-
+app.put("/api/books/:id", async (req, res) => {
+  try {
+    let books = await readDB(BOOKS_DB_PATH);
+    const bookIndex = books.findIndex((b) => b.id === req.params.id);
     if (bookIndex !== -1) {
-        // Update the book record
-        books[bookIndex] = { ...books[bookIndex], ...req.body };
-        await writeDB(books);
-        res.json(books[bookIndex]);
+      books[bookIndex] = { ...books[bookIndex], ...req.body };
+      await writeDB(BOOKS_DB_PATH, books);
+      res.json(books[bookIndex]);
     } else {
-        res.status(404).json({ message: 'Book not found' });
+      res.status(404).json({ message: "Book not found" });
     }
+  } catch (e) {
+    res.status(500).json({ message: "Error writing to books database." });
+  }
 });
 
-// DELETE /api/books/:id - Delete a book
-app.delete('/api/books/:id', async (req, res) => {
-    let books = await readDB();
-    const updatedBooks = books.filter(b => b.id !== req.params.id);
-
+app.delete("/api/books/:id", async (req, res) => {
+  try {
+    let books = await readDB(BOOKS_DB_PATH);
+    const updatedBooks = books.filter((b) => b.id !== req.params.id);
     if (books.length !== updatedBooks.length) {
-        await writeDB(updatedBooks);
-        res.status(204).send(); // No content to send back
+      await writeDB(BOOKS_DB_PATH, updatedBooks);
+      res.status(204).send();
     } else {
-        res.status(404).json({ message: 'Book not found' });
+      res.status(404).json({ message: "Book not found" });
     }
+  } catch (e) {
+    res.status(500).json({ message: "Error writing to books database." });
+  }
 });
 
-
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+// --- API Endpoints for Sales ---
+app.get("/api/sales", async (req, res) => {
+  try {
+    res.json(await readDB(SALES_DB_PATH));
+  } catch (e) {
+    res.status(500).json({ message: "Error reading sales database." });
+  }
 });
+
+app.post("/api/sales", async (req, res) => {
+  try {
+    const sales = await readDB(SALES_DB_PATH);
+    const newSale = {
+      saleId: `sale_${Date.now()}`,
+      date: new Date().toISOString(),
+      items: req.body.items,
+      totalAmount: req.body.totalAmount,
+      customerId: req.body.customerId, // Can be null or undefined
+    };
+    sales.push(newSale);
+    await writeDB(SALES_DB_PATH, sales);
+    res.status(201).json(newSale);
+  } catch (e) {
+    res.status(500).json({ message: "Error writing to sales database." });
+  }
+});
+
+// --- API Endpoints for Customers ---
+app.get("/api/customers", async (req, res) => {
+  try {
+    res.json(await readDB(CUSTOMERS_DB_PATH));
+  } catch (e) {
+    res.status(500).json({ message: "Error reading customers database." });
+  }
+});
+
+app.post("/api/customers", async (req, res) => {
+  try {
+    const customers = await readDB(CUSTOMERS_DB_PATH);
+    const newCustomer = {
+      id: `cust_${Date.now()}`,
+      name: req.body.name,
+      contact: req.body.contact || "",
+      joinDate: new Date().toISOString(),
+    };
+    customers.push(newCustomer);
+    await writeDB(CUSTOMERS_DB_PATH, customers);
+    res.status(201).json(newCustomer);
+  } catch (e) {
+    res.status(500).json({ message: "Error writing to customers database." });
+  }
+});
+
+// --- Start Server ---
+app.listen(PORT, () =>
+  console.log(`Server is running on http://localhost:${PORT}`)
+);
