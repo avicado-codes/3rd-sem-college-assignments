@@ -1,0 +1,20 @@
+[
+  {
+    "id": "cust_1762243657502",
+    "name": "David Mayers",
+    "contact": "davidmayers123@gmail.com",
+    "joinDate": "2025-11-04T08:07:37.502Z"
+  },
+  {
+    "id": "cust_1762243768309",
+    "name": "Rustin Gayle",
+    "contact": "rustingayle123@gmail.com",
+    "joinDate": "2025-11-04T08:09:28.309Z"
+  },
+  {
+    "id": "cust_1762243803402",
+    "name": "Sweta Paul",
+    "contact": "swetapaul123@gmail.com",
+    "joinDate": "2025-11-04T08:10:03.402Z"
+  }
+]

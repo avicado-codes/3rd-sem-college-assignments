@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const API_URL = "http://localhost:3000/api";
   let allBooks = [],
     allSales = [],
+    allCustomers = [],
     cart = [],
     lastSuccessfulSale = null,
     currentlyDisplayedBooks = 0;
@@ -15,13 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const views = {
     inventory: document.getElementById("inventory-view"),
     billing: document.getElementById("billing-view"),
+    customers: document.getElementById("customers-view"),
     reports: document.getElementById("reports-view"),
   };
+  const navLinks = document.querySelectorAll(".nav-link[data-view]");
   const brandLogoEl = document.getElementById("brand-logo");
   const loadMoreBtnEl = document.getElementById("load-more-btn");
-  const bookDetailsModalEl = document.getElementById("book-details-modal");
-  const bookDetailsModal = new bootstrap.Modal(bookDetailsModalEl);
-  const navLinks = document.querySelectorAll(".nav-link[data-view]");
   const bookListEl = document.getElementById("book-list");
   const searchInputEl = document.getElementById("search-input");
   const categoryFilterEl = document.getElementById("category-filter");
@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookModal = new bootstrap.Modal(bookModalEl);
   const bookFormEl = document.getElementById("book-form");
   const bookModalLabelEl = document.getElementById("bookModalLabel");
+  const bookDetailsModalEl = document.getElementById("book-details-modal");
+  const bookDetailsModal = new bootstrap.Modal(bookDetailsModalEl);
   const billingSearchEl = document.getElementById("billing-search");
   const billingSearchResultsEl = document.getElementById(
     "billing-search-results"
@@ -42,12 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const processSaleBtnEl = document.getElementById("process-sale-btn");
   const generateReceiptBtnEl = document.getElementById("generate-receipt-btn");
   const clearCartBtnEl = document.getElementById("clear-cart-btn");
+  const customerSelectEl = document.getElementById("customer-select");
+  const customerListEl = document.getElementById("customer-list");
+  const addCustomerBtnEl = document.getElementById("add-customer-btn");
+  const customerModalEl = document.getElementById("customer-modal");
+  const customerModal = new bootstrap.Modal(customerModalEl);
+  const customerFormEl = document.getElementById("customer-form");
 
   // --- Main App Flow ---
   async function initializeApp() {
     setupEventListeners();
     checkAdminMode();
-    await Promise.all([refreshInventoryData(), fetchSales()]);
+    await Promise.all([refreshInventoryData(), fetchSales(), fetchCustomers()]);
     showView("inventory-view");
   }
 
@@ -59,6 +67,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function fetchAllData() {
+    await Promise.all([refreshInventoryData(), fetchSales(), fetchCustomers()]);
+  }
+
+  // --- Data Fetching ---
+  async function fetchBooks() {
+    try {
+      const res = await fetch(`${API_URL}/books`);
+      if (!res.ok) throw new Error(`Server Error: ${res.status}`);
+      allBooks = await res.json();
+    } catch (err) {
+      console.error("FETCH FAILED:", err);
+      bookListEl.innerHTML = `<div class="col alert alert-danger">Failed to load books. Is the server running?</div>`;
+      allBooks = [];
+    }
+  }
   async function fetchSales() {
     try {
       const res = await fetch(`${API_URL}/sales`);
@@ -69,12 +93,22 @@ document.addEventListener("DOMContentLoaded", () => {
       allSales = [];
     }
   }
+  async function fetchCustomers() {
+    try {
+      const res = await fetch(`${API_URL}/customers`);
+      if (!res.ok) throw new Error("Failed to fetch customers");
+      allCustomers = await res.json();
+      populateCustomerDropdowns();
+    } catch (err) {
+      console.error("FETCH CUSTOMERS FAILED:", err);
+      allCustomers = [];
+    }
+  }
 
-  // --- UI & View Management ---
+  // --- View & UI Management ---
   function checkAdminMode() {
     bodyEl.classList.toggle("admin-mode", window.location.hash === "#admin");
   }
-
   function showView(viewId) {
     Object.values(views).forEach((v) => v.classList.add("d-none"));
     const viewToShow = document.getElementById(viewId);
@@ -82,11 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
     navLinks.forEach((l) =>
       l.classList.toggle("active", l.dataset.view === viewId)
     );
-    if (viewId === "reports-view") {
-      renderReports();
-    }
+    if (viewId === "reports-view") renderReports();
+    if (viewId === "customers-view") renderCustomerList();
   }
-
   function showBookDetails(book) {
     bookDetailsModalEl.querySelector("#details-cover-image").src =
       book.coverImage ||
@@ -107,83 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     bookDetailsModal.show();
   }
 
-  // --- Analytics Rendering ---
-  function renderReports() {
-    const totalRevenue = allSales.reduce(
-      (sum, sale) => sum + sale.totalAmount,
-      0
-    );
-    const totalBooksSold = allSales.reduce(
-      (sum, sale) =>
-        sum + sale.items.reduce((itemSum, item) => itemSum + item.quantity, 0),
-      0
-    );
-    document.getElementById(
-      "report-total-revenue"
-    ).textContent = `$${totalRevenue.toFixed(2)}`;
-    document.getElementById("report-books-sold").textContent = totalBooksSold;
-    document.getElementById("report-total-sales").textContent = allSales.length;
-
-    const salesByDate = allSales.reduce((acc, sale) => {
-      const date = new Date(sale.date).toLocaleDateString();
-      acc[date] = (acc[date] || 0) + sale.totalAmount;
-      return acc;
-    }, {});
-    const topBookSales = allSales
-      .flatMap((sale) => sale.items)
-      .reduce((acc, item) => {
-        acc[item.title] = (acc[item.title] || 0) + item.quantity;
-        return acc;
-      }, {});
-    const sortedBooks = Object.entries(topBookSales)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 10);
-
-    if (salesChart) salesChart.destroy();
-    salesChart = new Chart(document.getElementById("sales-over-time-chart"), {
-      type: "line",
-      data: {
-        labels: Object.keys(salesByDate),
-        datasets: [
-          {
-            label: "Daily Revenue",
-            data: Object.values(salesByDate),
-            tension: 0.1,
-            borderColor: "rgb(75, 192, 192)",
-          },
-        ],
-      },
-    });
-
-    if (topBooksChart) topBooksChart.destroy();
-    topBooksChart = new Chart(document.getElementById("top-selling-chart"), {
-      type: "bar",
-      data: {
-        labels: sortedBooks.map(([title]) => title),
-        datasets: [
-          {
-            label: "Units Sold",
-            data: sortedBooks.map(([, qty]) => qty),
-            backgroundColor: "rgba(54, 162, 235, 0.6)",
-          },
-        ],
-      },
-      options: { indexAxis: "y", plugins: { legend: { display: false } } },
-    });
-  }
-
-  // --- Core Data & UI Functions ---
-  async function fetchBooks() {
-    try {
-      const res = await fetch(`${API_URL}/books`);
-      if (!res.ok) throw new Error(`Server Error: ${res.status}`);
-      allBooks = await res.json();
-    } catch (err) {
-      console.error("FETCH FAILED:", err);
-      bookListEl.innerHTML = `<div class="col alert alert-danger">Failed to load books. Is the server running?</div>`;
-      allBooks = [];
-    }
-  }
+  // --- Rendering Functions ---
   function renderBooks(books) {
     if (currentlyDisplayedBooks === 0) bookListEl.innerHTML = "";
     if (books.length === 0 && currentlyDisplayedBooks === 0) {
@@ -297,6 +253,94 @@ document.addEventListener("DOMContentLoaded", () => {
     clearCartBtnEl.disabled = !hasCartItems;
     generateReceiptBtnEl.disabled = lastSuccessfulSale === null;
   }
+  function renderReports() {
+    const totalRevenue = allSales.reduce(
+      (sum, sale) => sum + sale.totalAmount,
+      0
+    );
+    const totalBooksSold = allSales.reduce(
+      (sum, sale) =>
+        sum + sale.items.reduce((itemSum, item) => itemSum + item.quantity, 0),
+      0
+    );
+    document.getElementById(
+      "report-total-revenue"
+    ).textContent = `$${totalRevenue.toFixed(2)}`;
+    document.getElementById("report-books-sold").textContent = totalBooksSold;
+    document.getElementById("report-total-sales").textContent = allSales.length;
+    const salesByDate = allSales.reduce((acc, sale) => {
+      const date = new Date(sale.date).toLocaleDateString();
+      acc[date] = (acc[date] || 0) + sale.totalAmount;
+      return acc;
+    }, {});
+    const topBookSales = allSales
+      .flatMap((sale) => sale.items)
+      .reduce((acc, item) => {
+        acc[item.title] = (acc[item.title] || 0) + item.quantity;
+        return acc;
+      }, {});
+    const sortedBooks = Object.entries(topBookSales)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10);
+    if (salesChart) salesChart.destroy();
+    salesChart = new Chart(document.getElementById("sales-over-time-chart"), {
+      type: "line",
+      data: {
+        labels: Object.keys(salesByDate),
+        datasets: [
+          {
+            label: "Daily Revenue",
+            data: Object.values(salesByDate),
+            tension: 0.1,
+            borderColor: "rgb(75, 192, 192)",
+          },
+        ],
+      },
+    });
+    if (topBooksChart) topBooksChart.destroy();
+    topBooksChart = new Chart(document.getElementById("top-selling-chart"), {
+      type: "bar",
+      data: {
+        labels: sortedBooks.map(([title]) => title),
+        datasets: [
+          {
+            label: "Units Sold",
+            data: sortedBooks.map(([, qty]) => qty),
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+          },
+        ],
+      },
+      options: { indexAxis: "y", plugins: { legend: { display: false } } },
+    });
+  }
+  function renderCustomerList() {
+    if (allCustomers.length === 0) {
+      customerListEl.innerHTML =
+        '<p class="text-muted">No customers found. Add one to get started!</p>';
+      return;
+    }
+    customerListEl.innerHTML = `<table class="table table-hover"><thead><tr><th>Name</th><th>Contact</th><th>Purchase History</th></tr></thead><tbody>${allCustomers
+      .map((cust) => {
+        const purchases = allSales.filter(
+          (sale) => sale.customerId === cust.id
+        );
+        return `<tr><td>${cust.name}</td><td>${cust.contact || "N/A"}</td><td>${
+          purchases.length
+        } transactions</td></tr>`;
+      })
+      .join("")}</tbody></table>`;
+  }
+  function populateCustomerDropdowns() {
+    customerSelectEl.innerHTML = '<option value="">Walk-in Customer</option>';
+    allCustomers.forEach((cust) => {
+      const option = document.createElement("option");
+      option.value = cust.id;
+      option.textContent = cust.name;
+      customerSelectEl.appendChild(option);
+    });
+  }
+
+  // --- Core Logic ---
   function addToCart(id) {
     const book = allBooks.find((b) => b.id === id);
     if (!book || book.stock <= 0) {
@@ -499,6 +543,28 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("No recent sale to generate a receipt for.");
       }
     });
+    addCustomerBtnEl.addEventListener("click", () => {
+      customerFormEl.reset();
+      customerModal.show();
+    });
+    customerFormEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("customer-name").value;
+      const contact = document.getElementById("customer-contact").value;
+      try {
+        const res = await fetch(`${API_URL}/customers`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, contact }),
+        });
+        if (!res.ok) throw new Error("Failed to save customer");
+        await fetchCustomers();
+        renderCustomerList();
+        customerModal.hide();
+      } catch (err) {
+        alert(`Error: ${err.message}`);
+      }
+    });
 
     processSaleBtnEl.addEventListener("click", async () => {
       processSaleBtnEl.disabled = true;
@@ -506,7 +572,8 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const totalAmount =
           cart.reduce((s, i) => s + i.price * i.quantity, 0) * 1.05;
-        const salePayload = { items: cart, totalAmount };
+        const customerId = customerSelectEl.value || null;
+        const salePayload = { items: cart, totalAmount, customerId };
         const saleRes = await fetch(`${API_URL}/sales`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -529,7 +596,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lastSuccessfulSale = JSON.parse(JSON.stringify(cart));
         cart = [];
         renderCart();
-        await Promise.all([refreshInventoryData(), fetchSales()]);
+        await fetchAllData();
       } catch (err) {
         alert(`Sale processing failed: ${err.message}`);
         lastSuccessfulSale = null;

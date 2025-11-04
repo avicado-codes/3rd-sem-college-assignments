@@ -183,5 +183,104 @@
       }
     ],
     "totalAmount": 75.58950000000002
+  },
+  {
+    "saleId": "sale_1762243821057",
+    "date": "2025-11-04T08:10:21.057Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 7,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 37.789500000000004,
+    "customerId": "cust_1762243768309"
+  },
+  {
+    "saleId": "sale_1762243856690",
+    "date": "2025-11-04T08:10:56.690Z",
+    "items": [
+      {
+        "id": "9780765350381",
+        "title": "Mistborn: The Final Empire",
+        "author": "Brandon Sanderson",
+        "isbn": "9780765350381",
+        "price": 19.5,
+        "cost": 9.75,
+        "stock": 13,
+        "category": "Fantasy",
+        "location": "B1",
+        "publisher": "Tor Books",
+        "description": "For a thousand years the ash fell and no flowers bloomed. For a thousand years the Skaa slaved in misery and lived in fear. For a thousand years the Lord Ruler, the 'Sliver of Infinity,' reigned with absolute power and ultimate terror, divinely invincible. Then, when hope was so long lost that not even its memory remained, a terribly scarred, heart-broken half-Skaa rediscovered it in the depths of the Lord Ruler's most hellish prison.",
+        "coverImage": "images/mistborn-the-final-empire.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "9780807014271",
+        "title": "Man's Search for Meaning",
+        "author": "Viktor E. Frankl",
+        "isbn": "9780807014271",
+        "price": 15,
+        "cost": 7.5,
+        "stock": 40,
+        "category": "Psychology",
+        "location": "E5",
+        "publisher": "Beacon Press",
+        "description": "A profound and deeply moving book, 'Man's Search for Meaning' is both a memoir of psychiatrist Viktor Frankl's experiences in Nazi concentration camps and an introduction to his therapeutic philosophy, known as logotherapy. Frankl argues that the primary human drive is not pleasure but the pursuit of what we find meaningful.",
+        "coverImage": "images/mans-search-for-meaning.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 36.225,
+    "customerId": "cust_1762243657502"
+  },
+  {
+    "saleId": "sale_1762247642423",
+    "date": "2025-11-04T09:14:02.423Z",
+    "items": [
+      {
+        "id": "9780439023528",
+        "title": "The Hunger Games",
+        "author": "Suzanne Collins",
+        "isbn": "9780439023528",
+        "price": 14.99,
+        "cost": 7,
+        "stock": 15,
+        "category": "Dystopian",
+        "location": "C2",
+        "publisher": "Scholastic Press",
+        "description": "In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.",
+        "coverImage": "images/the-hunger-games.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "9780399590504",
+        "title": "Educated: A Memoir",
+        "author": "Tara Westover",
+        "isbn": "9780399590504",
+        "price": 28,
+        "cost": 14,
+        "stock": 27,
+        "category": "Biography",
+        "location": "C3",
+        "publisher": "Random House",
+        "description": "An unforgettable memoir about a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University. Tara Westover was seventeen the first time she set foot in a classroom.",
+        "coverImage": "images/educated-a-memoir.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 45.139500000000005,
+    "customerId": null
   }
 ]
