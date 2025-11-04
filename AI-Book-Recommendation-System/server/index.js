@@ -83,6 +83,8 @@ app.post('/api/recommendations', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
+module.exports = server;
