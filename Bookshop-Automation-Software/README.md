@@ -21,15 +21,15 @@ This animation demonstrates the core features of the application, including inve
 
 ##  Core Features
 
--   ** Inventory Management**: Full CRUD (Create, Read, Update, Delete) for books. Features include a book details modal, search, multi-level filtering, and "load more" pagination.
--   ** Admin Mode**: A simple and secure admin panel (activated by appending `#admin` to the URL) that reveals controls for adding, editing, and deleting books.
--   ** Point of Sale (POS) & Billing**: A streamlined billing interface to search for books, add them to a cart, select a customer, and process sales. Stock levels are automatically updated upon sale completion.
--   ** PDF Receipt Generation**: Instantly generate and download a printable PDF receipt for every sale.
--   ** Reports & Analytics**: A powerful dashboard with summary cards and visual charts (powered by Chart.js) to track:
+-   **Inventory Management**: Full CRUD (Create, Read, Update, Delete) for books. Features include a book details modal, search, multi-level filtering, and "load more" pagination.
+-   **Admin Mode**: A simple and secure admin panel (activated by appending `#admin` to the URL) that reveals controls for adding, editing, and deleting books.
+-   **Point of Sale (POS) & Billing**: A streamlined billing interface to search for books, add them to a cart, select a customer, and process sales. Stock levels are automatically updated upon sale completion.
+-   **PDF Receipt Generation**: Instantly generate and download a printable PDF receipt for every sale.
+-   **Reports & Analytics**: A powerful dashboard with summary cards and visual charts (powered by Chart.js) to track:
     -   Total Revenue, Total Books Sold, and Total Transactions.
     -   Daily sales revenue trends.
     -   Top 10 best-selling books.
--   ** Customer Management**:
+-   **Customer Management**:
     -   Add and manage customer profiles (name and contact info).
     -   Associate sales with specific customers to track their purchase history.
 -   ** 100% Offline Capable**: The entire application, including the server and database, runs locally on your machine.
