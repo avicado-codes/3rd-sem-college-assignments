@@ -12,3 +12,5 @@ desktop.ini
 # Bookshop Automation Software specific ignores
 Bookshop-Automation-Software/server/node_modules
 
+# AI-Book-Recommendation-System specific
+AI-Book-Recommendation-System/server/.env
