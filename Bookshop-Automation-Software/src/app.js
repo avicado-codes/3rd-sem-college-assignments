@@ -1,22 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   // --- Global State ---
-  const API_URL = "http://localhost:3000/api/books";
-  let allBooks = [];
-  let cart = [];
-  let lastSuccessfulSale = null;
-  let currentlyDisplayedBooks = 0;
+  const API_URL = "http://localhost:3000/api";
+  let allBooks = [],
+    allSales = [],
+    cart = [],
+    lastSuccessfulSale = null,
+    currentlyDisplayedBooks = 0;
   const BOOKS_PER_PAGE = 12;
+  let salesChart = null,
+    topBooksChart = null;
 
   // --- DOM Element References ---
   const bodyEl = document.body;
+  const views = {
+    inventory: document.getElementById("inventory-view"),
+    billing: document.getElementById("billing-view"),
+    reports: document.getElementById("reports-view"),
+  };
   const brandLogoEl = document.getElementById("brand-logo");
   const loadMoreBtnEl = document.getElementById("load-more-btn");
   const bookDetailsModalEl = document.getElementById("book-details-modal");
   const bookDetailsModal = new bootstrap.Modal(bookDetailsModalEl);
-  const views = {
-    inventory: document.getElementById("inventory-view"),
-    billing: document.getElementById("billing-view"),
-  };
   const navLinks = document.querySelectorAll(".nav-link[data-view]");
   const bookListEl = document.getElementById("book-list");
   const searchInputEl = document.getElementById("search-input");
@@ -39,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const generateReceiptBtnEl = document.getElementById("generate-receipt-btn");
   const clearCartBtnEl = document.getElementById("clear-cart-btn");
 
-  // --- Main App Initialization ---
+  // --- Main App Flow ---
   async function initializeApp() {
     setupEventListeners();
     checkAdminMode();
-    await refreshInventoryData();
+    await Promise.all([refreshInventoryData(), fetchSales()]);
     showView("inventory-view");
   }
 
@@ -55,12 +59,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- UI LOGIC ---
+  async function fetchSales() {
+    try {
+      const res = await fetch(`${API_URL}/sales`);
+      if (!res.ok) throw new Error("Failed to fetch sales");
+      allSales = await res.json();
+    } catch (err) {
+      console.error("FETCH SALES FAILED:", err);
+      allSales = [];
+    }
+  }
+
+  // --- UI & View Management ---
   function checkAdminMode() {
-    if (window.location.hash === "#admin") {
-      bodyEl.classList.add("admin-mode");
-    } else {
-      bodyEl.classList.remove("admin-mode");
+    bodyEl.classList.toggle("admin-mode", window.location.hash === "#admin");
+  }
+
+  function showView(viewId) {
+    Object.values(views).forEach((v) => v.classList.add("d-none"));
+    const viewToShow = document.getElementById(viewId);
+    if (viewToShow) viewToShow.classList.remove("d-none");
+    navLinks.forEach((l) =>
+      l.classList.toggle("active", l.dataset.view === viewId)
+    );
+    if (viewId === "reports-view") {
+      renderReports();
     }
   }
 
@@ -84,17 +107,75 @@ document.addEventListener("DOMContentLoaded", () => {
     bookDetailsModal.show();
   }
 
-  // --- Core Functions ---
-  function showView(viewId) {
-    Object.values(views).forEach((v) => v.classList.add("d-none"));
-    document.getElementById(viewId)?.classList.remove("d-none");
-    navLinks.forEach((l) =>
-      l.classList.toggle("active", l.dataset.view === viewId)
+  // --- Analytics Rendering ---
+  function renderReports() {
+    const totalRevenue = allSales.reduce(
+      (sum, sale) => sum + sale.totalAmount,
+      0
     );
+    const totalBooksSold = allSales.reduce(
+      (sum, sale) =>
+        sum + sale.items.reduce((itemSum, item) => itemSum + item.quantity, 0),
+      0
+    );
+    document.getElementById(
+      "report-total-revenue"
+    ).textContent = `$${totalRevenue.toFixed(2)}`;
+    document.getElementById("report-books-sold").textContent = totalBooksSold;
+    document.getElementById("report-total-sales").textContent = allSales.length;
+
+    const salesByDate = allSales.reduce((acc, sale) => {
+      const date = new Date(sale.date).toLocaleDateString();
+      acc[date] = (acc[date] || 0) + sale.totalAmount;
+      return acc;
+    }, {});
+    const topBookSales = allSales
+      .flatMap((sale) => sale.items)
+      .reduce((acc, item) => {
+        acc[item.title] = (acc[item.title] || 0) + item.quantity;
+        return acc;
+      }, {});
+    const sortedBooks = Object.entries(topBookSales)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10);
+
+    if (salesChart) salesChart.destroy();
+    salesChart = new Chart(document.getElementById("sales-over-time-chart"), {
+      type: "line",
+      data: {
+        labels: Object.keys(salesByDate),
+        datasets: [
+          {
+            label: "Daily Revenue",
+            data: Object.values(salesByDate),
+            tension: 0.1,
+            borderColor: "rgb(75, 192, 192)",
+          },
+        ],
+      },
+    });
+
+    if (topBooksChart) topBooksChart.destroy();
+    topBooksChart = new Chart(document.getElementById("top-selling-chart"), {
+      type: "bar",
+      data: {
+        labels: sortedBooks.map(([title]) => title),
+        datasets: [
+          {
+            label: "Units Sold",
+            data: sortedBooks.map(([, qty]) => qty),
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+          },
+        ],
+      },
+      options: { indexAxis: "y", plugins: { legend: { display: false } } },
+    });
   }
+
+  // --- Core Data & UI Functions ---
   async function fetchBooks() {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(`${API_URL}/books`);
       if (!res.ok) throw new Error(`Server Error: ${res.status}`);
       allBooks = await res.json();
     } catch (err) {
@@ -270,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.save(`receipt-${Date.now()}.pdf`);
   }
 
-  // --- Event Listeners Setup ---
+  // --- Event Listeners ---
   function setupEventListeners() {
     window.addEventListener("hashchange", checkAdminMode);
     brandLogoEl.addEventListener("click", (e) => {
@@ -297,35 +378,34 @@ document.addEventListener("DOMContentLoaded", () => {
       bookModalLabelEl.textContent = "Add New Book";
       bookModal.show();
     });
-
     bookListEl.addEventListener("click", (e) => {
       const card = e.target.closest(".book-card");
       if (!card) return;
       const bookId = card.dataset.id;
       const book = allBooks.find((b) => b.id === bookId);
       if (!book) return;
-
       if (e.target.closest(".edit-btn")) {
         bookFormEl.reset();
         bookModalLabelEl.textContent = "Edit Book";
         Object.keys(book).forEach((k) => {
-          const i = bookFormEl.querySelector(`#${k}`);
-          if (i) i.value = book[k];
+          const input = bookFormEl.querySelector(`#${k}`);
+          if (input) input.value = book[k];
         });
         bookFormEl.querySelector("#book-id").value = book.id;
         bookModal.show();
       } else if (e.target.closest(".delete-btn")) {
         if (confirm(`Delete "${book.title}"?`)) {
-          fetch(`${API_URL}/${bookId}`, { method: "DELETE" }).then((r) => {
-            if (r.ok) refreshInventoryData();
-            else alert("Delete failed.");
-          });
+          fetch(`${API_URL}/books/${bookId}`, { method: "DELETE" }).then(
+            (r) => {
+              if (r.ok) refreshInventoryData();
+              else alert("Delete failed.");
+            }
+          );
         }
       } else {
         showBookDetails(book);
       }
     });
-
     billingSearchEl.addEventListener("input", () => {
       const t = billingSearchEl.value.toLowerCase().trim();
       if (t.length < 2) {
@@ -370,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
         description: bookFormEl.querySelector("#description").value,
       };
       const method = id ? "PUT" : "POST";
-      const url = id ? `${API_URL}/${id}` : API_URL;
+      const url = id ? `${API_URL}/books/${id}` : `${API_URL}/books`;
       fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
@@ -419,12 +499,23 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("No recent sale to generate a receipt for.");
       }
     });
+
     processSaleBtnEl.addEventListener("click", async () => {
       processSaleBtnEl.disabled = true;
       processSaleBtnEl.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Processing...`;
       try {
+        const totalAmount =
+          cart.reduce((s, i) => s + i.price * i.quantity, 0) * 1.05;
+        const salePayload = { items: cart, totalAmount };
+        const saleRes = await fetch(`${API_URL}/sales`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(salePayload),
+        });
+        if (!saleRes.ok) throw new Error("Failed to log sale.");
+
         const updates = cart.map((i) =>
-          fetch(`${API_URL}/${i.id}`, {
+          fetch(`${API_URL}/books/${i.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ stock: i.stock - i.quantity }),
@@ -433,13 +524,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const responses = await Promise.all(updates);
         if (responses.some((r) => !r.ok))
           throw new Error("Stock update failed.");
+
         alert("Sale successful!");
         lastSuccessfulSale = JSON.parse(JSON.stringify(cart));
         cart = [];
         renderCart();
-        await refreshInventoryData();
+        await Promise.all([refreshInventoryData(), fetchSales()]);
       } catch (err) {
-        alert("Sale processing failed.");
+        alert(`Sale processing failed: ${err.message}`);
         lastSuccessfulSale = null;
       } finally {
         processSaleBtnEl.disabled = false;

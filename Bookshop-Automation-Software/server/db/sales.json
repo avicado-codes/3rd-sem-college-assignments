@@ -1,0 +1,187 @@
+[
+  {
+    "saleId": "sale_1762240540511",
+    "date": "2025-11-04T07:15:40.511Z",
+    "items": [
+      {
+        "id": "9780143127741",
+        "title": "The Body Keeps the Score",
+        "author": "Bessel van der Kolk",
+        "isbn": "9780143127741",
+        "price": 19,
+        "cost": 9.5,
+        "stock": 30,
+        "category": "Self-Help",
+        "location": "E5",
+        "publisher": "Penguin Books",
+        "description": "A pioneering researcher transforms our understanding of trauma and offers a bold new paradigm for healing in this New York Times bestseller. Trauma is a fact of life; veterans and their families deal with the painful aftermath of combat.",
+        "coverImage": "images/the-body-keeps-the-score.jpg",
+        "quantity": 2
+      },
+      {
+        "id": "9781594633669",
+        "title": "The Girl on the Train",
+        "author": "Paula Hawkins",
+        "isbn": "9781594633669",
+        "price": 16,
+        "cost": 8,
+        "stock": 30,
+        "category": "Mystery",
+        "location": "D1",
+        "publisher": "Riverhead Books",
+        "description": "Rachel Watson, an alcoholic reeling from a recent divorce, takes the same commuter train every morning and night. Every day she rattles down the track, flashes past a stretch of cozy suburban homes, and stops at the signal that allows her to daily watch the same couple breakfasting on their deck. She’s even started to feel like she knows them. 'Jess and Jason,' she calls them. Their life—as she sees it—is perfect. Not unlike the life she recently lost.",
+        "coverImage": "images/the-girl-on-the-train.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 56.7
+  },
+  {
+    "saleId": "sale_1762240593119",
+    "date": "2025-11-04T07:16:33.119Z",
+    "items": [
+      {
+        "id": "9780735211292",
+        "title": "Atomic Habits",
+        "author": "James Clear",
+        "isbn": "9780735211292",
+        "price": 27,
+        "cost": 13.5,
+        "stock": 46,
+        "category": "Self-Help",
+        "location": "E2",
+        "publisher": "Avery",
+        "description": "An easy and proven way to build good habits and break bad ones. James Clear presents a practical framework for improving every day by focusing on tiny, incremental changes that compound into remarkable results over time.",
+        "coverImage": "images/atomic-habits.jpg",
+        "quantity": 2
+      },
+      {
+        "id": "9780441013593",
+        "title": "Dune",
+        "author": "Frank Herbert",
+        "isbn": "9780441013593",
+        "price": 18,
+        "cost": 9,
+        "stock": 25,
+        "category": "Science Fiction",
+        "location": "B3",
+        "publisher": "Ace Books",
+        "description": "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the 'spice' melange, a drug capable of extending life and enhancing consciousness.",
+        "coverImage": "images/dune.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 75.60000000000001
+  },
+  {
+    "saleId": "sale_1762240949317",
+    "date": "2025-11-04T07:22:29.317Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 8,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 2
+      },
+      {
+        "id": "9781524763138",
+        "title": "Becoming",
+        "author": "Michelle Obama",
+        "isbn": "9781524763138",
+        "price": 32.5,
+        "cost": 16.25,
+        "stock": 40,
+        "category": "Biography",
+        "location": "C4",
+        "publisher": "Crown Publishing Group",
+        "description": "In a life filled with meaning and accomplishment, Michelle Obama has emerged as one of the most iconic and compelling women of our era. As First Lady of the United States of America—the first African American to serve in that role—she helped create the most welcoming and inclusive White House in history.",
+        "coverImage": "images/becoming.jpg",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 109.70400000000001
+  },
+  {
+    "saleId": "sale_1762241040247",
+    "date": "2025-11-04T07:24:00.247Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 8,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "9780061120084",
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "isbn": "9780061120084",
+        "price": 18,
+        "cost": 9,
+        "stock": 40,
+        "category": "Classic Literature",
+        "location": "G4",
+        "publisher": "Harper Perennial Modern Classics",
+        "description": "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it, To Kill A Mockingbird became both an instant bestseller and a critical success when it was first published in 1960.",
+        "coverImage": "images/to-kill-a-mockingbird.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 75.58950000000002
+  },
+  {
+    "saleId": "sale_1762241743091",
+    "date": "2025-11-04T07:35:43.091Z",
+    "items": [
+      {
+        "id": "9780132350884",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "price": 35.99,
+        "cost": 18.5,
+        "stock": 8,
+        "category": "Software Development",
+        "location": "A1",
+        "publisher": "Prentice Hall",
+        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "coverImage": "images/clean-code.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "9780307352156",
+        "title": "Quiet: The Power of Introverts",
+        "author": "Susan Cain",
+        "isbn": "9780307352156",
+        "price": 18,
+        "cost": 9,
+        "stock": 28,
+        "category": "Self-Help",
+        "location": "E6",
+        "publisher": "Crown Publishers",
+        "description": "In a culture that dramatically undervalues introverts, this book argues that we lose out on their extraordinary talents. Cain charts the rise of the Extrovert Ideal and explores how deeply it has come to permeate our culture.",
+        "coverImage": "images/quiet-the-power-of-introverts.jpg",
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 75.58950000000002
+  }
+]
