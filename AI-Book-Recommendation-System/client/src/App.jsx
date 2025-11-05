@@ -1,39 +1,30 @@
-// client/src/App.jsx
+// client/src/App.jsx (Corrected Version)
 import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
 import './App.css';
 
 function App() {
-  // State for theme management
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
       type: 'text',
-      content: 'Hello! Tell me about a book you enjoyed, and I can suggest what to read next.'
+      content: 'Hello! I am Bookwise, your personal AI librarian. Tell me about a book or genre you love, and I will find your next great read.'
     }
   ]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatWindowRef = useRef(null);
 
-  // Effect to save theme to localStorage and apply class to body
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.body.className = `${theme}-theme`;
-  }, [theme]);
-
+  // Effect to automatically scroll to the newest message
   useEffect(() => {
     if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+      chatWindowRef.current.scrollTo({
+        top: chatWindowRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   }, [messages, isLoading]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +40,7 @@ function App() {
     setIsLoading(true);
 
     try {
+      // The fetch logic remains the same, connecting to our local server
       const response = await fetch('http://localhost:3001/api/recommendations', {
         method: 'POST',
         headers: {
@@ -60,21 +52,21 @@ function App() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+      
       const data = await response.json();
-
+      
       const newAiMessage = {
         sender: 'ai',
         type: 'books',
         content: data.recommendations,
       };
       setMessages((prevMessages) => [...prevMessages, newAiMessage]);
-    } catch (error) {
+    } catch (error) { // THIS LINE IS NOW FIXED
       console.error('Fetch error:', error);
       const errorMessage = {
         sender: 'ai',
         type: 'text',
-        content: 'Sorry, I had trouble getting recommendations. Please try again later.',
+        content: 'I seem to be having trouble accessing my library at the moment. Please try again in a little while.',
       };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     } finally {
@@ -83,18 +75,14 @@ function App() {
   };
 
   return (
-    <div className={`chat-container ${theme}-theme`}>
-      <button onClick={toggleTheme} className="theme-toggle">
-        {theme === 'light' ? '🌙' : '☀️'}
-      </button>
-
+    <div className="chat-container">
       <div className="chat-window" ref={chatWindowRef}>
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}-message`}>
             {msg.type === 'text' && <p>{msg.content}</p>}
             {msg.type === 'books' && (
               <div>
-                <p>Of course! Based on that, you might enjoy these:</p>
+                <p>Of course! Based on your interest, you might enjoy these:</p>
                 {msg.content.map((book, bookIndex) => (
                   <BookCard key={bookIndex} book={book} />
                 ))}
@@ -109,16 +97,20 @@ function App() {
         )}
       </div>
 
-      <form className="input-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Tell me a book you liked..."
-          disabled={isLoading}
-        />
-        <button type="submit" disabled={isLoading}>Send</button>
-      </form>
+      <div className="input-area">
+        <form className="input-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            placeholder="e.g., 'I loved Dune and want another sci-fi epic...'"
+            disabled={isLoading}
+          />
+          <button type="submit" disabled={isLoading}>
+            Send
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
