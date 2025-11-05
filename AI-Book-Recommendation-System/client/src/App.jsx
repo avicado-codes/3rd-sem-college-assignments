@@ -1,13 +1,15 @@
 // client/src/App.jsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
 import TypingIndicator from './components/TypingIndicator';
 import ExamplePrompts from './components/ExamplePrompts';
 import ClipboardIcon from './components/ClipboardIcon';
+import StarIcon from './components/StarIcon';
+import FavoritesPanel from './components/FavoritesPanel';
 import './App.css';
 
-// A key for storing favorites in localStorage
 const FAVORITES_STORAGE_KEY = 'bookwise_favorites';
 
 function App() {
@@ -22,9 +24,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAiTyping, setIsAiTyping] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [isFavoritesPanelOpen, setIsFavoritesPanelOpen] = useState(false);
+
   const chatWindowRef = useRef(null);
 
-  // Initialize favorites state from localStorage, or as an empty array
   const [favorites, setFavorites] = useState(() => {
     try {
       const storedFavorites = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
@@ -35,7 +38,6 @@ function App() {
     }
   });
 
-  // Effect to save favorites to localStorage whenever the list changes
   useEffect(() => {
     try {
       window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
@@ -44,24 +46,19 @@ function App() {
     }
   }, [favorites]);
 
-  // Function to add or remove a book from the favorites list
   const toggleFavorite = (bookToToggle) => {
     setFavorites((prevFavorites) => {
       const isAlreadyFavorited = prevFavorites.some(
         (favBook) => favBook.title === bookToToggle.title
       );
-
       if (isAlreadyFavorited) {
-        // Remove the book from favorites
         return prevFavorites.filter((favBook) => favBook.title !== bookToToggle.title);
       } else {
-        // Add the book to favorites
         return [...prevFavorites, bookToToggle];
       }
     });
   };
 
-  // Effect to automatically scroll to the newest message
   useEffect(() => {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTo({ top: chatWindowRef.current.scrollHeight, behavior: 'smooth' });
@@ -111,53 +108,69 @@ function App() {
   };
 
   return (
-    <div className="chat-container">
-      <div className="chat-window" ref={chatWindowRef}>
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.sender}-message`}>
-            {msg.type === 'text' && <p>{msg.content}</p>}
-            {msg.type === 'books' && (
-              <div>
-                <p>Of course! Based on your interest, you might enjoy these:</p>
-                {msg.content.map((book, bookIndex) => {
-                  const isFavorited = favorites.some(fav => fav.title === book.title);
-                  return (
-                    <BookCard 
-                      key={bookIndex} 
-                      book={book}
-                      isFavorited={isFavorited}
-                      onToggleFavorite={toggleFavorite} 
-                    />
-                  );
-                })}
-                {copiedIndex === index ? (
-                  <div className="copy-confirmation">Copied!</div>
-                ) : (
-                  <button className="copy-button" onClick={() => handleCopy(msg.content, index)}>
-                    <ClipboardIcon />
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-        {messages.length === 1 && <ExamplePrompts onPromptClick={handlePromptClick} />}
-        {isLoading && <div className="message ai-message"><LoadingSpinner /></div>}
-        {isAiTyping && <div className="message ai-message"><TypingIndicator /></div>}
+    <>
+      <div className="chat-container">
+        <div className="app-header">
+          <h1>Bookwise</h1>
+          <button 
+            className="view-favorites-button" 
+            onClick={() => setIsFavoritesPanelOpen(true)}
+            aria-label="View favorite books"
+          >
+            <StarIcon />
+            {favorites.length > 0 && <span className="favorites-count">{favorites.length}</span>}
+          </button>
+        </div>
+
+        <div className="chat-window" ref={chatWindowRef}>
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.sender}-message`}>
+              {msg.type === 'text' && <p>{msg.content}</p>}
+              {msg.type === 'books' && (
+                <div>
+                  <p>Of course! Based on your interest, you might enjoy these:</p>
+                  {msg.content.map((book, bookIndex) => {
+                    const isFavorited = favorites.some(fav => fav.title === book.title);
+                    return (
+                      <BookCard key={bookIndex} book={book} isFavorited={isFavorited} onToggleFavorite={toggleFavorite} />
+                    );
+                  })}
+                  {copiedIndex === index ? (
+                    <div className="copy-confirmation">Copied!</div>
+                  ) : (
+                    <button className="copy-button" onClick={() => handleCopy(msg.content, index)}>
+                      <ClipboardIcon />
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+          {messages.length === 1 && <ExamplePrompts onPromptClick={handlePromptClick} />}
+          {isLoading && <div className="message ai-message"><LoadingSpinner /></div>}
+          {isAiTyping && <div className="message ai-message"><TypingIndicator /></div>}
+        </div>
+        <div className="input-area">
+          <form className="input-form" onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="e.g., 'I loved Dune and want another sci-fi epic...'"
+              disabled={isLoading || isAiTyping}
+            />
+            <button type="submit" disabled={isLoading || isAiTyping}>Send</button>
+          </form>
+        </div>
       </div>
-      <div className="input-area">
-        <form className="input-form" onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            placeholder="e.g., 'I loved Dune and want another sci-fi epic...'"
-            disabled={isLoading || isAiTyping}
-          />
-          <button type="submit" disabled={isLoading || isAiTyping}>Send</button>
-        </form>
-      </div>
-    </div>
+      {isFavoritesPanelOpen && (
+        <FavoritesPanel 
+          favorites={favorites}
+          onClose={() => setIsFavoritesPanelOpen(false)}
+          onRemoveFavorite={toggleFavorite}
+        />
+      )}
+    </>
   );
 }
 
