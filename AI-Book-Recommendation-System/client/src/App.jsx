@@ -2,99 +2,103 @@
 import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
+import TypingIndicator from './components/TypingIndicator';
+import ExamplePrompts from './components/ExamplePrompts'; // Import the new component
 import './App.css';
 
 function App() {
-  // State for theme management
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
       type: 'text',
-      content: 'Hello! Tell me about a book you enjoyed, and I can suggest what to read next.'
+      content: 'Hello! I am Bookwise, your personal AI librarian. Tell me about a book or genre you love, and I will find your next great read.'
     }
   ]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAiTyping, setIsAiTyping] = useState(false);
   const chatWindowRef = useRef(null);
-
-  // Effect to save theme to localStorage and apply class to body
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.body.className = `${theme}-theme`;
-  }, [theme]);
 
   useEffect(() => {
     if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+      chatWindowRef.current.scrollTo({
+        top: chatWindowRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, isAiTyping]);
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!userInput.trim() || isLoading) return;
+  // *** REFACTORED LOGIC STARTS HERE ***
+  // We've moved the core logic into its own function so both the form and buttons can use it.
+  const submitPrompt = async (promptText) => {
+    if (!promptText.trim() || isLoading || isAiTyping) return;
 
     const newUserMessage = {
       sender: 'user',
       type: 'text',
-      content: userInput,
+      content: promptText,
     };
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    setUserInput('');
+    setUserInput(''); // Clear the input field regardless of how it was sent
     setIsLoading(true);
 
     try {
       const response = await fetch('http://localhost:3001/api/recommendations', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: userInput }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: promptText }),
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
+      if (!response.ok) throw new Error('Network response was not ok');
+      
       const data = await response.json();
-
       const newAiMessage = {
         sender: 'ai',
         type: 'books',
         content: data.recommendations,
       };
-      setMessages((prevMessages) => [...prevMessages, newAiMessage]);
+
+      setIsLoading(false);
+      setIsAiTyping(true);
+
+      setTimeout(() => {
+        setIsAiTyping(false);
+        setMessages((prevMessages) => [...prevMessages, newAiMessage]);
+      }, 1500);
+
     } catch (error) {
       console.error('Fetch error:', error);
       const errorMessage = {
         sender: 'ai',
         type: 'text',
-        content: 'Sorry, I had trouble getting recommendations. Please try again later.',
+        content: 'I seem to be having trouble accessing my library at the moment. Please try again in a little while.',
       };
-      setMessages((prevMessages) => [...prevMessages, errorMessage]);
-    } finally {
       setIsLoading(false);
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
+  
+  // The form's submit handler now just calls our main logic function
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    submitPrompt(userInput);
+  };
+
+  // The button's click handler also calls the main logic function
+  const handlePromptClick = (promptText) => {
+    submitPrompt(promptText);
+  };
+  // *** REFACTORED LOGIC ENDS HERE ***
 
   return (
-    <div className={`chat-container ${theme}-theme`}>
-      <button onClick={toggleTheme} className="theme-toggle">
-        {theme === 'light' ? '🌙' : '☀️'}
-      </button>
-
+    <div className="chat-container">
       <div className="chat-window" ref={chatWindowRef}>
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}-message`}>
             {msg.type === 'text' && <p>{msg.content}</p>}
             {msg.type === 'books' && (
               <div>
-                <p>Of course! Based on that, you might enjoy these:</p>
+                <p>Of course! Based on your interest, you might enjoy these:</p>
                 {msg.content.map((book, bookIndex) => (
                   <BookCard key={bookIndex} book={book} />
                 ))}
@@ -102,23 +106,36 @@ function App() {
             )}
           </div>
         ))}
+
+        {/* NEW: Conditionally render the prompt buttons at the start of the chat */}
+        {messages.length === 1 && <ExamplePrompts onPromptClick={handlePromptClick} />}
+
         {isLoading && (
           <div className="message ai-message">
             <LoadingSpinner />
           </div>
         )}
+        {isAiTyping && (
+          <div className="message ai-message">
+            <TypingIndicator />
+          </div>
+        )}
       </div>
 
-      <form className="input-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Tell me a book you liked..."
-          disabled={isLoading}
-        />
-        <button type="submit" disabled={isLoading}>Send</button>
-      </form>
+      <div className="input-area">
+        <form className="input-form" onSubmit={handleFormSubmit}>
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            placeholder="e.g., 'I loved Dune and want another sci-fi epic...'"
+            disabled={isLoading || isAiTyping}
+          />
+          <button type="submit" disabled={isLoading || isAiTyping}>
+            Send
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
