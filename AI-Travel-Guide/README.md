@@ -81,6 +81,8 @@ Two easy options:
 cd /path/to/project-folder
 python -m http.server 5500
 
+---
+
 ##  How to Use (Quick Checklist)
 
 1. **Open the page** in your browser.  
