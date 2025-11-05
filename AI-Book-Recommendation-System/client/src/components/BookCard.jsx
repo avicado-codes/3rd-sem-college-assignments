@@ -1,10 +1,21 @@
-// src/components/BookCard.jsx
+// client/src/components/BookCard.jsx
 import React from 'react';
+import HeartIcon from './HeartIcon';
 
-const BookCard = ({ book }) => {
+// The component now accepts props to handle favorite state and actions
+const BookCard = ({ book, onToggleFavorite, isFavorited }) => {
   return (
     <div className="book-card">
-      <h3><strong>Title:</strong> {book.title}</h3>
+      <div className="book-card-header">
+        <h3><strong>Title:</strong> {book.title}</h3>
+        <button 
+          className="favorite-button"
+          onClick={() => onToggleFavorite(book)}
+          aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          <HeartIcon isFavorited={isFavorited} />
+        </button>
+      </div>
       <p><strong>Author:</strong> {book.author}</p>
       <p><strong>Reasoning:</strong> {book.reasoning}</p>
       <p className="for-you"><strong>For you because:</strong> {book.foryoubecause}</p>

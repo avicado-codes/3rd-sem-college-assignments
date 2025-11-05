@@ -209,3 +209,70 @@ body {
   font-weight: 500;
   animation: fadeIn 0.3s ease;
 }
+
+.book-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--placeholder-color);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.favorite-button:hover {
+  color: crimson;
+  transform: scale(1.1);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--chat-container-bg);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.view-favorites-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--placeholder-color);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.view-favorites-button:hover {
+  color: #f1c40f; /* A nice gold color for the star */
+}
+
+.favorites-count {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: crimson;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
