@@ -164,3 +164,48 @@ body {
 .theme-toggle {
   display: none;
 }
+
+.ai-message {
+  position: relative; /* Required for positioning the copy button */
+}
+
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--border-color);
+  border: none;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-message:hover .copy-button {
+  opacity: 1; /* Button becomes visible on hover */
+}
+
+.copy-button:hover {
+  background-color: #6a6c7b; /* A slightly lighter shade for hover */
+}
+
+.copy-button svg {
+  stroke: var(--font-color);
+}
+
+.copy-confirmation {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--button-bg);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}

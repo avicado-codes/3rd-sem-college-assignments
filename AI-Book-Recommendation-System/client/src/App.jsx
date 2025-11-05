@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
 import TypingIndicator from './components/TypingIndicator';
-import ExamplePrompts from './components/ExamplePrompts'; // Import the new component
+import ExamplePrompts from './components/ExamplePrompts';
+import ClipboardIcon from './components/ClipboardIcon'; // Import the new icon
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isAiTyping, setIsAiTyping] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState(null); // New state for copy confirmation
   const chatWindowRef = useRef(null);
 
   useEffect(() => {
@@ -28,9 +30,8 @@ function App() {
     }
   }, [messages, isLoading, isAiTyping]);
 
-  // *** REFACTORED LOGIC STARTS HERE ***
-  // We've moved the core logic into its own function so both the form and buttons can use it.
   const submitPrompt = async (promptText) => {
+    // ... (This function remains unchanged from the previous step)
     if (!promptText.trim() || isLoading || isAiTyping) return;
 
     const newUserMessage = {
@@ -39,7 +40,7 @@ function App() {
       content: promptText,
     };
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    setUserInput(''); // Clear the input field regardless of how it was sent
+    setUserInput('');
     setIsLoading(true);
 
     try {
@@ -78,17 +79,30 @@ function App() {
     }
   };
   
-  // The form's submit handler now just calls our main logic function
   const handleFormSubmit = (e) => {
     e.preventDefault();
     submitPrompt(userInput);
   };
 
-  // The button's click handler also calls the main logic function
   const handlePromptClick = (promptText) => {
     submitPrompt(promptText);
   };
-  // *** REFACTORED LOGIC ENDS HERE ***
+
+  // *** NEW FUNCTIONALITY STARTS HERE ***
+  const handleCopy = async (books, index) => {
+    const textToCopy = books.map(book => 
+      `Title: ${book.title}\nAuthor: ${book.author}\nReasoning: ${book.reasoning}`
+    ).join('\n\n');
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000); // Hide confirmation after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+  // *** NEW FUNCTIONALITY ENDS HERE ***
 
   return (
     <div className="chat-container">
@@ -102,27 +116,27 @@ function App() {
                 {msg.content.map((book, bookIndex) => (
                   <BookCard key={bookIndex} book={book} />
                 ))}
+                
+                {/* NEW: Render the copy button or confirmation message */}
+                {copiedIndex === index ? (
+                  <div className="copy-confirmation">Copied!</div>
+                ) : (
+                  <button className="copy-button" onClick={() => handleCopy(msg.content, index)}>
+                    <ClipboardIcon />
+                  </button>
+                )}
               </div>
             )}
           </div>
         ))}
 
-        {/* NEW: Conditionally render the prompt buttons at the start of the chat */}
         {messages.length === 1 && <ExamplePrompts onPromptClick={handlePromptClick} />}
-
-        {isLoading && (
-          <div className="message ai-message">
-            <LoadingSpinner />
-          </div>
-        )}
-        {isAiTyping && (
-          <div className="message ai-message">
-            <TypingIndicator />
-          </div>
-        )}
+        {isLoading && <div className="message ai-message"><LoadingSpinner /></div>}
+        {isAiTyping && <div className="message ai-message"><TypingIndicator /></div>}
       </div>
 
       <div className="input-area">
+        {/* ... (The input form remains unchanged) */}
         <form className="input-form" onSubmit={handleFormSubmit}>
           <input
             type="text"
