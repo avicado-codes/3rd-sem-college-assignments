@@ -109,15 +109,18 @@ body {
 /* --- Chat Window and Messages --- */
 .chat-window {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* This element is now the full-width scroller */
   padding: 25px;
   padding-bottom: 140px;
+}
+
+.message-list {
+  max-width: 800px; /* This new element centers the content */
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 25px;
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
 }
 
 @keyframes fadeIn {
