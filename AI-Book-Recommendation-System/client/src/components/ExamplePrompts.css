@@ -1,0 +1,36 @@
+/* client/src/components/ExamplePrompts.css */
+.example-prompts-container {
+  /* This container will fade in along with other messages */
+  animation: fadeIn 0.5s ease-out 0.2s;
+  animation-fill-mode: backwards;
+  align-self: center; /* Center the whole block in the chat window */
+  width: 100%;
+  max-width: 90%;
+  padding-top: 20px;
+}
+
+.example-prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prompt-button {
+  background-color: var(--ai-bubble-bg);
+  color: var(--font-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.prompt-button:hover {
+  background-color: var(--border-color);
+  transform: translateY(-2px);
+}

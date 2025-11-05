@@ -1,125 +1,90 @@
-// client/src/App.jsx
+// client/src/App.jsx (Final version with correct scrollbar)
 import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
+import TypingIndicator from './components/TypingIndicator';
+import ExamplePrompts from './components/ExamplePrompts';
+import ClipboardIcon from './components/ClipboardIcon';
+import StarIcon from './components/StarIcon';
+import FavoritesPanel from './components/FavoritesPanel';
+import BookIcon from './components/BookIcon';
 import './App.css';
 
-function App() {
-  // State for theme management
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+const FAVORITES_STORAGE_KEY = 'bookwise_favorites';
 
-  const [messages, setMessages] = useState([
-    {
-      sender: 'ai',
-      type: 'text',
-      content: 'Hello! Tell me about a book you enjoyed, and I can suggest what to read next.'
-    }
-  ]);
+function App() {
+  // All state and logic functions remain exactly the same.
+  const [messages, setMessages] = useState([{ sender: 'ai', type: 'text', content: 'Hello! I am Bookwise, your personal AI librarian. Tell me about a book or genre you love, and I will find your next great read.' }]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAiTyping, setIsAiTyping] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState(null);
+  const [isFavoritesPanelOpen, setIsFavoritesPanelOpen] = useState(false);
   const chatWindowRef = useRef(null);
+  const [favorites, setFavorites] = useState(() => { try { const stored = window.localStorage.getItem(FAVORITES_STORAGE_KEY); return stored ? JSON.parse(stored) : []; } catch (error) { console.error(error); return []; } });
 
-  // Effect to save theme to localStorage and apply class to body
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.body.className = `${theme}-theme`;
-  }, [theme]);
-
-  useEffect(() => {
-    if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!userInput.trim() || isLoading) return;
-
-    const newUserMessage = {
-      sender: 'user',
-      type: 'text',
-      content: userInput,
-    };
-    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    setUserInput('');
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('http://localhost:3001/api/recommendations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: userInput }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-
-      const newAiMessage = {
-        sender: 'ai',
-        type: 'books',
-        content: data.recommendations,
-      };
-      setMessages((prevMessages) => [...prevMessages, newAiMessage]);
-    } catch (error) {
-      console.error('Fetch error:', error);
-      const errorMessage = {
-        sender: 'ai',
-        type: 'text',
-        content: 'Sorry, I had trouble getting recommendations. Please try again later.',
-      };
-      setMessages((prevMessages) => [...prevMessages, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => { try { window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites)); } catch (error) { console.error(error); } }, [favorites]);
+  const toggleFavorite = (bookToToggle) => { setFavorites((prev) => { const isFav = prev.some((fav) => fav.title === bookToToggle.title); if (isFav) { return prev.filter((fav) => fav.title !== bookToToggle.title); } else { return [...prev, bookToToggle]; } }); };
+  useEffect(() => { if (chatWindowRef.current) { chatWindowRef.current.scrollTo({ top: chatWindowRef.current.scrollHeight, behavior: 'smooth' }); } }, [messages, isLoading, isAiTyping]);
+  const submitPrompt = async (promptText) => { if (!promptText.trim() || isLoading || isAiTyping) return; const newUserMessage = { sender: 'user', type: 'text', content: promptText }; setMessages((prev) => [...prev, newUserMessage]); setUserInput(''); setIsLoading(true); try { const response = await fetch('http://localhost:3001/api/recommendations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: promptText }), }); if (!response.ok) throw new Error('Network response not ok'); const data = await response.json(); const newAiMessage = { sender: 'ai', type: 'books', content: data.recommendations }; setIsLoading(false); setIsAiTyping(true); setTimeout(() => { setIsAiTyping(false); setMessages((prev) => [...prev, newAiMessage]); }, 1500); } catch (error) { console.error('Fetch error:', error); const errorMessage = { sender: 'ai', type: 'text', content: 'I seem to be having trouble... Please try again.' }; setIsLoading(false); setMessages((prev) => [...prev, errorMessage]); } };
+  const handleFormSubmit = (e) => { e.preventDefault(); submitPrompt(userInput); };
+  const handlePromptClick = (promptText) => { submitPrompt(promptText); };
+  const handleCopy = async (books, index) => { const text = books.map(b => `Title: ${b.title}\nAuthor: ${b.author}`).join('\n\n'); try { await navigator.clipboard.writeText(text); setCopiedIndex(index); setTimeout(() => setCopiedIndex(null), 2000); } catch (err) { console.error(err); } };
 
   return (
-    <div className={`chat-container ${theme}-theme`}>
-      <button onClick={toggleTheme} className="theme-toggle">
-        {theme === 'light' ? '🌙' : '☀️'}
-      </button>
+    <>
+      <div className="chat-container">
+        <div className="app-header">
+          <div className="header-content">
+            <BookIcon />
+            <h1>Bookwise</h1>
+          </div>
+          <button className="view-favorites-button" onClick={() => setIsFavoritesPanelOpen(true)} aria-label="View favorite books">
+            <StarIcon />
+            {favorites.length > 0 && <span className="favorites-count">{favorites.length}</span>}
+          </button>
+        </div>
 
-      <div className="chat-window" ref={chatWindowRef}>
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.sender}-message`}>
-            {msg.type === 'text' && <p>{msg.content}</p>}
-            {msg.type === 'books' && (
-              <div>
-                <p>Of course! Based on that, you might enjoy these:</p>
-                {msg.content.map((book, bookIndex) => (
-                  <BookCard key={bookIndex} book={book} />
-                ))}
+        {/* The ref stays on the scrolling parent */}
+        <div className="chat-window" ref={chatWindowRef}>
+          {/* This new div centers the content */}
+          <div className="message-list">
+            {messages.map((msg, index) => (
+              <div key={index} className={`message ${msg.sender}-message`}>
+                {msg.type === 'text' && <p>{msg.content}</p>}
+                {msg.type === 'books' && (
+                  <div>
+                    <p>Of course! Based on your interest, you might enjoy these:</p>
+                    {msg.content.map((book, bookIndex) => {
+                      const isFavorited = favorites.some(fav => fav.title === book.title);
+                      return <BookCard key={bookIndex} book={book} isFavorited={isFavorited} onToggleFavorite={toggleFavorite} />;
+                    })}
+                    {copiedIndex === index ? (
+                      <div className="copy-confirmation">Copied!</div>
+                    ) : (
+                      <button className="copy-button" onClick={() => handleCopy(msg.content, index)}>
+                        <ClipboardIcon />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
-            )}
+            ))}
+            {messages.length === 1 && <ExamplePrompts onPromptClick={handlePromptClick} />}
+            {isLoading && <div className="message ai-message"><LoadingSpinner /></div>}
+            {isAiTyping && <div className="message ai-message"><TypingIndicator /></div>}
           </div>
-        ))}
-        {isLoading && (
-          <div className="message ai-message">
-            <LoadingSpinner />
-          </div>
-        )}
-      </div>
+        </div>
 
-      <form className="input-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Tell me a book you liked..."
-          disabled={isLoading}
-        />
-        <button type="submit" disabled={isLoading}>Send</button>
-      </form>
-    </div>
+        <div className="input-area">
+          <form className="input-form" onSubmit={handleFormSubmit}>
+            <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder="e.g., 'I loved Dune and want another sci-fi epic...'" disabled={isLoading || isAiTyping} />
+            <button type="submit" disabled={isLoading || isAiTyping}>Send</button>
+          </form>
+        </div>
+      </div>
+      {isFavoritesPanelOpen && <FavoritesPanel favorites={favorites} onClose={() => setIsFavoritesPanelOpen(false)} onRemoveFavorite={toggleFavorite} />}
+    </>
   );
 }
 
