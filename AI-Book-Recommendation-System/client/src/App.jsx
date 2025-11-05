@@ -1,7 +1,8 @@
-// client/src/App.jsx (Corrected Version)
+// client/src/App.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
+import TypingIndicator from './components/TypingIndicator'; // Import the new component
 import './App.css';
 
 function App() {
@@ -14,9 +15,9 @@ function App() {
   ]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAiTyping, setIsAiTyping] = useState(false); // New state for typing indicator
   const chatWindowRef = useRef(null);
 
-  // Effect to automatically scroll to the newest message
   useEffect(() => {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTo({
@@ -24,11 +25,11 @@ function App() {
         behavior: 'smooth'
       });
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, isAiTyping]); // Add isAiTyping to dependency array
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!userInput.trim() || isLoading) return;
+    if (!userInput.trim() || isLoading || isAiTyping) return;
 
     const newUserMessage = {
       sender: 'user',
@@ -40,44 +41,49 @@ function App() {
     setIsLoading(true);
 
     try {
-      // The fetch logic remains the same, connecting to our local server
       const response = await fetch('http://localhost:3001/api/recommendations', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: userInput }),
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
       
       const data = await response.json();
-      
       const newAiMessage = {
         sender: 'ai',
         type: 'books',
         content: data.recommendations,
       };
-      setMessages((prevMessages) => [...prevMessages, newAiMessage]);
-    } catch (error) { // THIS LINE IS NOW FIXED
+
+      // *** NEW LOGIC STARTS HERE ***
+      setIsLoading(false); // Stop the main loading spinner
+      setIsAiTyping(true); // Start the typing indicator
+
+      // Simulate a "typing" delay for a more natural feel
+      setTimeout(() => {
+        setIsAiTyping(false); // Stop typing
+        setMessages((prevMessages) => [...prevMessages, newAiMessage]); // Show the message
+      }, 1500); // 1.5 second delay
+
+    } catch (error) {
       console.error('Fetch error:', error);
       const errorMessage = {
         sender: 'ai',
         type: 'text',
         content: 'I seem to be having trouble accessing my library at the moment. Please try again in a little while.',
       };
+      setIsLoading(false); // Ensure loading stops on error
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
-    } finally {
-      setIsLoading(false);
     }
+    // Note: We remove the finally block as we handle setIsLoading inside try/catch now
   };
 
   return (
     <div className="chat-container">
       <div className="chat-window" ref={chatWindowRef}>
         {messages.map((msg, index) => (
+          // ... (The message mapping logic remains exactly the same)
           <div key={index} className={`message ${msg.sender}-message`}>
             {msg.type === 'text' && <p>{msg.content}</p>}
             {msg.type === 'books' && (
@@ -95,6 +101,12 @@ function App() {
             <LoadingSpinner />
           </div>
         )}
+        {/* NEW: Render the typing indicator when the AI is "typing" */}
+        {isAiTyping && (
+          <div className="message ai-message">
+            <TypingIndicator />
+          </div>
+        )}
       </div>
 
       <div className="input-area">
@@ -104,9 +116,9 @@ function App() {
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             placeholder="e.g., 'I loved Dune and want another sci-fi epic...'"
-            disabled={isLoading}
+            disabled={isLoading || isAiTyping} // Also disable input while AI is typing
           />
-          <button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading || isAiTyping}>
             Send
           </button>
         </form>
