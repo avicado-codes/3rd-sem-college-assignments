@@ -209,3 +209,24 @@ body {
   font-weight: 500;
   animation: fadeIn 0.3s ease;
 }
+
+.book-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--placeholder-color);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.favorite-button:hover {
+  color: crimson;
+  transform: scale(1.1);
+}
