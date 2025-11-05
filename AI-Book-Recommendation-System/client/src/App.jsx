@@ -2,7 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import BookCard from './components/BookCard';
 import LoadingSpinner from './components/LoadingSpinner';
-import TypingIndicator from './components/TypingIndicator'; // Import the new component
+import TypingIndicator from './components/TypingIndicator';
+import ExamplePrompts from './components/ExamplePrompts'; // Import the new component
 import './App.css';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
   ]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isAiTyping, setIsAiTyping] = useState(false); // New state for typing indicator
+  const [isAiTyping, setIsAiTyping] = useState(false);
   const chatWindowRef = useRef(null);
 
   useEffect(() => {
@@ -25,26 +26,27 @@ function App() {
         behavior: 'smooth'
       });
     }
-  }, [messages, isLoading, isAiTyping]); // Add isAiTyping to dependency array
+  }, [messages, isLoading, isAiTyping]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!userInput.trim() || isLoading || isAiTyping) return;
+  // *** REFACTORED LOGIC STARTS HERE ***
+  // We've moved the core logic into its own function so both the form and buttons can use it.
+  const submitPrompt = async (promptText) => {
+    if (!promptText.trim() || isLoading || isAiTyping) return;
 
     const newUserMessage = {
       sender: 'user',
       type: 'text',
-      content: userInput,
+      content: promptText,
     };
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    setUserInput('');
+    setUserInput(''); // Clear the input field regardless of how it was sent
     setIsLoading(true);
 
     try {
       const response = await fetch('http://localhost:3001/api/recommendations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: userInput }),
+        body: JSON.stringify({ prompt: promptText }),
       });
 
       if (!response.ok) throw new Error('Network response was not ok');
@@ -56,15 +58,13 @@ function App() {
         content: data.recommendations,
       };
 
-      // *** NEW LOGIC STARTS HERE ***
-      setIsLoading(false); // Stop the main loading spinner
-      setIsAiTyping(true); // Start the typing indicator
+      setIsLoading(false);
+      setIsAiTyping(true);
 
-      // Simulate a "typing" delay for a more natural feel
       setTimeout(() => {
-        setIsAiTyping(false); // Stop typing
-        setMessages((prevMessages) => [...prevMessages, newAiMessage]); // Show the message
-      }, 1500); // 1.5 second delay
+        setIsAiTyping(false);
+        setMessages((prevMessages) => [...prevMessages, newAiMessage]);
+      }, 1500);
 
     } catch (error) {
       console.error('Fetch error:', error);
@@ -73,17 +73,27 @@ function App() {
         type: 'text',
         content: 'I seem to be having trouble accessing my library at the moment. Please try again in a little while.',
       };
-      setIsLoading(false); // Ensure loading stops on error
+      setIsLoading(false);
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
-    // Note: We remove the finally block as we handle setIsLoading inside try/catch now
   };
+  
+  // The form's submit handler now just calls our main logic function
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    submitPrompt(userInput);
+  };
+
+  // The button's click handler also calls the main logic function
+  const handlePromptClick = (promptText) => {
+    submitPrompt(promptText);
+  };
+  // *** REFACTORED LOGIC ENDS HERE ***
 
   return (
     <div className="chat-container">
       <div className="chat-window" ref={chatWindowRef}>
         {messages.map((msg, index) => (
-          // ... (The message mapping logic remains exactly the same)
           <div key={index} className={`message ${msg.sender}-message`}>
             {msg.type === 'text' && <p>{msg.content}</p>}
             {msg.type === 'books' && (
@@ -96,12 +106,15 @@ function App() {
             )}
           </div>
         ))}
+
+        {/* NEW: Conditionally render the prompt buttons at the start of the chat */}
+        {messages.length === 1 && <ExamplePrompts onPromptClick={handlePromptClick} />}
+
         {isLoading && (
           <div className="message ai-message">
             <LoadingSpinner />
           </div>
         )}
-        {/* NEW: Render the typing indicator when the AI is "typing" */}
         {isAiTyping && (
           <div className="message ai-message">
             <TypingIndicator />
@@ -110,13 +123,13 @@ function App() {
       </div>
 
       <div className="input-area">
-        <form className="input-form" onSubmit={handleSubmit}>
+        <form className="input-form" onSubmit={handleFormSubmit}>
           <input
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             placeholder="e.g., 'I loved Dune and want another sci-fi epic...'"
-            disabled={isLoading || isAiTyping} // Also disable input while AI is typing
+            disabled={isLoading || isAiTyping}
           />
           <button type="submit" disabled={isLoading || isAiTyping}>
             Send
